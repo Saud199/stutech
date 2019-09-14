@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import HeaderIconExample from '../components/appBar.js';
+import StudentAppBar from '../components/studentAppBar.js';
 
 class StudentAfterLogin extends Component {
 
   render() {
     return (
-      <HeaderIconExample />
+      <StudentAppBar />
     );
   }
   

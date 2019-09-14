@@ -34,7 +34,7 @@ class Login extends Component {
 
         <TouchableOpacity
                 style={styles.button}
-                onPress={() => this.props.navigation.navigate('StudentAfterLogin')}
+                onPress={() => this.props.navigation.navigate('StudentNewsFeed')}
               >
                 <Text> Submit </Text>
               </TouchableOpacity>
