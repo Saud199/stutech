@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, ToolbarAndroid, Image, ScrollView, TextInput , TouchableOpacity, Picker, Button } from 'react-native';
+import { Image  } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
+import {Button, Container, Header, Content,Item,Label,Input,Text,Form,Body, Picker, Title,Icon, Left, Right} from 'native-base';
+
 
 class Signup2 extends Component {
 
@@ -36,157 +38,144 @@ class Signup2 extends Component {
       this.setState({studentfields:false , teacherfields:true , type:val})
     }
   }
+
+
+
   
   render() {
     const{studentfields,teacherfields,photo}=this.state
     return (
-      <View style={styles.container}>
+      <Container>
   
-        <ToolbarAndroid
-            style={styles.toolbar}
-            titleColor= "#ffffff"
-            title="Stutech" />
+        
+      <Header style={{backgroundColor:'#14c2e0'}}>
+        
+        <Left/>
+          <Body>
+          <Title>Stutech</Title>
+          </Body>
+          <Right/>
+          </Header>
   
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <Content padder style={{ padding: 7 }}>
   
           <Image
-            style={{width: 200, height: 180}} 
+            style={{width: 200, height: 180, alignSelf:'center'}} 
             source={require('../images/app_logo.png')}  />
   
           <Text>{"\n"}</Text>
   
-           <Text>Hi User, Welcome to Stutech !</Text>
+           <Text style={{alignSelf:'center'}}>Hi User, Welcome to Stutech !</Text>
   
           <Text>{"\n"}</Text>
   
-          <Text>Account Type</Text>
-          <Picker
-            selectedValue={this.state.type}
-            style={{height: 50, width: 100}}
-            onValueChange={(itemValue, itemIndex) =>
+          <Text style={{alignSelf:'center'}}>Account Type</Text>
+          <Item Picker>
+              <Picker
+                mode="dropdown"
+                iosIcon={<Icon name="arrow-down" />}
+                style={{ width: undefined, alignSelf:'center' }}
+                selectedValue={this.state.type}
+                placeholder="Complaint As"
+                placeholderStyle={{ color: "#bfc6ea" }}
+                placeholderIconColor="#007aff"
+                onValueChange={(itemValue, itemIndex) =>
               
-              this.accountType(itemValue)
-
-              
-
-            }>
-
-            <Picker.Item label="Student" value="student" />
-            <Picker.Item label="Teacher" value="teacher" />
-
-          </Picker>
+                  this.accountType(itemValue)
+    
+                }
+              >
+                <Picker.Item label="Student" value="student" />
+                <Picker.Item label="Teacher" value="teacher" />
+                
+              </Picker>
+            </Item>
           
-          <View >
-          {studentfields && <View>
-
-  
-          <TextInput 
-          style={{width: 300, borderBottomColor:'#14c2e0', borderWidth: 2, borderTopColor:'#fff', borderLeftColor:'#fff', borderRightColor:'#fff'}}
-          placeholder="Roll Number" />
-  
-           <Text>{"\n"}</Text>
-  
-          <TextInput 
-          style={{width: 300, borderBottomColor:'#14c2e0', borderWidth: 2, borderTopColor:'#fff', borderLeftColor:'#fff', borderRightColor:'#fff'}}
-          placeholder="Section" />
-  
-           <Text>{"\n"}</Text>
-  
-          <TextInput 
-          style={{width: 300, borderBottomColor:'#14c2e0', borderWidth: 2, borderTopColor:'#fff', borderLeftColor:'#fff', borderRightColor:'#fff'}}
-          placeholder="Department" />
+         
           
-          </View>}
+        
+          {studentfields && 
+  
+                      
+           <Form>
+
+            <Item floatingLabel last>
+                  <Label >Roll Number</Label>
+                  <Input />
+
+            </Item>
+
+
+            <Item floatingLabel last>
+                  <Label >Section</Label>
+                  <Input  />
+                
+            </Item>
+
+
+            <Item floatingLabel last>
+                  <Label >Department</Label>
+                  <Input  />
+
+            </Item>
+
+            </Form>
+            
+          }
 
 
 
 
-          {teacherfields && <View>
-            <TextInput 
-          style={{width: 300, borderBottomColor:'#14c2e0', borderWidth: 2, borderTopColor:'#fff', borderLeftColor:'#fff', borderRightColor:'#fff'}}
-          placeholder="Employee ID" />
-  
-           <Text>{"\n"}</Text>
-  
-          <TextInput 
-          style={{width: 300, borderBottomColor:'#14c2e0', borderWidth: 2, borderTopColor:'#fff', borderLeftColor:'#fff', borderRightColor:'#fff'}}
-          placeholder="Designation" />
-  
-           <Text>{"\n"}</Text>
-  
-          <TextInput 
-          style={{width: 300, borderBottomColor:'#14c2e0', borderWidth: 2, borderTopColor:'#fff', borderLeftColor:'#fff', borderRightColor:'#fff'}}
-          placeholder="Department" /></View>}
-  
-           <Text>{"\n"}</Text>
+          {teacherfields &&  
+             <Form>
 
-
+             <Item floatingLabel last>
+                   <Label >Employee ID</Label>
+                   <Input />
+ 
+             </Item>
+ 
+ 
+             <Item floatingLabel last>
+                   <Label >Designation</Label>
+                   <Input  />
+                 
+             </Item>
+ 
+ 
+             <Item floatingLabel last>
+                   <Label >Department</Label>
+                   <Input  />
+ 
+             </Item>
+ 
+             </Form>
+             
+          }
   
-          </View>
-  
-          <Text>{"\n"}</Text>
+           
 
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
               {photo && (
           <Image
             source={{ uri: photo.uri }}
-            style={{ width: 100, height: 100 }}
+            style={{ width: 100, height: 100, alignSelf:'center' }}
           />
            )}
             <Text>{"\n"}</Text>
-          <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
-      </View>
-  
+          <Button transparent onPress={this.handleChoosePhoto} block style={{ alignSelf:'center', marginTop: 10, marginBottom:20,color:'#000000'}}><Text>Choose Photo</Text></Button>
+            
+         
           
-      <Text>{"\n"}</Text>
-
-          <TouchableOpacity
-                  style={styles.button}
-                  onPress={this.onPress}
-                >
-                  <Text onPress={() => alert("Account Created")}> Create Account </Text>
-                </TouchableOpacity>
-  
-  
-    
-  
+      <Button onPress={() => alert("Account Created")} block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 10, marginBottom:20}}><Text>Create Account</Text></Button>
+            
          
   
-  
-        </ScrollView>
+                </Content>
         
-      </View>
+         </Container>
     );
   }
   
 }
 
 export default Signup2;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    marginTop: 24,
-    justifyContent: 'flex-start',
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#14c2e0',
-    width: 200,
-    padding: 10
-  },
-  toolbar: {
-    backgroundColor: '#14c2e0',
-    height: 56,
-    alignSelf: 'stretch',
-  },
-  scrollContainer: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    width: '100%',
-    paddingBottom: 40,
-    marginTop: 24,
-  },
-});

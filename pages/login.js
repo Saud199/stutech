@@ -1,84 +1,64 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, ToolbarAndroid, Image, ScrollView, TextInput , TouchableOpacity } from 'react-native';
+import { Image} from 'react-native';
+import {Button, Container, Header, Content,Item,Label,Input,Text,Form,Body, Title, Left, Right} from 'native-base';
 
 class Login extends Component {
 
   render(){
   return (
-    <View style={styles.container}>
+    <Container>
 
-      <ToolbarAndroid
-          style={styles.toolbar}
-          titleColor= "#ffffff"
-          title="Stutech" />
+     <Header style={{backgroundColor:'#14c2e0'}}>
 
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <Left/>
+       <Body>
+        <Title>Stutech</Title>
+       </Body>
+       <Right/>
+       </Header>
+
+     <Content padder style={{ padding: 7 }}>
 
         <Image
-          style={{width: 200, height: 180}} 
-          source={require('../images/app_logo.png')}  />
+          
+          style={{width: 200, height: 180 , alignSelf:"center"}} 
+          source={require('../images/app_logo.png')} />
 
         <Text>{"\n"}</Text>
 
-        <TextInput 
-        style={{width: 300, borderBottomColor:'#14c2e0', borderWidth: 2, borderTopColor:'#fff', borderLeftColor:'#fff', borderRightColor:'#fff'}}
-        placeholder="Enter Email" />
+        <Form>
+
+        <Item floatingLabel last>
+              <Label >Enter Email</Label>
+              <Input keyboardType="email-address" />
+
+
+            </Item>
+
+            <Item floatingLabel last>
+              <Label >Enter Password</Label>
+              <Input secureTextEntry={true} />
+            </Item>
+
+
+        </Form>
+            
+
+
+        <Button  onPress={() => this.props.navigation.navigate('StudentNewsFeed')} block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40}}><Text>Login</Text></Button>
 
         <Text>{"\n"}</Text>
 
-        <TextInput 
-        style={{width: 300, borderBottomColor:'#14c2e0', borderWidth: 2, borderTopColor:'#fff', borderLeftColor:'#fff', borderRightColor:'#fff'}}
-        placeholder="Enter Password" />
+        <Text style={{alignSelf:"center"}}>{"Don't have an account yet ?"}<Text style={{color:'#14c2e0'}} onPress={() => this.props.navigation.navigate('Signup1')} > Click Here</Text> </Text>
 
         <Text>{"\n"}</Text>
 
-        <TouchableOpacity
-                style={styles.button}
-                onPress={() => this.props.navigation.navigate('StudentNewsFeed')}
-              >
-                <Text> Submit </Text>
-              </TouchableOpacity>
-
-
-        <Text>{"\n"}</Text>
-
-        <Text>Don't have an account yet ?<Text style={{color:'#14c2e0'}} onPress={() => this.props.navigation.navigate('Signup1')} > Click Here</Text> </Text>
-
-        <Text>{"\n"}</Text>
-        <Text>{"\n"}</Text>
-
-      </ScrollView>
+        </Content>
       
-    </View>
+    </Container>
   );
   }
 }
 
 export default Login;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    marginTop: 24,
-    justifyContent: 'flex-start',
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#14c2e0',
-    width: 200,
-    padding: 10
-  },
-  toolbar: {
-    backgroundColor: '#14c2e0',
-    height: 56,
-    alignSelf: 'stretch',
-  },
-  scrollContainer: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    width: '100%',
-    marginTop: 24,
-  },
-});

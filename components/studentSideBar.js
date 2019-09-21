@@ -9,9 +9,9 @@ class studentSideBar extends Component {
     super(props);
   }
 
- showDetails = () => {
-    this.props.navigation.navigate('StudentComplaints');
-  }
+//  showDetails = () => {
+//     this.props.navigation.navigate('StudentComplaints');
+//   }
 
     render() {
 
@@ -19,7 +19,7 @@ class studentSideBar extends Component {
     
             <Content style={{backgroundColor:'#ffffff'}}>
 
-            <ListItem avatar>
+            <ListItem avatar onPress={()=> this.props.navigation.navigate('StudentProfile')}>
 
             <Left>
                 <Thumbnail source={require('../images/profilepic1.jpg')} />
@@ -44,7 +44,7 @@ class studentSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentNotifications')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/notification.jpg')} />
               </Left>
@@ -53,7 +53,7 @@ class studentSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentReminder')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/reminder.jpg')} />
               </Left>
@@ -62,16 +62,16 @@ class studentSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail >
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentComplaints')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/complaint.jpg')} />
               </Left>
               <Body>
-                <Text onPress={()=> this.props.navigation.navigate('StudentComplaints')}>Complaint</Text>
+                <Text>Complaint</Text>
               </Body>
             </ListItem>
 
-            <ListItem thumbnail>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentViewOrganizations')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/organization.jpg')} />
               </Left>
@@ -80,7 +80,7 @@ class studentSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentAchievements')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/achievements.jpg')} />
               </Left>
@@ -89,7 +89,7 @@ class studentSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentFavourites')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/favourite.jpg')} />
               </Left>
@@ -98,7 +98,7 @@ class studentSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('Login')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/logoff.jpg')} />
               </Left>

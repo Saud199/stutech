@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { Container, Header, Drawer, Title, Item, Input, Tab, Tabs, ScrollableTab, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Container, Header, Drawer, Root, Title, Item, Input, Tab, Tabs, ScrollableTab, Toast, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import SideBar from '../components/studentSideBar.js';
-import { validate } from '@babel/types';
+
+
+
+
 
 class StudentNewsFeed extends Component {
 
   constructor() {
     super();
     this.state ={
-      newsFeedArray : []
+      newsFeedArray : [],
+    
+      
     }
 
   }
 
   addData() {
     const {newsFeedArray} = this.state;
-    newsFeedArray.push({name : 'SSUET' , image : require('../images/ssuet.png')});
+    newsFeedArray.push({name : 'SSUET' , image : require('../images/job.jpg')});
     newsFeedArray.push({name : 'Oracle' , image : require('../images/oracle.png')});
     newsFeedArray.push({name : 'Decima' , image : require('../images/decima.png')});
     newsFeedArray.push({name : 'App Bakers' , image : require('../images/ssuet.png')});
@@ -32,7 +37,7 @@ class StudentNewsFeed extends Component {
   render() {
     const {newsFeedArray} = this.state;
     this.addData();
-    return (
+    return (<Root>
       <Drawer 
         ref={(ref) => { this._drawer = ref; }} 
         content={<SideBar navigator={this._navigator} />} 
@@ -50,16 +55,29 @@ class StudentNewsFeed extends Component {
             <Title>Stutech</Title>
           </Body>
           <Right>
-          <Thumbnail square onPress={() => alert('Filter Button')} style={{width: 30, height: 30}}  source={require('../images/filter.jpg')} />
+          <Button transparent onPress={() => this.props.navigation.navigate('ContactsList')}>
+             <Thumbnail square style={{width: 25, height: 25}}  source={require('../images/messenger.png')} />
+            </Button>
+            <Button transparent onPress={() =>
+              Toast.show({
+                text: "Filter Button",
+                buttonText: "Okay",
+                duration: 3000
+              })}>
+             <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/filter.png')} />
+            </Button>
           </Right>
         </Header>
         
 
         
 
-        <Tabs renderTabBar={()=> <ScrollableTab />} >
+        <Tabs tabBarBackgroundColor="#14c2e0" renderTabBar={()=> <ScrollableTab />} >
           <Tab heading="Jobs" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
-          <Content>
+          <Content style={{backgroundColor:'#D3D3D3'}}>
+
+          
+
           { newsFeedArray.map((val , ind) => {
             return(
 
@@ -76,23 +94,22 @@ class StudentNewsFeed extends Component {
               </Left>
             </CardItem>
             <CardItem cardBody>
-              <Image source={val.image} style={{height: 200, width: null, flex: 1}}/>
+
+            
+
+              <Image  source={val.image} style={{height: 200, resizeMode:'contain', width: null, flex: 1}}/>
+             
+              
             </CardItem>
-            <CardItem>
+            <CardItem style={{marginRight:15}}>
               <Left>
-                <Button transparent>
-                  <Icon active name="thumbs-up" />
-                  <Text>12 Likes</Text>
-                </Button>
+                <Button  block style={{backgroundColor: '#14c2e0' , width: 105}}><Text>Reminder</Text></Button>
               </Left>
               <Body>
-                <Button transparent>
-                  <Icon active name="chatbubbles" />
-                  <Text>4 Comments</Text>
-                </Button>
+                <Button block style={{backgroundColor: '#14c2e0' , width: 105}}><Text>Favourite</Text></Button>
               </Body>
               <Right>
-                <Text>11h ago</Text>
+                <Button block style={{backgroundColor: '#14c2e0', width: 105}}><Text>Profile</Text></Button>
               </Right>
             </CardItem>
           </Card>
@@ -125,7 +142,7 @@ class StudentNewsFeed extends Component {
       </Container>
 
 
-      </Drawer>
+      </Drawer></Root>
       
       
     );

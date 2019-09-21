@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Container, Header, Left, Body, Title, Right, Content, DatePicker, Form, Button, Item, Picker, Input, Icon, Label, Textarea, Text } from 'native-base';
+import { withNavigation } from 'react-navigation';
 
 class StudentComplaints extends Component {
 
@@ -26,7 +27,7 @@ class StudentComplaints extends Component {
 
         <Header style={{backgroundColor:'#14c2e0'}}>
           <Left>
-            <Button transparent>
+            <Button transparent onPress={()=> this.props.navigation.navigate('StudentNewsFeed')}>
               <Icon name='arrow-back' />
             </Button>
           </Left>
@@ -43,23 +44,23 @@ class StudentComplaints extends Component {
           <Text style={{ alignSelf: 'center', fontSize: 20}}>COMPLAINT DETAILS</Text>
 
           <Item floatingLabel last>
-            <Label style={{color:"#14c2e0"}}>Subject</Label>
+            <Label >Subject</Label>
             <Input />
           </Item>
 
           <Item floatingLabel last>
-            <Label style={{color:"#14c2e0"}}>Complaint Details</Label>
+            <Label>Complaint Details</Label>
             <Input />
           </Item>
 
           <Text>{"\n"}</Text>
-          <Label style={{color:"#14c2e0"}}>Give ideas to avoid the problem</Label>
+          <Label>Give ideas to avoid the problem</Label>
           <Textarea rowSpan={4} bordered placeholder="Type Here..." />
         
           <Text>{"\n"}</Text>
-          <Label style={{color:"#14c2e0"}}>Date</Label>
+          <Label>Date</Label>
           <DatePicker
-            defaultDate={new Date(2018, 4, 4)}
+            defaultDate={new Date(2019, 4, 4)}
             minimumDate={new Date(2000, 1, 1)}
             maximumDate={new Date(2040, 12, 31)}
             locale={"en"}
@@ -76,7 +77,7 @@ class StudentComplaints extends Component {
             />
 
             <Text>{"\n"}</Text>
-            <Label style={{color:"#14c2e0"}}>Complaint As</Label>
+            <Label>Complaint As</Label>
             <Item Picker>
               <Picker
                 mode="dropdown"
@@ -113,4 +114,4 @@ class StudentComplaints extends Component {
 }
 
 
-export default StudentComplaints;
+export default withNavigation(StudentComplaints);
