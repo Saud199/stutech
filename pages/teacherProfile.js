@@ -3,7 +3,7 @@ import { Image  } from 'react-native';
 import { Container, Header, Content,Text,Body, Title, Left, Right,Item, Button, Icon, Input, Label} from 'native-base';
 
 
-class StudentProfile extends Component {
+class TeacherProfile extends Component {
 
     constructor() {
 
@@ -18,16 +18,10 @@ class StudentProfile extends Component {
           DOB: "30-03-1996",
           Address: "Fazal Mansion",
 
-          RollNo: "2016-SE-024",
-          Batch: "2016",
+          ID: "2016-SE-024",
+          Designation: "2016",
           Department: "Software Engineer",
-
-          Matriculation: "Fail",
-          Intermediate: "Fail",
-
-          Aboutself: "saud",
-
-
+          
         }
     
       }
@@ -35,7 +29,7 @@ class StudentProfile extends Component {
 
      render(){
 
-      const {Name,PhoneNo,Email,Geneder,DOB,Address,RollNo,Batch,Department,Matriculation,Intermediate,Aboutself}=this.state;
+      const {Name,PhoneNo,Email,Geneder,DOB,Address,ID,Designation,Department}=this.state;
 
         return(
 
@@ -43,7 +37,7 @@ class StudentProfile extends Component {
 
         <Header style={{backgroundColor:'#14c2e0'}}>
           <Left>
-            <Button transparent onPress={()=> this.props.navigation.navigate('StudentNewsFeed')}>
+            <Button transparent onPress={()=> this.props.navigation.navigate('TeacherNewsFeed')}>
               <Icon name='arrow-back' />
             </Button>
           </Left>
@@ -57,7 +51,7 @@ class StudentProfile extends Component {
 
         <Image
             style={{width: 200, height: 180, alignSelf:'center'}} 
-            source={require('../images/profilepic1.jpg')}  />
+            source={require('../images/profilepic2.jpg')}  />
   
             <Text>{"\n"}</Text>
             <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>PERSONAL INFORMATION </Text>
@@ -171,16 +165,59 @@ class StudentProfile extends Component {
             </Item>
             
             <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>STUDENT INFORMATION </Text>
+            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>TEACHER INFORMATION </Text>
             <Text>{"\n"}</Text>
 
             
+            <Item>
+              <Left>
+                <Text>ID</Text>
+              </Left>
+
+              <Right>
+            <Item floatingLabel last>
+              <Input
+              
+              value={this.state.ID} 
+              onChangeText={(txt) => this.setState({ ID: txt })} 
+             
+              />   
+            </Item>
+            </Right>
+            </Item>
+
+
+
+
+            <Item>
+              <Left>
+                <Text>
+                  Designation
+                </Text>
+              </Left>
+
+              <Right>
+            <Item floatingLabel last>
+              <Input
+              
+              value={this.state.Designation} 
+              onChangeText={(txt) => this.setState({ Designation: txt })} 
+             
+              />   
+            </Item>
+            </Right>
+            </Item>
+
+
+
             <Item>
               <Left>
                 <Text>Department</Text>
               </Left>
 
               <Right>
+
+              
             <Item floatingLabel last>
               <Input
               
@@ -192,123 +229,16 @@ class StudentProfile extends Component {
             </Right>
             </Item>
 
-
-
-
+            <Text>{"\n"}</Text>
+            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}> Qualification </Text>
+            <Text>{"\n"}</Text>
+            
             <Item>
-              <Left>
+              
                 <Text>
-                  Roll No
+                  Not Added
                 </Text>
-              </Left>
-
-              <Right>
-            <Item floatingLabel last>
-              <Input
               
-              value={this.state.RollNo} 
-              onChangeText={(txt) => this.setState({ RollNo: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-
-
-            <Item>
-              <Left>
-                <Text>Batch</Text>
-              </Left>
-
-              <Right>
-
-              
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Batch} 
-              onChangeText={(txt) => this.setState({ Batch: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-            <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>ACADEMIC INFORMATION </Text>
-            <Text>{"\n"}</Text>
-            
-            <Item>
-              <Left>
-                <Text>
-                  Matriculation
-                </Text>
-              </Left>
-
-              <Right>
-            <Item floatingLabel last>
-              
-              <Input
-              
-              value={this.state.Matriculation} 
-              onChangeText={(txt) => this.setState({ Matriculation: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-
-            <Item>
-            <Left>
-              <Text>Intermediate
-              </Text>
-            </Left>
-
-            <Right>
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Intermediate} 
-              onChangeText={(txt) => this.setState({ Intermediate: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-
-
-            <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>SKILLS</Text>
-            <Text>{"\n"}</Text>
-
-            <Item>
-              <Text>Not Added</Text>
-            </Item>
-            
-
-            <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>ACHIEVEMENTS</Text>
-            <Text>{"\n"}</Text>
-           
-            
-            <Item>
-              <Text>Not Added</Text>
-            </Item>
-            
-            <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>ABOUT YOURSELF</Text>
-            <Text>{"\n"}</Text>
-
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Aboutself} 
-              onChangeText={(txt) => this.setState({ Aboutself: txt })} 
-             
-              />   
             </Item>
 
            
@@ -333,4 +263,4 @@ class StudentProfile extends Component {
 
 }
 
-export default StudentProfile;
+export default TeacherProfile;

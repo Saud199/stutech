@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 import {Content, Button, ListItem, Left, Right,Thumbnail,Body, Icon} from 'native-base';
 
-class studentSideBar extends Component {
+class TeacherSideBar extends Component {
 
   constructor(props){
     super(props);
@@ -19,14 +19,14 @@ class studentSideBar extends Component {
     
             <Content style={{backgroundColor:'#ffffff'}}>
 
-            <ListItem avatar onPress={()=> this.props.navigation.navigate('StudentProfile')}>
+            <ListItem avatar onPress={()=> this.props.navigation.navigate('TeacherProfile')}>
 
             <Left>
-                <Thumbnail source={require('../images/profilepic1.jpg')} />
+                <Thumbnail source={require('../images/profilepic2.jpg')} />
             </Left>
                 
             <Body>
-                <Text>Abdul Ahad</Text>
+                <Text>Bill Gates</Text>
             </Body>
             
             </ListItem>
@@ -35,7 +35,7 @@ class studentSideBar extends Component {
 
 
 
-            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentViewCategories')}>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('TeacherViewCategories')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/categories1.png')} />
               </Left>
@@ -44,7 +44,7 @@ class studentSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentNotifications')}>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('TeacherNotification')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/notification.jpg')} />
               </Left>
@@ -53,16 +53,16 @@ class studentSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentReminder')}>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('TeacherAddJob')}>
               <Left>
-                <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/reminder.jpg')} />
+                <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/addjob.png')} />
               </Left>
               <Body>
-                <Text>Reminder</Text>
+                <Text>Add Job</Text>
               </Body>
             </ListItem>
 
-            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentComplaints')}>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('TeacherComplaints')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/complaint.jpg')} />
               </Left>
@@ -71,7 +71,7 @@ class studentSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentViewOrganizations')}>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('TecaherViewOrganization')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/organization.jpg')} />
               </Left>
@@ -89,7 +89,7 @@ class studentSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentFavourites')}>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('TeacherFavourites')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/favourite.jpg')} />
               </Left>
@@ -123,4 +123,4 @@ class studentSideBar extends Component {
     )};
 }
 
-export default withNavigation(studentSideBar);
+export default withNavigation(TeacherSideBar);

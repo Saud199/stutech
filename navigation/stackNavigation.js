@@ -13,8 +13,22 @@ import StudentFavourites from '../pages/studentFavourites.js';
 import StudentAchievements from '../pages/studentAchievements.js';
 import StudentNotifications from '../pages/studentNotifications.js';
 import StudentProfile from '../pages/studentProfile';
+import StudentViewCategories from '../pages/studentViewCategories.js';
 import ContactsList from '../pages/contactList.js';
 import Messenger from '../pages/messenger.js';
+import ForgetPassword from '../pages/forgetPassword.js';
+import TeacherNewsFeed from '../pages/teacherNewsFeed.js';
+import TeacherViewCategories from '../pages/teacherViewCategories.js';
+import TeacherAchievements from '../pages/teacherAchievements.js';
+import TecaherViewOrganization from '../pages/teacherViewOrganization.js';
+import TeacherFavourites from '../pages/teacherFavourites.js';
+import TeacherNotification from '../pages/teacherNotification.js';
+import TeacherAddJob from '../pages/teacherAddJob.js';
+import TeacherComplaints from '../pages/teacherComplaints.js';
+import TeacherProfile from '../pages/teacherProfile.js';
+import Security from '../pages/security.js';
+import TeacherSecurity from '../pages/teacherSecurity.js';
+
 
 
 const AppStackNavigator = createStackNavigator({
@@ -32,8 +46,22 @@ const AppStackNavigator = createStackNavigator({
     StudentAchievements : {screen : StudentAchievements},
     StudentNotifications : {screen : StudentNotifications},
     StudentProfile : {screen : StudentProfile},
+    Security : {screen : Security},
+    StudentViewCategories : {screen : StudentViewCategories},
     ContactsList : {screen : ContactsList},
-    Messenger : {screen : Messenger}
+    Messenger : {screen : Messenger},
+    ForgetPassword : {screen : ForgetPassword},
+    TeacherNewsFeed : {screen : TeacherNewsFeed},
+    TeacherAchievements : {screen : TeacherAchievements},
+    TecaherViewOrganization :{screen : TecaherViewOrganization},
+    TeacherFavourites : {screen : TeacherFavourites},
+    TeacherNotification : {screen : TeacherNotification},
+    TeacherAddJob : {screen : TeacherAddJob},
+    TeacherViewCategories : {screen : TeacherViewCategories},
+    TeacherComplaints : {screen : TeacherComplaints},
+    TeacherProfile : {screen : TeacherProfile},
+    TeacherViewCategories : {screen : TeacherViewCategories},
+    TeacherSecurity : {screen : TeacherSecurity}
 },
 {
     defaultNavigationOptions:{header:null}

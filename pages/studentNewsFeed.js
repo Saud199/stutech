@@ -55,30 +55,14 @@ class StudentNewsFeed extends Component {
             <Title>Stutech</Title>
           </Body>
           <Right>
-          <Button transparent onPress={() => this.props.navigation.navigate('ContactsList')}>
-             <Thumbnail square style={{width: 25, height: 25}}  source={require('../images/messenger.png')} />
-            </Button>
-            <Button transparent onPress={() =>
-              Toast.show({
-                text: "Filter Button",
-                buttonText: "Okay",
-                duration: 3000
-              })}>
-             <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/filter.png')} />
+            <Button transparent onPress={() => this.props.navigation.navigate('ContactsList')}>
+              <Thumbnail square style={{width: 25, height: 25}}  source={require('../images/messenger.png')} />
             </Button>
           </Right>
         </Header>
-        
 
-        
-
-        <Tabs tabBarBackgroundColor="#14c2e0" renderTabBar={()=> <ScrollableTab />} >
-          <Tab heading="Jobs" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
-          <Content style={{backgroundColor:'#D3D3D3'}}>
-
-          
-
-          { newsFeedArray.map((val , ind) => {
+        <Content style={{backgroundColor:'#D3D3D3'}}>
+        { newsFeedArray.map((val , ind) => {
             return(
 
            
@@ -119,23 +103,7 @@ class StudentNewsFeed extends Component {
            )
           })
           }
-          </Content>
-          </Tab>
-          <Tab heading="Internships" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
-            <Text>Tab 2</Text>
-          </Tab>
-          <Tab heading="Seminars" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
-            <Text>Tab 3</Text>
-          </Tab>
-          <Tab heading="Scholarships" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
-            <Text>Tab 4</Text>
-          </Tab>
-          <Tab heading="Other" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
-            <Text>Tab 5</Text>
-          </Tab>
-        </Tabs>
-
-          
+        </Content>
         
 
         

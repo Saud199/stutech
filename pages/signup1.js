@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Image } from 'react-native';
-import {Button, Container, Header, Content,Item,Label,Input,Text,Form,Body, Title, Left, Right} from 'native-base';
+import {Button, Container, Header, Content,Item,Label,Input,Text,Form,Body, Title, Left, Right, Icon} from 'native-base';
 
 class Signup1 extends Component {
 
@@ -13,7 +13,11 @@ class Signup1 extends Component {
 
       <Header style={{backgroundColor:'#14c2e0'}}>
  
-       <Left/>
+       <Left>
+            <Button transparent onPress={()=> this.props.navigation.navigate('Login')}>
+              <Icon name='arrow-back' />
+            </Button>
+       </Left>
         <Body>
          <Title>Stutech</Title>
         </Body>
@@ -55,6 +59,19 @@ class Signup1 extends Component {
        <Item floatingLabel last>
               <Label >Enter Password</Label>
               <Input secureTextEntry={true} />
+        </Item>
+
+
+        <Item floatingLabel last>
+              <Label >Add Security Question</Label>
+              <Input />
+
+        </Item>
+
+        <Item floatingLabel last>
+              <Label >Add Security Answer</Label>
+              <Input />
+
         </Item>
 
         <Item floatingLabel last>

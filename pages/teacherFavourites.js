@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import { Container, Header, Left, Body, Title, Right, Content, DatePicker, Form, Button, Item, Picker, Input, Icon, Label, Textarea, Text, List, ListItem, Thumbnail, Card, CardItem } from 'native-base';
 import { withNavigation } from 'react-navigation';
 
-class StudentFavourites extends Component {
+class TeacherFavourites extends Component {
 
     constructor() {
         super();
@@ -32,7 +32,7 @@ class StudentFavourites extends Component {
 
         <Header style={{backgroundColor:'#14c2e0'}}>
           <Left>
-            <Button transparent onPress={()=> this.props.navigation.navigate('StudentNewsFeed')}>
+            <Button transparent onPress={()=> this.props.navigation.navigate('TeacherNewsFeed')}>
               <Icon name='arrow-back' />
             </Button>
           </Left>
@@ -93,4 +93,4 @@ class StudentFavourites extends Component {
 }
 
 
-export default withNavigation(StudentFavourites);
+export default withNavigation(TeacherFavourites);

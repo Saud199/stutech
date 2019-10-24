@@ -59,7 +59,11 @@ class OrganizationSignUp extends Component {
 
         <Header style={{backgroundColor:'#14c2e0'}}>
                 
-                <Left/>
+                <Left>
+                    <Button transparent onPress={()=> this.props.navigation.navigate('Signup1')}>
+                      <Icon name='arrow-back' />
+                    </Button>
+                </Left>
                   <Body>
                   <Title>Stutech</Title>
                   </Body>

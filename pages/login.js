@@ -42,16 +42,20 @@ class Login extends Component {
 
 
         </Form>
-            
-
 
         <Button  onPress={() => this.props.navigation.navigate('StudentNewsFeed')} block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40}}><Text>Login</Text></Button>
+      
+       <Text>{"\n"}</Text>
 
-        <Text>{"\n"}</Text>
+        
+        <Text style={{color:'#14c2e0', alignSelf:"center"}}  onPress={() => this.props.navigation.navigate('ForgetPassword')}>Forget Password ?</Text> 
 
         <Text style={{alignSelf:"center"}}>{"Don't have an account yet ?"}<Text style={{color:'#14c2e0'}} onPress={() => this.props.navigation.navigate('Signup1')} > Click Here</Text> </Text>
 
         <Text>{"\n"}</Text>
+
+        <Button  onPress={() => this.props.navigation.navigate('TeacherNewsFeed')} block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40}}><Text>Teacher Login</Text></Button>
+      
 
         </Content>
       
