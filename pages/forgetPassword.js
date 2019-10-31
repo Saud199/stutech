@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Image } from 'react-native';
+import { Image, ImageBackground } from 'react-native';
 import {Button, Container, Header, Content,Item,Label,Input,Text,Form,Body, Title, Left,Icon, Right} from 'native-base';
 
 
@@ -39,6 +39,8 @@ class ForgetPassword extends Component {
                     </Body>
                     <Right />
                     </Header>
+
+                    <ImageBackground source={require('../images/background.jpg')} imageStyle={{opacity:.2}} style={{width: '100%', height: '100%'}}>
 
             <Content padder style={{ padding: 7 }}>
 
@@ -95,6 +97,8 @@ class ForgetPassword extends Component {
 
 
             </Content>
+
+            </ImageBackground>
 
             
             </Container>

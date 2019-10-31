@@ -40,7 +40,7 @@ export default class StudentAppBar extends Component {
             <Input placeholder="Search" />
  
 
-            <Thumbnail square onPress={() => alert('Filter Button')} style={{width: 30, height: 30}}  source={require('../images/filter.jpg')} />
+            
 
           </Item>
         </Header>

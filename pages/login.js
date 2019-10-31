@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Image} from 'react-native';
+import { Image, ImageBackground } from 'react-native';
 import {Button, Container, Header, Content,Item,Label,Input,Text,Form,Body, Title, Left, Right} from 'native-base';
 
 class Login extends Component {
@@ -16,6 +16,8 @@ class Login extends Component {
        </Body>
        <Right/>
        </Header>
+
+       <ImageBackground source={require('../images/background.jpg')} imageStyle={{opacity:.2}} style={{width: '100%', height: '100%'}}>
 
      <Content padder style={{ padding: 7 }}>
 
@@ -52,13 +54,11 @@ class Login extends Component {
 
         <Text style={{alignSelf:"center"}}>{"Don't have an account yet ?"}<Text style={{color:'#14c2e0'}} onPress={() => this.props.navigation.navigate('Signup1')} > Click Here</Text> </Text>
 
-        <Text>{"\n"}</Text>
-
         <Button  onPress={() => this.props.navigation.navigate('TeacherNewsFeed')} block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40}}><Text>Teacher Login</Text></Button>
       
 
         </Content>
-      
+        </ImageBackground>
     </Container>
   );
   }

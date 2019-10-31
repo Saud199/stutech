@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Container, Header, Left, Body, Title, Right, Content, DatePicker, Form, Button, Item, Picker, Input, Icon, Label, Textarea, Text, List, ListItem, Thumbnail } from 'native-base';
 import { withNavigation } from 'react-navigation';
-import { Image } from 'react-native';
+import { Image, ImageBackground } from 'react-native';
 
 class SplashScreen extends Component {
 
@@ -17,8 +17,8 @@ class SplashScreen extends Component {
 
     return (
 
-      <Container style={{backgroundColor: '#14c2e0', flexDirection : 'row' , alignItems: 'center'}}>
-
+      <Container>
+        <ImageBackground source={require('../images/background.jpg')} imageStyle={{opacity:.2}} style={{width: '100%', height: '100%', flexDirection:'row', alignItems:'center'}}>
           <Content>
 
             <Image
@@ -27,7 +27,7 @@ class SplashScreen extends Component {
 
 
           </Content>
-        
+        </ImageBackground>
       </Container>
 
     );

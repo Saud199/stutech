@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image} from 'react-native';
+import {Image, ImageBackground} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import {Button, Container, Header, Content,Item,Label,Input,Text,Form,Body, Picker, Title,Icon, Left, Right} from 'native-base';
 
@@ -69,7 +69,7 @@ class OrganizationSignUp extends Component {
                   </Body>
                   <Right/>
                   </Header>
-          
+                  <ImageBackground source={require('../images/background.jpg')} imageStyle={{opacity:.2}} style={{width: '100%', height: '100%'}}>
       <Content padder style={{ padding: 7 }}>
           
 
@@ -184,7 +184,7 @@ class OrganizationSignUp extends Component {
               {photo && (
           <Image
             source={{ uri: photo.uri }}
-            style={{ width: 100, height: 100 }}
+            style={{ width: 100, height: 100, alignSelf:'center' }}
           />
            )}
             <Text>{"\n"}</Text>
@@ -195,9 +195,11 @@ class OrganizationSignUp extends Component {
 
         
         <Button onPress={() => alert("Account Created")} block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 10, marginBottom:20}}><Text>Create Account</Text></Button>
-            
+        <Text>{"\n"}</Text>
+        <Text>{"\n"}</Text>
   
               </Content>
+              </ImageBackground>
       </Container>
     );
   }
