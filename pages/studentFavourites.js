@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Image } from 'react-native';
 import { Container, Header, Left, Body, Title, Right, Content, DatePicker, Form, Button, Item, Picker, Input, Icon, Label, Textarea, Text, List, ListItem, Thumbnail, Card, CardItem } from 'native-base';
 import { withNavigation } from 'react-navigation';
+import firebase from '../../../config/firebase.js'
+import { connect } from 'react-redux';
 
 class StudentFavourites extends Component {
 
@@ -16,10 +18,48 @@ class StudentFavourites extends Component {
 
     displayFavourites() {
         const {favouritesArray} = this.state;
-        favouritesArray.push({name : 'SSUET' , image : require('../images/ssuet.png')});
-        favouritesArray.push({name : 'Oracle' , image : require('../images/oracle.png')});
-        favouritesArray.push({name : 'Decima' , image : require('../images/decima.png')});
-        favouritesArray.push({name : 'App Bakers' , image : require('../images/ssuet.png')});
+
+        // favouritesArray.push({name : 'SSUET' , image : require('../images/ssuet.png')});
+        // favouritesArray.push({name : 'Oracle' , image : require('../images/oracle.png')});
+        // favouritesArray.push({name : 'Decima' , image : require('../images/decima.png')});
+        // favouritesArray.push({name : 'App Bakers' , image : require('../images/ssuet.png')});
+
+        var data = this.props.details;
+
+        firebase.database().ref(`Favourite/${data.rollNo}`).on("value", (snapshot)=> {
+          if(snapshot.exists()){
+           snapshot.forEach((childSnapshot)=> {
+            var d = childSnapshot.val();
+            var obj = {
+            id : d.id ,
+            logo : d.logo ,
+            Jimg : d.Jimg ,
+            orgName : d.orgName ,
+            description : d.description ,
+            date : d.date ,
+            experience : d.experience,
+            type : d.type ,
+            cid : d.cid ,
+            category : d.category ,
+            subject : d.subject
+           }
+           favouritesArray.push(obj);
+           this.setState({favouritesArray})
+           })
+          }
+         })
+
+    }
+
+    deleteFavorite(i) {
+      const {favouritesArray} = this.state;
+      var data = this.props.details;
+      
+      
+    }
+
+    componentDidMount() {
+      this.displayFavourites();
     }
 
 
@@ -45,7 +85,6 @@ class StudentFavourites extends Component {
 
         <Content>
 
-        <Text style={{ alignSelf: 'center', fontSize: 20}}>FAVOURITES</Text>
 
         { favouritesArray.map((val , ind) => {
             return(
@@ -67,10 +106,10 @@ class StudentFavourites extends Component {
                   </CardItem>
                   <CardItem>
                     <Left>
-                      <Button block style={{backgroundColor: '#14c2e0' , width : 120}}><Text>Reminder</Text></Button>
+                      <Button block style={{backgroundColor: '#14c2e0' , width : 120}}><Text>Profile</Text></Button>
                     </Left>
                     <Right>
-                      <Button block style={{backgroundColor: '#14c2e0' , width : 120}}><Text>Profile</Text></Button>
+                      <Button block style={{backgroundColor: '#14c2e0' , width : 120}}><Text>Delete</Text></Button>
                     </Right>
                   </CardItem>
                 </Card>
@@ -93,4 +132,16 @@ class StudentFavourites extends Component {
 }
 
 
-export default withNavigation(StudentFavourites);
+function mapStateToProp(state) {
+  return ({
+    details: state.root.studentInfo ,
+    accounttype : state.root.accountType
+  })
+}
+function mapDispatchToProp(dispatch) {
+  return ({
+      //  getUserinfo : (info)=>{ dispatch(SignupDetail(info))}
+  })
+}
+
+export default connect(mapStateToProp, mapDispatchToProp)(StudentFavourites);

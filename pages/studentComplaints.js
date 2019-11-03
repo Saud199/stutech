@@ -6,12 +6,13 @@ class StudentComplaints extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { chosenDate: new Date() };
-    this.setDate = this.setDate.bind(this);
     // selected2: undefined
-  }
-  setDate(newDate) {
-    this.setState({ chosenDate: newDate });
+    this.state = {
+      subject : '',
+      complaintDetails : '',
+      ideas : '',
+      complaintDate : ''
+    }
   }
 
   onValueChange2(value) {
@@ -45,57 +46,23 @@ class StudentComplaints extends Component {
 
           <Item floatingLabel last>
             <Label >Subject</Label>
-            <Input />
+            <Input onChangeText={(txt) => this.setState({ subject : txt })} />
           </Item>
 
           <Item floatingLabel last>
             <Label>Complaint Details</Label>
-            <Input />
+            <Input onChangeText={(txt) => this.setState({ complaintDetails : txt })} />
           </Item>
 
           <Text>{"\n"}</Text>
           <Label>Give ideas to avoid the problem</Label>
-          <Textarea rowSpan={4} bordered placeholder="Type Here..." />
+          <Textarea rowSpan={4} bordered placeholder="Type Here..." onChangeText={(txt) => this.setState({ idea : txt })} />
         
-          <Text>{"\n"}</Text>
-          <Label>Date</Label>
-          <DatePicker
-            defaultDate={new Date(2019, 4, 4)}
-            minimumDate={new Date(2000, 1, 1)}
-            maximumDate={new Date(2040, 12, 31)}
-            locale={"en"}
-            timeZoneOffsetInMinutes={undefined}
-            modalTransparent={false}
-            animationType={"fade"}
-            androidMode={"default"}
-            placeHolderText="Select date"
-            placeHolderTextStyle={{color:"#14c2e0"}}
-            textStyle={{ color: "green" }}
-            placeHolderTextStyle={{ color: "#d3d3d3" }}
-            onDateChange={this.setDate}
-            disabled={false}
-            />
+          <Item floatingLabel last>
+                  <Label >Date</Label>
+                  <Input onChangeText={(txt) => this.setState({ complaintDate : txt })}/>
 
-            <Text>{"\n"}</Text>
-            <Label>Complaint As</Label>
-            <Item Picker>
-              <Picker
-                mode="dropdown"
-                iosIcon={<Icon name="arrow-down" />}
-                style={{ width: undefined }}
-                selectedValue={this.state.selected2}
-                placeholder="Complaint As"
-                placeholderStyle={{ color: "#bfc6ea" }}
-                placeholderIconColor="#007aff"
-                onValueChange={this.onValueChange2.bind(this)}
-              >
-                <Picker.Item label="Anonymous" value="anonymous" />
-                <Picker.Item label="Non Anonoymous" value="nonanonoymous" />
-                
-              </Picker>
-            </Item>
-
-
+          </Item>
 
         </Form>
 

@@ -2,11 +2,21 @@ import { withNavigation } from 'react-navigation';
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 import {Content, Button, ListItem, Left, Right,Thumbnail,Body, Icon} from 'native-base';
+import firebase from '../config/firebase.js'
+import { connect } from 'react-redux';
 
 class studentSideBar extends Component {
 
   constructor(props){
     super(props);
+  }
+
+  logOff() {
+    firebase.auth().signOut().then(function() {
+      this.props.navigation.navigate('Login');
+    }).catch(function(error) {
+      alert(''+error);
+    });
   }
 
 //  showDetails = () => {
@@ -22,11 +32,11 @@ class studentSideBar extends Component {
             <ListItem avatar onPress={()=> this.props.navigation.navigate('StudentProfile')}>
 
             <Left>
-                <Thumbnail source={require('../images/profilepic1.jpg')} />
+                <Thumbnail source={{uri : this.props.details.imgURL}} />
             </Left>
                 
             <Body>
-                <Text>Abdul Ahad</Text>
+                <Text>{this.props.details.name}</Text>
             </Body>
             
             </ListItem>
@@ -71,7 +81,7 @@ class studentSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentViewOrganizations')}>
+            <ListItem thumbnail onPress={()=> this.signOut()}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/organization.jpg')} />
               </Left>
@@ -123,4 +133,29 @@ class studentSideBar extends Component {
     )};
 }
 
-export default withNavigation(studentSideBar);
+function mapStateToProp(state) {
+  return ({
+    // jb class me data mangwana hota hy store se
+    details: state.root. studentInfo ,
+    accounttype : state.root.accountType
+  })
+}
+function mapDispatchToProp(dispatch) {
+  return ({
+     // jb class se data store me bhejna hota hai
+    
+  })
+}
+
+// export default {
+//   withNavigation,
+//   connect
+// }
+
+//export const  withNavigation;
+//export  default connect(mapStateToProp, mapDispatchToProp )(studentSideBar);
+//export default connect(mapStateToProp, mapDispatchToProp)(studentSideBar);
+ export const Home = connect(
+  mapStateToProp, 
+  mapDispatchToProp
+ ) (withNavigation (studentSideBar));
