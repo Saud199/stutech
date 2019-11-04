@@ -67,7 +67,7 @@ class StudentAchievements extends Component {
 
         <Tabs tabBarBackgroundColor="#14c2e0" renderTabBar={()=> <ScrollableTab />} >
           <Tab heading="My Achievements" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
-          <Content>
+          <Content style={{backgroundColor:'#D3D3D3'}}>
           { certificateArray.map((val , ind) => {
             return(
                 
@@ -76,15 +76,26 @@ class StudentAchievements extends Component {
                     <Image source={val.image} style={{height: 200, width: null, flex: 1}}/>
                   </CardItem>
                   <CardItem style={{alignSelf:'center'}}>
-                    <Text>{val.name}</Text>
+                    <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.name}</Text>
                   </CardItem>
                   <CardItem>
-                    <Left>
+                    <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
+
+                      <Button transparent style={{width: 22, height: 22}}>
+                        <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
+                      </Button>
+
+                      <Button transparent style={{width: 22, height: 22}}>
+                        <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/delete.png')} />
+                      </Button>
+                      
+                    </Body>
+                    {/* <Left>
                       <Button block style={{backgroundColor: '#14c2e0' , width : 120}}><Text>View Details</Text></Button>
                     </Left>
                     <Right>
                       <Button block style={{backgroundColor: '#14c2e0' , width : 120}}><Text>Delete</Text></Button>
-                    </Right>
+                    </Right> */}
                   </CardItem>
                 </Card>
                 

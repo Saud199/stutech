@@ -7,24 +7,30 @@ class Signup1 extends Component {
 
   constructor() {
     super();
+    // this.state={
+    //   firstName : '',
+    //   lastName : '',
+    //   email : '',
+    //   pass : '',
+    //   rePass : '',
+    //   phoneNo : '',
+    //   securityQues : '',
+    //   securityAns : '',
+    //   gender : 'male'
+    // }
     this.state={
-      firstName : '',
-      lastName : '',
+      firstName : 'asd',
+      lastName : 'asd',
       email : '',
       pass : '',
       rePass : '',
-      phoneNo : '',
-      securityQues : '',
-      securityAns : '',
+      phoneNo : 'asd',
+      securityQues : 'asd',
+      securityAns : 'asd',
       gender : 'male'
     }
   }
 
-
-  // getData2() {
-  //   const{gender}=this.state;
-  //   alert(""+gender);
-  // }
 
 
 

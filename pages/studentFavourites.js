@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import { Image } from 'react-native';
 import { Container, Header, Left, Body, Title, Right, Content, DatePicker, Form, Button, Item, Picker, Input, Icon, Label, Textarea, Text, List, ListItem, Thumbnail, Card, CardItem } from 'native-base';
 import { withNavigation } from 'react-navigation';
-import firebase from '../../../config/firebase.js'
+import firebase from '../config/firebase.js'
 import { connect } from 'react-redux';
+import {PostDetail} from '../store/action/action.js';
 
 class StudentFavourites extends Component {
 
@@ -55,7 +56,48 @@ class StudentFavourites extends Component {
       const {favouritesArray} = this.state;
       var data = this.props.details;
       
-      
+      // Swal.fire({
+      //   title: 'Are you sure?',
+      //   text: "You won't be able to revert this!",
+      //   type: 'warning',
+      //   showCancelButton: true,
+      //   confirmButtonColor: '#3085d6',
+      //   cancelButtonColor: '#d33',
+      //   confirmButtonText: 'Yes, delete it!'
+      // }).then((result) => {
+      //   if (result.value) {
+          firebase.database().ref(`Favourite/${data.rollNo}/${favouritesArray[i].id}`).set({});
+          // Swal.fire(
+          //   'Deleted!',
+          //   'Your data has been deleted.',
+          //   'success'
+          // )
+        //}
+      //}) 
+    }
+
+    checkDetails(i){
+      const {favouritesArray} = this.state;
+
+      //alert(""+favouritesArray[i].orgName);
+
+      detailsObj = {
+        id : favouritesArray[i].id ,
+        logo : favouritesArray[i].logo,
+        Jimg : favouritesArray[i].Jimg,
+        orgName : favouritesArray[i].orgName,
+        description : favouritesArray[i].description,
+        date : favouritesArray[i].date,
+        experience : favouritesArray[i].experience,
+        type : favouritesArray[i].type,
+        cid : favouritesArray[i].cid,
+        category : favouritesArray[i].category,
+        subject : favouritesArray[i].subject
+      }
+
+      this.props.postInfo(detailsObj);
+      this.props.navigation.navigate('StudentViewPostDetails')
+
     }
 
     componentDidMount() {
@@ -65,7 +107,6 @@ class StudentFavourites extends Component {
 
   render() {
     const {favouritesArray} = this.state;
-    this.displayFavourites();
     return (
 
       <Container>
@@ -83,7 +124,7 @@ class StudentFavourites extends Component {
         </Header>
 
 
-        <Content>
+        <Content style={{backgroundColor:'#D3D3D3'}}>
 
 
         { favouritesArray.map((val , ind) => {
@@ -94,23 +135,34 @@ class StudentFavourites extends Component {
                 <Card>
                   <CardItem>
                     <Left>
-                      <Thumbnail source={val.image} />
+                      <Thumbnail source={{uri:val.logo}} />
                       <Body>
-                        <Text>{val.name}</Text>
-                        <Text note>GeekyAnts</Text>
+                        <Text>Ogranization Name goes here</Text>
+                        <Text note>{val.orgName}</Text>
                       </Body>
                     </Left>
                   </CardItem>
                   <CardItem cardBody>
-                    <Image source={val.image} style={{height: 200, width: null, flex: 1}}/>
+                    <Image source={{uri : val.Jimg}} style={{height: 200, width: null, flex: 1, resizeMode:'contain'}}/>
                   </CardItem>
                   <CardItem>
-                    <Left>
+                    {/* <Left>
                       <Button block style={{backgroundColor: '#14c2e0' , width : 120}}><Text>Profile</Text></Button>
-                    </Left>
-                    <Right>
-                      <Button block style={{backgroundColor: '#14c2e0' , width : 120}}><Text>Delete</Text></Button>
-                    </Right>
+                    </Left> */}
+                    <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
+                      <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                        <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
+                      </Button>
+                      <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkDetails(ind)}>
+                        <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
+                      </Button>
+                      <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.deleteFavorite(ind)}>
+                        <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/delete.png')} />
+                      </Button>
+                    </Body>
+                    {/* <Right>
+                      <Button block style={{backgroundColor: '#14c2e0' , width : 120}} onPress={(e)=>this.deleteFavorite(ind)}><Text>Delete</Text></Button>
+                    </Right> */}
                   </CardItem>
                 </Card>
                 
@@ -141,6 +193,7 @@ function mapStateToProp(state) {
 function mapDispatchToProp(dispatch) {
   return ({
       //  getUserinfo : (info)=>{ dispatch(SignupDetail(info))}
+      postInfo : (info)=>{dispatch(PostDetail(info))}
   })
 }
 

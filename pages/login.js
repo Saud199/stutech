@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { Image, ImageBackground } from 'react-native';
-import {Button, Container, Header, Content,Item,Label,Input,Text,Form,Body, Title, Left, Right} from 'native-base';
+import { Image, ImageBackground, View } from 'react-native';
+import {Button, Container, Header, Content,Item,Label,Input,Text,Form,Body, Title, Left, Right, Thumbnail} from 'native-base';
 import firebase from '../config/firebase.js'
 import { connect } from 'react-redux';
 import {StudentDetail} from '../store/action/action.js';
@@ -14,8 +14,14 @@ class Login extends Component {
     this.state={
       uemail : '',
       upass : '',
+      hidePassword : true ,
+      image : ''
     }
     this.getDetail = this.getDetail.bind(this);
+  }
+
+  setPasswordVisibility = () => {
+    this.setState({ hidePassword: !this.state.hidePassword });
   }
 
   checkLogin() {
@@ -112,75 +118,19 @@ class Login extends Component {
 
   }
 
-  // handleChoosePhoto= async () => {
-  //   //   let result = await ImagePicker.launchCameraAsync();
-  //     let result = await ImagePicker.launchImageLibraryAsync();
-  //     ImagePicker.launchImageLibrary(options, response => {
-  //       if (response.uri) {
-  //         this.uploadImage(response.uri, "test-image")
-  //         .then(() => {
-  //                 alert("Success");
-  //               })
-  //               .catch((error) => {
-  //                 alert(error);
-  //               });
-  //         // this.setState({ photo: response.uri });
-  //       }
-  
-  //     // if (!result.cancelled) {
-  //     //   this.uploadImage(result.uri, "test-image")
-  //     //     .then(() => {
-  //     //       Alert.alert("Success");
-  //     //     })
-  //     //     .catch((error) => {
-  //     //       Alert.alert(error);
-  //     //     });
-  //     // }
-  //   })
-  // }
-
-  handleChoosePhoto = async () => { // ye
+  handleChoosePhoto () { 
+    const {image} = this.state;
     const options = {
       noData: true,
     };
     ImagePicker.launchImageLibrary(options, response => {
       if (response.uri) {
-        this.uploadImage(response.uri, "test-image")
-        .then((res) => {
-              alert("Success"+res);
-              console.debug('sasas' , res)
-              })
-              .catch((error) => {
-                alert(error);
-              });
-          //       Alert.alert("Success");
-          //     })
-          //     .catch((error) => {
-          //       Alert.alert(error);
-          //     }); await ImagePicker.launchCameraAsync();
-    // let result = await ImagePicker.launchImageLibraryAsync();
-
-    // if (!result.cancelled) {
-    //   this.uploadImage(result.uri, "test-image")
-    //     .then(() => {
-    //       Alert.alert("Success");
-    //     })
-    //     .catch((error) => {
-    //       Alert.alert(error);
-    //     });
-    // })
-  // })
-   }
-  })
-}
-    uploadImage = async (uri, imageName) => { //ye wala
-      const response = await fetch(uri);
-      const blob = await response.blob();
-  
-      var ref = firebase.storage().ref().child("images/" + imageName);
-      return ref.put(blob);
+         this.setState({image:response.uri})
+ 
+        } 
+      })
     }
-  
+        
 
   render(){
   return (
@@ -208,22 +158,27 @@ class Login extends Component {
 
         <Form>
 
-        <Item floatingLabel last>
+        <Item regular>
               <Label >Enter Email</Label>
               <Input keyboardType="email-address" onChangeText={(txt) => this.setState({ uemail : txt })}  value={this.state.uemail} />
 
 
             </Item>
 
-            <Item floatingLabel last>
-              <Label >Enter Password</Label>
-              <Input secureTextEntry={true} onChangeText={(txt) => this.setState({ upass : txt })}  value={this.state.upass}/>
+            <Item regular style={{flex:0.75, marginTop:20}}>
+              
+                <Label >Enter Password</Label>
+                <Input secureTextEntry={this.state.hidePassword} onChangeText={(txt) => this.setState({ upass : txt })}  value={this.state.upass}/>
+              
+                <Button transparent style={{width: 22, height: 22, flex: 0.25}} onPress={this.setPasswordVisibility}>
+                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/show_pass.png')} />
+                </Button>
+              
             </Item>
 
 
         </Form>
-
-        <Button transparent onPress={this.handleChoosePhoto} block style={{ alignSelf:'center', marginTop: 10, marginBottom:20,color:'#000000'}}><Text>Choose Photo</Text></Button>
+      
         <Button  onPress={() => this.checkLogin()} block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40}}><Text>Login</Text></Button>
       
        <Text>{"\n"}</Text>

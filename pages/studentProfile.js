@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { Image  } from 'react-native';
 import { Container, Header, Content,Text,Body, Title, Left, Right,Item, Button, Icon, Input, Label} from 'native-base';
-
+import firebase from '../config/firebase.js';
+import { connect } from 'react-redux';
 
 class StudentProfile extends Component {
 
@@ -9,33 +10,110 @@ class StudentProfile extends Component {
 
         super();
       
-        this.state={
+        // this.state={
 
-          Name:"Abdul Ahad",
-          PhoneNo: "03032286816",
-          Email: "abdulahad30396@gmail.com",
-          Geneder: "Female",
-          DOB: "30-03-1996",
-          Address: "Fazal Mansion",
+        //   Name:"",
+        //   PhoneNo: "",
+        //   Email: "",
+        //   Geneder: "",
+        //   DOB: "",
+        //   Address: "",
 
-          RollNo: "2016-SE-024",
-          Batch: "2016",
-          Department: "Software Engineer",
+        //   RollNo: "",
+        //   Batch: "",
+        //   Department: "",
 
-          Matriculation: "Fail",
-          Intermediate: "Fail",
+        //   Matriculation: "",
+        //   Intermediate: "",
 
-          Aboutself: "saud",
+        //   Aboutself: "",
+
+        //   detailsArray : []
 
 
+        // }
+
+        this.state = {
+          yourself : 'No data found' ,
+           matric : 'No data found' ,
+           inter : 'No data found' ,
+           skills : 'No data found' ,
+           name : '' ,
+           phno : '' ,
+           image : '' ,
+           gender : '' ,
+           email : '' ,
+           department : '' ,
+           batch : '' , 
+           achievements:[]
         }
     
+      }
+
+      getUserDetails() {
+        const {  yourself  , matric  , inter , skills  , name  , phno  , image  , gender  , email  , department , batch , achievements} = this.state;  
+        var data = this.props.details;
+
+        firebase.database().ref(`Student/${data.rollNo}`).on("value", (snapshot)=> {
+    
+          if(snapshot.exists()){
+    
+          if(snapshot.hasChild("aboutYourSelf")){
+            this.setState({  yourself : snapshot.val().aboutYourSelf.detail })
+          }
+    
+          if(snapshot.hasChild("Matric")){
+            this.setState({  matric : snapshot.val().Matric.detail })
+          }
+    
+          if(snapshot.hasChild("Inter")){
+            this.setState({  inter : snapshot.val().Inter.detail })   
+          }
+    
+          if(snapshot.hasChild("Skills")){
+            this.setState({  skills : snapshot.val().Skills.detail })    
+          }
+    
+          if(snapshot.hasChild("StudentInfo")){
+         this.setState({ batch : snapshot.val().StudentInfo.batch }) 
+         this.setState({ department : snapshot.val().StudentInfo.department}) 
+         this.setState({ email :snapshot.val().StudentInfo.email}) 
+         this.setState({ gender :snapshot.val().StudentInfo.gender})
+         this.setState({ image :snapshot.val().StudentInfo.image})  
+         this.setState({ name : snapshot.val().StudentInfo.name}) 
+         this.setState({ phno : snapshot.val().StudentInfo.ph_no})     
+          }
+    
+          if(snapshot.hasChild("Achievements")){
+            while(achievements.length > 0) {
+                  achievements.splice(0,1); 
+               }
+            firebase.database().ref(`Student/${data.rollNo}/Achievements`).on("value", (snapshot)=> {
+                snapshot.forEach((childSnapshot)=> {
+                   achievements.push({detail : childSnapshot.val().subject})
+                   this.setState({achievements})
+                })
+            })
+          }
+    
+           this.setState({})
+          }
+        })
+
+
+
+
+      }
+
+      componentDidMount() {
+        this.getUserDetails();
       }
 
 
      render(){
 
-      const {Name,PhoneNo,Email,Geneder,DOB,Address,RollNo,Batch,Department,Matriculation,Intermediate,Aboutself}=this.state;
+      const {achievements}=this.state;
+      const data = this.props.details;
 
         return(
 
@@ -56,264 +134,107 @@ class StudentProfile extends Component {
     <Content padder style={{ padding: 7 }}> 
 
         <Image
-            style={{width: 200, height: 180, alignSelf:'center'}} 
-            source={require('../images/profilepic1.jpg')}  />
+            style={{width: 200, height: 200, alignSelf:'center', borderRadius:200/2}} 
+            source={{uri:data.imgURL}}  />
   
             <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>PERSONAL INFORMATION </Text>
+            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000', alignSelf:'center', padding:5}}>PERSONAL INFORMATION </Text>
             <Text>{"\n"}</Text>
-          <Item>
-            <Left>
-            <Text>Name</Text>
-            </Left>
+          
+            <Text>Name : {data.name}</Text>
 
-            <Right>
-            <Item floatingLabel last>
-            
-              <Input
-              
-              value={this.state.Name} 
-              onChangeText={(txt) => this.setState({ Name: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
+              <Text style={{marginTop:27}}>Gender : {data.gender}</Text>
 
-            <Item>
+              <Text style={{marginTop:27}}>Email : {data.email}</Text>
+
+              <Text style={{marginTop:27}}>Phone Number : {data.number}</Text>
+      
+
+            {/* <Item>
               <Left>
-            <Label>Phone Number</Label>
+            <Label style={{fontSize:14 , marginTop:30, marginBottom:10}}>Phone Number</Label>
             </Left>
 
             <Right>
             <Item floatingLabel last>
             
               <Input
-              
-              value={this.state.PhoneNo} 
+              style={{fontSize:14}}
+              value={this.state.phno} 
               onChangeText={(txt) => this.setState({ PhoneNo: txt })} 
              
               />   
             </Item>
             </Right>
-            </Item>
+            </Item> */}
 
+        
 
-            <Item>
-
-            <Left>
-              <Text>Email</Text>
-            </Left>
-            <Right>
-            <Item floatingLabel last>
-              <Input
+            
+                <Text style={{marginTop:27}}>Date Of Birth : {data.DOB}</Text>
               
-              value={this.state.Email} 
-              onChangeText={(txt) => this.setState({ Email: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
 
+            
 
-            <Item>
-              <Left>
-                <Text>Gender</Text>
-              </Left>
-            <Right>
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Geneder} 
-              onChangeText={(txt) => this.setState({ Geneder: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-            <Item>
-              <Left>
-                <Text>
-                  Date Of Birth
-                </Text>
-              </Left>
-
-              <Right>
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.DOB} 
-              onChangeText={(txt) => this.setState({ DOB: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-
-            <Item>
-              <Left>
-                <Text>Address</Text>
-              </Left>
-
-              <Right>
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Address} 
-              onChangeText={(txt) => this.setState({ Address: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
             
             <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>STUDENT INFORMATION </Text>
+            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000', alignSelf:'center', padding:5}}>STUDENT INFORMATION </Text>
             <Text>{"\n"}</Text>
 
             
-            <Item>
-              <Left>
-                <Text>Department</Text>
-              </Left>
-
-              <Right>
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Department} 
-              onChangeText={(txt) => this.setState({ Department: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-
-
-
-            <Item>
-              <Left>
-                <Text>
-                  Roll No
-                </Text>
-              </Left>
-
-              <Right>
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.RollNo} 
-              onChangeText={(txt) => this.setState({ RollNo: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-
-
-            <Item>
-              <Left>
-                <Text>Batch</Text>
-              </Left>
-
-              <Right>
-
-              
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Batch} 
-              onChangeText={(txt) => this.setState({ Batch: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-            <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>ACADEMIC INFORMATION </Text>
-            <Text>{"\n"}</Text>
-            
-            <Item>
-              <Left>
-                <Text>
-                  Matriculation
-                </Text>
-              </Left>
-
-              <Right>
-            <Item floatingLabel last>
-              
-              <Input
-              
-              value={this.state.Matriculation} 
-              onChangeText={(txt) => this.setState({ Matriculation: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-
-            <Item>
-            <Left>
-              <Text>Intermediate
-              </Text>
-            </Left>
-
-            <Right>
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Intermediate} 
-              onChangeText={(txt) => this.setState({ Intermediate: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-
-
-            <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>SKILLS</Text>
-            <Text>{"\n"}</Text>
-
-            <Item>
-              <Text>Not Added</Text>
-            </Item>
-            
-
-            <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>ACHIEVEMENTS</Text>
-            <Text>{"\n"}</Text>
            
-            
-            <Item>
-              <Text>Not Added</Text>
-            </Item>
-            
-            <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>ABOUT YOURSELF</Text>
-            <Text>{"\n"}</Text>
+                <Text>Department : {data.department}</Text>
 
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Aboutself} 
-              onChangeText={(txt) => this.setState({ Aboutself: txt })} 
+
+
+                <Text style={{marginTop:27}}>
+                  Roll No : {data.rollNo}
+                </Text>
+
+
+
+                <Text style={{marginTop:27}}>Batch : {data.batch}</Text>
+
+            <Text>{"\n"}</Text>
+            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000', alignSelf:'center', padding:5}}>ACADEMIC INFORMATION </Text>
+            <Text>{"\n"}</Text>
+            
+                <Text>Matriculation : {this.state.matric}</Text>
              
-              />   
-            </Item>
 
-           
-        <Button  block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40, marginBottom:30}}><Text>Update</Text></Button>
 
+        
+              <Text style={{marginTop:27}}>Intermediate : {this.state.inter}</Text>
+
+
+
+            <Text>{"\n"}</Text>
+            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000', alignSelf:'center', padding:5}}>SKILLS</Text>
+            <Text>{"\n"}</Text>
+
+              <Text>{this.state.skills}</Text>
+            
+
+            <Text>{"\n"}</Text>
+            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000', alignSelf:'center', padding:5}}>ACHIEVEMENTS</Text>
+            <Text>{"\n"}</Text>
+
+            {
+              achievements.map((val , index ) => {
+                return(
+                     <Text>{ val.detail }</Text>
+                )
+             })
+
+            }
+
+            
+            <Text>{"\n"}</Text>
+            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000', alignSelf:'center', padding:5}}>ABOUT YOURSELF</Text>
+            <Text>{"\n"}</Text>
+
+            <Text>{this.state.yourself}</Text>
+            <Text>{"\n"}</Text>
 
 
         
@@ -333,4 +254,19 @@ class StudentProfile extends Component {
 
 }
 
-export default StudentProfile;
+function mapStateToProp(state) {
+  return ({
+    // jb class me data mangwana hota hy store se
+    details: state.root. studentInfo ,
+    accounttype : state.root.accountType
+  })
+}
+function mapDispatchToProp(dispatch) {
+  return ({
+     // jb class se data store me bhejna hota hai
+    
+  })
+}
+
+
+export default connect(mapStateToProp, mapDispatchToProp)(StudentProfile);

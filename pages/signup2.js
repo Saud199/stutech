@@ -16,35 +16,34 @@ class Signup2 extends Component {
       type:'Student',
       stdDate : '',
       teachDate : '',
-      photo:null,
+      image: '',
       rollNumber : '',
       section : '' ,
-      stdDepartment : '',
+      stdDepartment : 'Computer Engineering',
       batch : '',
       employeeID : '',
       designation : '',
-      teachDepartment : '',
+      teachDepartment : 'Computer Engineering',
       image : ''
     }
 
   }
 
-  // componentDidMount(){
-  //   var data = this.props.details;
-  //   alert(''+data.firstName);
+  // showDetails(){
+  //   firebase.database().ref("/Users").on("value", (snapshot)=> {
+  //     snapshot.forEach(c => {
+  //       alert(c.val().name)
+  //     })
+  //   })
+  
   // }
 
-  showDetails(){
-    firebase.database().ref("/chudai").on("value", (snapshot)=> {
-      snapshot.forEach(c => {
-        alert(c.val().name)
-      })
-    })
-  
-  }
-
- createAccount = async () => {
-    const {type,photo,rollNumber,section,stdDate,stdDepartment,batch,employeeID,designation,teachDepartment,teachDate}=this.state;
+ async createAccount() {
+    const {type,image,rollNumber,section,stdDate,stdDepartment,batch,employeeID,designation,teachDepartment,teachDate}=this.state;
+    
+        const response = await fetch(image);
+        const blob = await response.blob();
+    
     if (type == 'Student') {
       if(image == null) {
         alert('Please upload your photo');
@@ -62,79 +61,49 @@ class Signup2 extends Component {
       //   alert('Please ! Must Write Your DOB in This Format (DD-MM-YYYY) ')
       // }
       else {
-        //var blob = new Blob([photo.uri], { type: "image/jpeg" });
         var data = this.props.details;
 
         var name = data.firstName + ' ' + data.lastName;
-        var email = data.email.toLowerCase();;
+        var email = data.email.toLowerCase();
         var ph_no = data.phoneNo;
         var pass = data.pass;
         var gender = data.gender.toLowerCase();
         var secQues = data.securityQues;
         var secAns = data.securityAns;
 
-        const response = await fetch(this.state.image);
-          const blob = await response.blob();
-
         firebase.auth().createUserWithEmailAndPassword(email, pass).then((success)=>{
 
 
+          firebase.storage().ref('images').child(''+(new Date()).getTime()).put(blob).then((res)=>{
+
+            var skey =firebase.database().ref("/Users").push();
           
+            var studentObj = {
+              id : skey.key,
+              name : name ,
+              email : email,
+              ph_no : ph_no ,
+              pass : pass ,
+              gender : gender ,
+              rollNo : rollNumber ,
+              section : section , 
+              DOB : stdDate ,
+              accountType : "Student" ,
+              department : stdDepartment ,
+              batch : batch,
+              securityQuestion : secQues,
+              securityAnswer : secAns,
+              imgURL : res.task.uploadUrl_
+            }
       
-          var ref = firebase.storage().ref('storage').child((new Date()).getTime()+'ohyeah')
-        
-           ref.put(blob).then((snapshot)=>{
-            return snapshot.ref.getDownloadURL();
-            }).then(downloadURL => {
-              alert(''+downloadURL)
-            })
-
-    
-
-
-          // // varible to create refrence of firebase storage
-          // var storageref = firebase.storage().ref("storage");
-          // // function for uploading file in firebase database
-          // var uploadtask= storageref.child(''+(new Date()).getTime()+photo.name).put(photo).then((snapshot)=>{
-          // // returns the download url to download image from storage
-          // return snapshot.ref.getDownloadURL();
-          // }).then(downloadURL => {
-          // // pushing data  and image url object into firebase database
-          //   var database = firebase.database().ref();
+            skey.set(studentObj); 
           
-          //   var skey =firebase.database().ref('Users/').push();
-          
-          //   var studentObj = {
-          //     id : skey.key,
-          //     name : name ,
-          //     email : email,
-          //     ph_no : ph_no ,
-          //     pass : pass ,
-          //     gender : gender ,
-          //     rollNo : rollNumber ,
-          //     section : section , 
-          //     DOB : stdDate ,
-          //     accountType : "Student" ,
-          //     imgURL : photo,
-          //     department : stdDepartment ,
-          //     batch : batch,
-          //     securityQuestion : secQues,
-          //     securityAnswer : secAns,
-          //   }
-      
-          //   skey.set(studentObj); 
+
+            alert('Congratulations Your Account has been Created Successfully')
             
-
-
-          //   //  document.getElementById('rollno').value=""
-          //   //  document.getElementById('section').value=""
-          //   //  document.getElementById('SDOB').value=""
-
-          //   alert('Congratulations Your Account has been Created Successfully')
-            
-          // }).catch((error)=> {
-          //     alert(''+error.message)
-          //  });
+          }).catch((error)=> { 
+            alert(''+error.message)
+           });
          }).catch((error)=> {
               alert(''+error.message)
       });
@@ -144,40 +113,25 @@ class Signup2 extends Component {
     
   }
 
-  // var skey =  firebase.database().ref('/chudai').push();
-    
-  // var obj = {
-  //   id : skey.key ,
-  //   name :  this.props.details.fname ,
-  //  num : this.props.details.number
-  // }
- 
-  // skey.set(obj)  
-  // alert('ghus gaya')
-  // }
-
-  handleChoosePhoto = async () => {
+  
+  handleChoosePhoto () { 
+    const {image} = this.state;
     const options = {
       noData: true,
     };
     ImagePicker.launchImageLibrary(options, response => {
       if (response.uri) {
-        // this.uploadImage(response.uri, "test-image")
-        this.setState({ image : response.uri })
-      }
-    })
-  }
-
-  uploadImage = async (uri, imageName) => {
-    
-  }
+         this.setState({image:response.uri})
+ 
+        } 
+      })
+    }
 
   accountType(val){
     if(val=='Student'){
       this.setState({studentfields:true , teacherfields:false , type:val})
     }
     else{
-    
       this.setState({studentfields:false , teacherfields:true , type:val})
     }
   }
@@ -250,8 +204,7 @@ class Signup2 extends Component {
                 mode="dropdown"
                 iosIcon={<Icon name="arrow-down" />}
                 style={{ width: undefined, alignSelf:'center' }}
-                selectedValue={this.state.type}
-                placeholder="Complaint As"
+                placeholder="Account Type"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
                 selectedValue={this.state.type}
@@ -379,18 +332,18 @@ class Signup2 extends Component {
   
            
 
-              {photo && (
+              {/* {photo && (
           <Image
-            source={{ uri: photo.uri }}
+            source={{ uri: image.uri }}
             style={{ width: 100, height: 100, alignSelf:'center' }}
           />
-           )}
+           )} */}
             <Text>{"\n"}</Text>
-          <Button transparent onPress={this.handleChoosePhoto} block style={{ alignSelf:'center', marginTop: 10, marginBottom:20,color:'#000000'}}><Text>Choose Photo</Text></Button>
+            <Button transparent onPress={() => this.handleChoosePhoto()} block style={{ alignSelf:'center', marginTop: 10, marginBottom:20,color:'#000000'}}><Text>Choose Photo</Text></Button>
             
          
           
-      <Button onPress={this.createAccount} block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 10, marginBottom:20}}><Text>Create Account</Text></Button>
+      <Button onPress={()=>this.createAccount()} block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 10, marginBottom:20}}><Text>Create Account</Text></Button>
       <Text>{"\n"}</Text>
       <Text>{"\n"}</Text>
          

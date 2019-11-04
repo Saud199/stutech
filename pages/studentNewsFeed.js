@@ -144,19 +144,26 @@ class StudentNewsFeed extends Component {
             
 
               <Image  source={{uri : val.Jimg}} style={{height: 200, resizeMode:'contain', width: null, flex: 1}}/>
-             
+              
               
             </CardItem>
-            <CardItem style={{marginRight:15}}>
-              <Left>
-                <Button  block style={{backgroundColor: '#14c2e0' , width: 105}}><Text>Reminder</Text></Button>
-              </Left>
-              <Body>
-                <Button onPress={(e)=>this.addFav(ind)} block style={{backgroundColor: '#14c2e0' , width: 105}}><Text>Favourite</Text></Button>
+            <CardItem style={{flexDirection:'column'}}>
+              <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+              <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
+                {/* <Button onPress={(e)=>this.addFav(ind)} block style={{backgroundColor: '#14c2e0' , width: 105}}><Text>Favourite</Text></Button> */}
+                <Button transparent style={{width: 22, height: 22}}>
+                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
+                </Button>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
+                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
+                </Button>
+                <Button transparent style={{width: 22, height: 22}} >
+                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
+                </Button>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
+                </Button>
               </Body>
-              <Right>
-                <Button onPress={(e)=>this.viewProf(ind)} block style={{backgroundColor: '#14c2e0', width: 105}}><Text>Profile</Text></Button>
-              </Right>
             </CardItem>
           </Card>
           

@@ -78,16 +78,22 @@ class StudentViewCategories extends Component {
              
               
             </CardItem>
-            <CardItem style={{marginRight:15}}>
-              <Left>
-                <Button  block style={{backgroundColor: '#14c2e0' , width: 105}}><Text>Reminder</Text></Button>
-              </Left>
-              <Body>
-                <Button block style={{backgroundColor: '#14c2e0' , width: 105}}><Text>Favourite</Text></Button>
+            <CardItem style={{flexDirection:'column'}}>
+              <Text style={{alignSelf:'center', color:'#14c2e0'}}>{"\n"}Category{"\n"}</Text>
+              <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
+                <Button transparent style={{width: 22, height: 22}}>
+                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
+                </Button>
+                <Button transparent style={{width: 22, height: 22}}>
+                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
+                </Button>
+                <Button transparent style={{width: 22, height: 22}} >
+                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
+                </Button>
+                <Button transparent style={{width: 22, height: 22}} >
+                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
+                </Button>
               </Body>
-              <Right>
-                <Button block style={{backgroundColor: '#14c2e0', width: 105}}><Text>Profile</Text></Button>
-              </Right>
             </CardItem>
           </Card>
           

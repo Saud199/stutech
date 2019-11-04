@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {View} from 'react-native';
 import {Button, Container, Header, Content,Item,Label,Input,Text,Form,Body, Title, Left, Right, Icon} from 'native-base';
 import firebase from '../config/firebase.js';
 import { connect } from 'react-redux';
@@ -71,9 +72,10 @@ class Security extends Component {
   
        <Content padder style={{ padding: 7 }}>
         
-       <Form>
-
-            <Text style={{ alignSelf: 'center', fontSize: 20}}>UPDATE PASSWORD</Text>
+       <Form style={{borderColor:'#000000', borderWidth:1, padding:15, borderColor:'#14c2e0'}}>
+       <View style={{backgroundColor:'#14c2e0'}}>
+            <Text style={{ alignSelf: 'center', fontSize: 20 }}>UPDATE PASSWORD</Text>
+            </View>
 
             <Item floatingLabel last>
             <Label >Enter Current Password</Label>
@@ -90,12 +92,14 @@ class Security extends Component {
             <Label>Re-enter New Password</Label>
             <Input secureTextEntry={true} onChangeText={(txt) => this.setState({ reNewPass : txt })} value={this.state.reNewPass} />
             </Item>
+
+            <Button  block onPress={() => this.updatePassword()} style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 30, marginBottom:20}}><Text> Update </Text></Button>
             
             
         </Form>
 
         
-        <Button  block onPress={() => this.updatePassword()} style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 30, marginBottom:20}}><Text> Update </Text></Button>
+        
 
           </Content>
         

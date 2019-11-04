@@ -81,7 +81,7 @@ class studentSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail onPress={()=> this.signOut()}>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentViewOrganizations')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/organization.jpg')} />
               </Left>
@@ -90,7 +90,7 @@ class studentSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('TeacherAchievements')}>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentAchievements')}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/achievements.jpg')} />
               </Left>
@@ -104,20 +104,20 @@ class studentSideBar extends Component {
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/favourite.jpg')} />
               </Left>
               <Body>
-                <Text>Favourites</Text>
+                <Text>Favorites</Text>
               </Body>
             </ListItem>
 
             <ListItem thumbnail onPress={()=> this.props.navigation.navigate('Security')}>
               <Left>
-                <Thumbnail square style={{width: 25, height: 25}}  source={require('../images/security.png')} />
+                <Thumbnail square style={{width: 25, height: 25}}  source={require('../images/settings.png')} />
               </Left>
               <Body>
-                <Text>Security</Text>
+                <Text>Settings</Text>
               </Body>
             </ListItem>
 
-            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('Login')}>
+            <ListItem thumbnail onPress={()=> this.logOff()}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/logoff.jpg')} />
               </Left>

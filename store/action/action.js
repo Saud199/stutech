@@ -45,3 +45,9 @@ export function AdminDetail(ainfo) {
         dispatch({ type: 'ADMININFO', payload: ainfo  })
     }
 }
+
+export function PostDetail(pinfo) {
+    return dispatch => {
+        dispatch({ type: 'POSTINFO', payload: pinfo  })
+    }
+}
