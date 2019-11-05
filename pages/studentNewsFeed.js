@@ -4,7 +4,7 @@ import { Container, Header, Drawer, Root, Title, Item, Input, Tab, Tabs, Scrolla
 import {Home} from '../components/studentSideBar.js';
 import firebase from '../config/firebase.js'
 import { connect } from 'react-redux';
-
+import {PostDetail} from '../store/action/action.js';
 
 
 
@@ -87,6 +87,28 @@ class StudentNewsFeed extends Component {
       //this.props.history.push('./stuViewOrg')
   }
 
+  checkPostDetails(i){
+    const {JobsNF} = this.state;
+
+    detailsObj = {
+      id : JobsNF[i].id ,
+      logo : JobsNF[i].logo,
+      Jimg : JobsNF[i].Jimg,
+      orgName : JobsNF[i].orgName,
+      description : JobsNF[i].description,
+      date : JobsNF[i].date,
+      experience : JobsNF[i].experience,
+      type : JobsNF[i].type,
+      cid : JobsNF[i].cid,
+      category : JobsNF[i].category,
+      subject : JobsNF[i].subject
+    }
+
+    this.props.postInfo(detailsObj);
+    this.props.navigation.navigate('StudentViewPostFromNF')
+
+  }
+
 
 
 
@@ -139,6 +161,9 @@ class StudentNewsFeed extends Component {
                 </Body>
               </Left>
             </CardItem>
+
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+
             <CardItem cardBody>
 
             
@@ -148,7 +173,7 @@ class StudentNewsFeed extends Component {
               
             </CardItem>
             <CardItem style={{flexDirection:'column'}}>
-              <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+              
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
                 {/* <Button onPress={(e)=>this.addFav(ind)} block style={{backgroundColor: '#14c2e0' , width: 105}}><Text>Favourite</Text></Button> */}
                 <Button transparent style={{width: 22, height: 22}}>
@@ -157,7 +182,7 @@ class StudentNewsFeed extends Component {
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} >
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
@@ -197,7 +222,7 @@ function mapStateToProp(state) {
 function mapDispatchToProp(dispatch) {
   return ({
      // jb class se data store me bhejna hota hai
-    
+     postInfo : (info)=>{dispatch(PostDetail(info))}
   })
 }
 

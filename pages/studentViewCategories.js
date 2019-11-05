@@ -70,6 +70,7 @@ class StudentViewCategories extends Component {
                 </Body>
               </Left>
             </CardItem>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{"\n"}Category{"\n"}</Text>
             <CardItem cardBody>
 
             
@@ -79,7 +80,7 @@ class StudentViewCategories extends Component {
               
             </CardItem>
             <CardItem style={{flexDirection:'column'}}>
-              <Text style={{alignSelf:'center', color:'#14c2e0'}}>{"\n"}Category{"\n"}</Text>
+              
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <Button transparent style={{width: 22, height: 22}}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />

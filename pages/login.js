@@ -159,16 +159,15 @@ class Login extends Component {
         <Form>
 
         <Item regular>
-              <Label >Enter Email</Label>
-              <Input keyboardType="email-address" onChangeText={(txt) => this.setState({ uemail : txt })}  value={this.state.uemail} />
+              {/* <Label >Enter Email</Label> */}
+              <Input keyboardType="email-address" placeholder="Enter Email" onChangeText={(txt) => this.setState({ uemail : txt })}  value={this.state.uemail} />
 
 
             </Item>
 
             <Item regular style={{flex:0.75, marginTop:20}}>
-              
-                <Label >Enter Password</Label>
-                <Input secureTextEntry={this.state.hidePassword} onChangeText={(txt) => this.setState({ upass : txt })}  value={this.state.upass}/>
+            
+                <Input secureTextEntry={this.state.hidePassword} placeholder="Enter Password" onChangeText={(txt) => this.setState({ upass : txt })}  value={this.state.upass}/>
               
                 <Button transparent style={{width: 22, height: 22, flex: 0.25}} onPress={this.setPasswordVisibility}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/show_pass.png')} />

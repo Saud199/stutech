@@ -110,10 +110,10 @@ class studentSideBar extends Component {
 
             <ListItem thumbnail onPress={()=> this.props.navigation.navigate('Security')}>
               <Left>
-                <Thumbnail square style={{width: 25, height: 25}}  source={require('../images/settings.png')} />
+                <Thumbnail square style={{width: 25, height: 25}}  source={require('../images/security.png')} />
               </Left>
               <Body>
-                <Text>Settings</Text>
+                <Text>Security</Text>
               </Body>
             </ListItem>
 

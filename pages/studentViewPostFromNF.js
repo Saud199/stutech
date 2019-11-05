@@ -6,13 +6,13 @@ import firebase from '../config/firebase.js'
 import { connect } from 'react-redux';
 
 
-class StudentViewPostDetails extends Component {
+class StudentViewPostFromNF extends Component {
 
     constructor() {
         super();
 
         this.state ={
-          descriptionArray : []
+          postDescriptionArray : []
         }
     
     }
@@ -58,14 +58,14 @@ class StudentViewPostDetails extends Component {
 
 
   render() {
-    const {favouritesArray} = this.state;
+    const {postDescriptionArray} = this.state;
     return (
 
       <Container>
 
         <Header style={{backgroundColor:'#14c2e0'}}>
           <Left>
-            <Button transparent onPress={()=> this.props.navigation.navigate('StudentFavourites')}>
+            <Button transparent onPress={()=> this.props.navigation.navigate('StudentNewsFeed')}>
               <Icon name='arrow-back' />
             </Button>
           </Left>
@@ -138,4 +138,4 @@ function mapDispatchToProp(dispatch) {
   })
 }
 
-export default connect(mapStateToProp, mapDispatchToProp)(StudentViewPostDetails);
+export default connect(mapStateToProp, mapDispatchToProp)(StudentViewPostFromNF);

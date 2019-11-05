@@ -145,10 +145,11 @@ class StudentFavourites extends Component {
                   <CardItem cardBody>
                     <Image source={{uri : val.Jimg}} style={{height: 200, width: null, flex: 1, resizeMode:'contain'}}/>
                   </CardItem>
-                  <CardItem>
+                  <CardItem style={{flexDirection:'column'}}>
                     {/* <Left>
                       <Button block style={{backgroundColor: '#14c2e0' , width : 120}}><Text>Profile</Text></Button>
                     </Left> */}
+                    <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
                     <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
                       <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                         <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
