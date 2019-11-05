@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { Container, Header, Drawer, Root, Title, Item, Input, Tab, Tabs, ScrollableTab, Toast, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
-import SideBar from '../components/teacherSideBar.js';
+import {TeacherHome} from '../components/teacherSideBar.js';
+import firebase from '../config/firebase.js';
+import { connect } from 'react-redux';
+import {PostDetail} from '../store/action/action.js';
 
 
 class TeacherNewsFeed extends Component{
@@ -11,19 +14,109 @@ class TeacherNewsFeed extends Component{
         super();
         this.state ={
           teacherNewsFeedArray : [],
-        
+          JobsNF : []
           
         }
-    
+        
+      }
+
+      componentDidMount() {
+        this.addData();
       }
     
+
       addData() {
-        const {teacherNewsFeedArray} = this.state;
-        teacherNewsFeedArray.push({name : 'SSUET' , image : require('../images/job.jpg')});
-        teacherNewsFeedArray.push({name : 'Oracle' , image : require('../images/oracle.png')});
-        teacherNewsFeedArray.push({name : 'Decima' , image : require('../images/decima.png')});
-        teacherNewsFeedArray.push({name : 'App Bakers' , image : require('../images/ssuet.png')});
+        const {JobsNF} = this.state;
+   
+        firebase.database().ref(`/Jobs`).on("value", (snapshot)=> {
+            
+         snapshot.forEach((childSnapshot)=> {
+          var d = childSnapshot.val();
+        
+          var obj = {
+          id : d.id ,
+          logo : d.clogo ,
+          Jimg : d.image ,
+          orgName : d.cemail ,
+          description : d.detail ,
+          date : d.date ,
+          experience : d.workType,
+          type : d.jobType ,
+          cid : d.cid ,
+          category : d.category ,
+          subject : d.subject
+         }
+   
+         //alert(''+d.id);
+   
+         JobsNF.push(obj);
+         this.setState({JobsNF})
+         })
+       })
+       
+        // newsFeedArray.push({name : 'SSUET' , image : require('../images/job.jpg')});
+       // newsFeedArray.push({name : 'Oracle' , image : require('../images/oracle.png')});
+       // newsFeedArray.push({name : 'Decima' , image : require('../images/decima.png')});
+       // newsFeedArray.push({name : 'App Bakers' , image : require('../images/ssuet.png')});
+     }
+
+
+     addFav(i){
+      const {JobsNF} = this.state;
+      var data = this.props.details;
+      var skey = firebase.database().ref("Favourite/"+data.empID).push();
+      var obj = {
+              id:skey.key,
+              logo : JobsNF[i].logo ,
+              Jimg : JobsNF[i].Jimg ,
+              orgName : JobsNF[i].orgName ,
+              description : JobsNF[i].description ,
+              date : JobsNF[i].date ,
+              experience : JobsNF[i].experience,
+              type : JobsNF[i].type ,
+              cid : JobsNF[i].cid ,
+              category : JobsNF[i].category ,
+              subject : JobsNF[i].subject
       }
+  
+      skey.set(obj);
+      alert('Add Favourite Successfully')
+    }
+
+    viewProf(i){
+      const {JobsNF} = this.state;
+      localStorage.setItem('orgID' , JobsNF[i].cid);
+      //this.props.history.push('./stuViewOrg')
+  }
+
+  checkPostDetails(i){
+    const {JobsNF} = this.state;
+
+    detailsObj = {
+      id : JobsNF[i].id ,
+      logo : JobsNF[i].logo,
+      Jimg : JobsNF[i].Jimg,
+      orgName : JobsNF[i].orgName,
+      description : JobsNF[i].description,
+      date : JobsNF[i].date,
+      experience : JobsNF[i].experience,
+      type : JobsNF[i].type,
+      cid : JobsNF[i].cid,
+      category : JobsNF[i].category,
+      subject : JobsNF[i].subject
+    }
+
+    this.props.postInfo(detailsObj);
+    this.props.navigation.navigate('TeacherViewPostFromNF')
+
+  }
+      // addData() {
+      //   const {teacherNewsFeedArray} = this.state;
+      //   teacherNewsFeedArray.push({name : 'SSUET' , image : require('../images/job.jpg')});
+      //   teacherNewsFeedArray.push({name : 'Oracle' , image : require('../images/oracle.png')});
+      //   teacherNewsFeedArray.push({name : 'Decima' , image : require('../images/decima.png')});
+      //   teacherNewsFeedArray.push({name : 'App Bakers' , image : require('../images/ssuet.png')});
+      // }
     
       closeDrawer () {
         this._drawer._root.close()
@@ -33,12 +126,11 @@ class TeacherNewsFeed extends Component{
       };
     
       render() {
-        const {teacherNewsFeedArray} = this.state;
-        this.addData();
+        const {JobsNF} = this.state;
         return (<Root>
           <Drawer 
             ref={(ref) => { this._drawer = ref; }} 
-            content={<SideBar navigator={this._navigator} />} 
+            content={<TeacherHome navigator={this._navigator} />} 
             onClose={() => this.closeDrawer()} >
     
               
@@ -60,47 +152,55 @@ class TeacherNewsFeed extends Component{
             </Header>
 
             <Content style={{backgroundColor:'#D3D3D3'}}>
-            { teacherNewsFeedArray.map((val , ind) => {
-                return(
-    
+            { JobsNF.map((val , ind) => {
+            return(
+
+           
+          
+          <Card>
+            <CardItem>
+              <Left>
+                <Thumbnail source={{uri:val.logo}} />
+                <Body>
+                  <Text>Organization Name here</Text>
+                  <Text note>{val.orgName}</Text>
+                </Body>
+              </Left>
+            </CardItem>
+
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+
+            <CardItem cardBody>
+
+            
+
+              <Image  source={{uri : val.Jimg}} style={{height: 200, resizeMode:'contain', width: null, flex: 1}}/>
+              
+              
+            </CardItem>
+            <CardItem style={{flexDirection:'column'}}>
+              
+              <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
+                {/* <Button onPress={(e)=>this.addFav(ind)} block style={{backgroundColor: '#14c2e0' , width: 105}}><Text>Favourite</Text></Button> */}
                
-              
-              <Card>
-                <CardItem>
-                  <Left>
-                    <Thumbnail source={val.image} />
-                    <Body>
-                      <Text>{val.name}</Text>
-                      <Text note>GeekyAnts</Text>
-                    </Body>
-                  </Left>
-                </CardItem>
-                <CardItem cardBody>
-    
-                
-    
-                  <Image  source={val.image} style={{height: 200, resizeMode:'contain', width: null, flex: 1}}/>
-                 
-                  
-                </CardItem>
-                <CardItem style={{marginRight:15}}>
-                  <Left>
-                    <Button  block style={{backgroundColor: '#14c2e0' , width: 105}}><Text>Reminder</Text></Button>
-                  </Left>
-                  <Body>
-                    <Button block style={{backgroundColor: '#14c2e0' , width: 105}}><Text>Favourite</Text></Button>
-                  </Body>
-                  <Right>
-                    <Button block style={{backgroundColor: '#14c2e0', width: 105}}><Text>Profile</Text></Button>
-                  </Right>
-                </CardItem>
-              </Card>
-              
-              
-    
-               )
-              })
-              }
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
+                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
+                </Button>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
+                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
+                </Button>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
+                </Button>
+              </Body>
+            </CardItem>
+          </Card>
+          
+          
+
+           )
+          })
+          }
             </Content>
             
     
@@ -126,5 +226,19 @@ class TeacherNewsFeed extends Component{
 
 }
 
+function mapStateToProp(state) {
+  return ({
+    // jb class me data mangwana hota hy store se
+    details: state.root. teacherInfo ,
+    accounttype : state.root.accountType
+  })
+}
+function mapDispatchToProp(dispatch) {
+  return ({
+     // jb class se data store me bhejna hota hai
+     postInfo : (info)=>{dispatch(PostDetail(info))}
+  })
+}
 
-export default TeacherNewsFeed;
+
+export default connect(mapStateToProp, mapDispatchToProp)(TeacherNewsFeed);

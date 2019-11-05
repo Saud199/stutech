@@ -4,7 +4,7 @@ import { Container, Header, Drawer, Root, Title, Item, Input, Tab, Tabs, Scrolla
 import {Home} from '../components/studentSideBar.js';
 import firebase from '../config/firebase.js'
 import { connect } from 'react-redux';
-import {PostDetail} from '../store/action/action.js';
+import {PostDetail, OrganizationDetail} from '../store/action/action.js';
 
 
 
@@ -83,8 +83,15 @@ class StudentNewsFeed extends Component {
 
   viewProf(i){
       const {JobsNF} = this.state;
-      localStorage.setItem('orgID' , JobsNF[i].cid);
+
+      var orgDetailsObj ={
+        orgID : JobsNF[i].cid
+      }
+
+      this.props.orgInfo(orgDetailsObj);
+      //localStorage.setItem('orgID' , JobsNF[i].cid);
       //this.props.history.push('./stuViewOrg')
+      this.props.navigation.navigate('StudentViewOrganizations');
   }
 
   checkPostDetails(i){
@@ -222,7 +229,8 @@ function mapStateToProp(state) {
 function mapDispatchToProp(dispatch) {
   return ({
      // jb class se data store me bhejna hota hai
-     postInfo : (info)=>{dispatch(PostDetail(info))}
+     postInfo : (info)=>{dispatch(PostDetail(info))},
+     orgInfo : (info)=>{dispatch(OrganizationDetail(info))},
   })
 }
 

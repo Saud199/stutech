@@ -67,6 +67,7 @@ class StudentFavourites extends Component {
       // }).then((result) => {
       //   if (result.value) {
           firebase.database().ref(`Favourite/${data.rollNo}/${favouritesArray[i].id}`).set({});
+          alert("Deleted Successfully");
           // Swal.fire(
           //   'Deleted!',
           //   'Your data has been deleted.',
@@ -96,7 +97,7 @@ class StudentFavourites extends Component {
       }
 
       this.props.postInfo(detailsObj);
-      this.props.navigation.navigate('StudentViewPostDetails')
+      this.props.navigation.navigate('StudentViewPostDetails');
 
     }
 

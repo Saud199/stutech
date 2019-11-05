@@ -55,7 +55,7 @@ class TeacherAchievements extends Component {
 
         <Header style={{backgroundColor:'#14c2e0'}}>
           <Left>
-            <Button transparent onPress={()=> this.props.navigation.navigate('StudentNewsFeed')}>
+            <Button transparent onPress={()=> this.props.navigation.navigate('TeacherNewsFeed')}>
               <Icon name='arrow-back' />
             </Button>
           </Left>

@@ -17,6 +17,7 @@ import StudentViewCategories from '../pages/studentViewCategories.js';
 import StudentViewPostDetails from '../pages/studentViewPostDetails.js';
 import StudentViewOwnComplaints from '../pages/studentViewOwnComplaints.js';
 import StudentViewPostFromNF from '../pages/studentViewPostFromNF.js';
+import StudentViewOrganizationDetails from '../pages/studentViewOrganizationDetails.js';
 import ContactsList from '../pages/contactList.js';
 import Messenger from '../pages/messenger.js';
 import ForgetPassword from '../pages/forgetPassword.js';
@@ -31,6 +32,9 @@ import TeacherComplaints from '../pages/teacherComplaints.js';
 import TeacherProfile from '../pages/teacherProfile.js';
 import Security from '../pages/security.js';
 import TeacherSecurity from '../pages/teacherSecurity.js';
+import TeacherViewOwnComplaints from '../pages/teacherViewOwnComplaints.js';
+import TeacherViewPostDetails from '../pages/teacherViewPostDetails.js';
+import TeacherViewPostFromNF from '../pages/teacherViewPostFromNF.js';
 
 
 
@@ -54,6 +58,7 @@ const AppStackNavigator = createStackNavigator({
     StudentViewPostDetails : {screen : StudentViewPostDetails},
     StudentViewOwnComplaints : {screen : StudentViewOwnComplaints},
     StudentViewPostFromNF : {screen : StudentViewPostFromNF},
+    StudentViewOrganizationDetails : {screen : StudentViewOrganizationDetails},
     ContactsList : {screen : ContactsList},
     Messenger : {screen : Messenger},
     ForgetPassword : {screen : ForgetPassword},
@@ -67,7 +72,10 @@ const AppStackNavigator = createStackNavigator({
     TeacherComplaints : {screen : TeacherComplaints},
     TeacherProfile : {screen : TeacherProfile},
     TeacherViewCategories : {screen : TeacherViewCategories},
-    TeacherSecurity : {screen : TeacherSecurity}
+    TeacherSecurity : {screen : TeacherSecurity},
+    TeacherViewOwnComplaints : {screen : TeacherViewOwnComplaints},
+    TeacherViewPostDetails : {screen : TeacherViewPostDetails},
+    TeacherViewPostFromNF : {screen : TeacherViewPostFromNF}
 },
 {
     defaultNavigationOptions:{header:null}

@@ -2,7 +2,7 @@ import { withNavigation } from 'react-navigation';
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 import {Content, Button, ListItem, Left, Right,Thumbnail,Body, Icon} from 'native-base';
-import firebase from '../config/firebase.js'
+import firebase from '../config/firebase.js';
 import { connect } from 'react-redux';
 
 class studentSideBar extends Component {
@@ -147,14 +147,6 @@ function mapDispatchToProp(dispatch) {
   })
 }
 
-// export default {
-//   withNavigation,
-//   connect
-// }
-
-//export const  withNavigation;
-//export  default connect(mapStateToProp, mapDispatchToProp )(studentSideBar);
-//export default connect(mapStateToProp, mapDispatchToProp)(studentSideBar);
  export const Home = connect(
   mapStateToProp, 
   mapDispatchToProp

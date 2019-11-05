@@ -51,3 +51,9 @@ export function PostDetail(pinfo) {
         dispatch({ type: 'POSTINFO', payload: pinfo  })
     }
 }
+
+export function OrganizationMoreDetails(orgmoredetails) {
+    return dispatch => {
+        dispatch({ type: 'ORGMOREDETAILS', payload: orgmoredetails  })
+    }
+}

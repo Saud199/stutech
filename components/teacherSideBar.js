@@ -2,6 +2,8 @@ import { withNavigation } from 'react-navigation';
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 import {Content, Button, ListItem, Left, Right,Thumbnail,Body, Icon} from 'native-base';
+import firebase from '../config/firebase.js';
+import { connect } from 'react-redux';
 
 class TeacherSideBar extends Component {
 
@@ -9,9 +11,13 @@ class TeacherSideBar extends Component {
     super(props);
   }
 
-//  showDetails = () => {
-//     this.props.navigation.navigate('StudentComplaints');
-//   }
+  logOff() {
+    firebase.auth().signOut().then(function() {
+      this.props.navigation.navigate('Login');
+    }).catch(function(error) {
+      alert(''+error);
+    });
+  }
 
     render() {
 
@@ -22,11 +28,11 @@ class TeacherSideBar extends Component {
             <ListItem avatar onPress={()=> this.props.navigation.navigate('TeacherProfile')}>
 
             <Left>
-                <Thumbnail source={require('../images/profilepic2.jpg')} />
+                <Thumbnail source={{uri : this.props.details.imgURL}} />
             </Left>
                 
             <Body>
-                <Text>Bill Gates</Text>
+                <Text>{this.props.details.name}</Text>
             </Body>
             
             </ListItem>
@@ -98,7 +104,7 @@ class TeacherSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('Security')}>
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('TeacherSecurity')}>
               <Left>
                 <Thumbnail square style={{width: 25, height: 25}}  source={require('../images/security.png')} />
               </Left>
@@ -107,7 +113,7 @@ class TeacherSideBar extends Component {
               </Body>
             </ListItem>
 
-            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('Login')}>
+            <ListItem thumbnail onPress={()=> this.logOff()}>
               <Left>
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/logoff.jpg')} />
               </Left>
@@ -123,4 +129,21 @@ class TeacherSideBar extends Component {
     )};
 }
 
-export default withNavigation(TeacherSideBar);
+function mapStateToProp(state) {
+  return ({
+    // jb class me data mangwana hota hy store se
+    details: state.root. teacherInfo ,
+    accounttype : state.root.accountType
+  })
+}
+function mapDispatchToProp(dispatch) {
+  return ({
+     // jb class se data store me bhejna hota hai
+    
+  })
+}
+
+ export const TeacherHome = connect(
+  mapStateToProp, 
+  mapDispatchToProp
+ ) (withNavigation (TeacherSideBar));

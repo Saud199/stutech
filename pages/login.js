@@ -111,6 +111,14 @@ class Login extends Component {
           this.props.navigation.navigate('TeacherNewsFeed');
           
         }
+
+        else if(accType=='Organization'){
+          alert("Please login your account through Stutech's Website");
+        }
+
+        else if(accType=='Admin'){
+          alert("Please login your account through Stutech's Website");
+        }
           
 
       })

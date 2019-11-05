@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { Image  } from 'react-native';
 import { Container, Header, Content,Text,Body, Title, Left, Right,Item, Button, Icon, Input, Label} from 'native-base';
-
+import firebase from '../config/firebase.js';
+import { connect } from 'react-redux';
 
 class TeacherProfile extends Component {
 
@@ -9,19 +10,31 @@ class TeacherProfile extends Component {
 
         super();
       
-        this.state={
+        // this.state={
 
-          Name:"Abdul Ahad",
-          PhoneNo: "03032286816",
-          Email: "abdulahad30396@gmail.com",
-          Geneder: "Female",
-          DOB: "30-03-1996",
-          Address: "Fazal Mansion",
+        //   Name:"Abdul Ahad",
+        //   PhoneNo: "03032286816",
+        //   Email: "abdulahad30396@gmail.com",
+        //   Geneder: "Female",
+        //   DOB: "30-03-1996",
+        //   Address: "Fazal Mansion",
 
-          ID: "2016-SE-024",
-          Designation: "2016",
-          Department: "Software Engineer",
+        //   ID: "2016-SE-024",
+        //   Designation: "2016",
+        //   Department: "Software Engineer",
           
+        // }
+
+        this.state = {
+           emp_id : '' ,
+           designation : '' ,
+           name : '' ,
+           phno : '' ,
+           image : '' ,
+           gender : '' ,
+           email : '' ,
+           department : '' ,
+           qualifications:[]
         }
     
       }
@@ -49,203 +62,60 @@ class TeacherProfile extends Component {
 
     <Content padder style={{ padding: 7 }}> 
 
-        <Image
-            style={{width: 200, height: 180, alignSelf:'center'}} 
-            source={require('../images/profilepic2.jpg')}  />
+    <Image
+            style={{width: 200, height: 200, alignSelf:'center', borderRadius:200/2}} 
+            source={{uri:this.props.details.imgURL}}  />
   
             <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>PERSONAL INFORMATION </Text>
+            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000', alignSelf:'center', padding:5}}>PERSONAL INFORMATION </Text>
             <Text>{"\n"}</Text>
-          <Item>
-            <Left>
-            <Text>Name</Text>
-            </Left>
+          
+            <Text>Name : {this.props.details.name}</Text>
 
-            <Right>
-            <Item floatingLabel last>
+              <Text style={{marginTop:27}}>Gender : {this.props.details.gender}</Text>
+
+              <Text style={{marginTop:27}}>Email : {this.props.details.email}</Text>
+
+              <Text style={{marginTop:27}}>Phone Number : {this.props.details.number}</Text>
+      
+
+
             
-              <Input
+                <Text style={{marginTop:27}}>Date Of Birth : {this.props.details.DOB}</Text>
               
-              value={this.state.Name} 
-              onChangeText={(txt) => this.setState({ Name: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
 
-            <Item>
-              <Left>
-            <Label>Phone Number</Label>
-            </Left>
-
-            <Right>
-            <Item floatingLabel last>
             
-              <Input
-              
-              value={this.state.PhoneNo} 
-              onChangeText={(txt) => this.setState({ PhoneNo: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
+
+            
+            <Text>{"\n"}</Text>
+            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000', alignSelf:'center', padding:5}}>TEACHER INFORMATION </Text>
+            <Text>{"\n"}</Text>
 
 
-            <Item>
-
-            <Left>
-              <Text>Email</Text>
-            </Left>
-            <Right>
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Email} 
-              onChangeText={(txt) => this.setState({ Email: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-
-            <Item>
-              <Left>
-                <Text>Gender</Text>
-              </Left>
-            <Right>
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Geneder} 
-              onChangeText={(txt) => this.setState({ Geneder: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-            <Item>
-              <Left>
-                <Text>
-                  Date Of Birth
+            <Text style={{marginTop:27}}>
+                  Employee ID : {this.props.details.empID}
                 </Text>
-              </Left>
-
-              <Right>
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.DOB} 
-              onChangeText={(txt) => this.setState({ DOB: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-
-            <Item>
-              <Left>
-                <Text>Address</Text>
-              </Left>
-
-              <Right>
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Address} 
-              onChangeText={(txt) => this.setState({ Address: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
             
-            <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}>TEACHER INFORMATION </Text>
-            <Text>{"\n"}</Text>
-
-            
-            <Item>
-              <Left>
-                <Text>ID</Text>
-              </Left>
-
-              <Right>
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.ID} 
-              onChangeText={(txt) => this.setState({ ID: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-
-
-
-            <Item>
-              <Left>
-                <Text>
-                  Designation
-                </Text>
-              </Left>
-
-              <Right>
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Designation} 
-              onChangeText={(txt) => this.setState({ Designation: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-
-
-            <Item>
-              <Left>
-                <Text>Department</Text>
-              </Left>
-
-              <Right>
-
-              
-            <Item floatingLabel last>
-              <Input
-              
-              value={this.state.Department} 
-              onChangeText={(txt) => this.setState({ Department: txt })} 
-             
-              />   
-            </Item>
-            </Right>
-            </Item>
-
-            <Text>{"\n"}</Text>
-            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000'}}> Qualification </Text>
-            <Text>{"\n"}</Text>
-            
-            <Item>
-              
-                <Text>
-                  Not Added
-                </Text>
-              
-            </Item>
-
            
-        <Button  block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40, marginBottom:30}}><Text>Update</Text></Button>
+                <Text style={{marginTop:27}}>Designation : {this.props.details.designation}</Text>
 
 
 
+                <Text style={{marginTop:27}}>Department : {this.props.details.department}</Text>
+
+
+            <Text>{"\n"}</Text>
+            <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000', alignSelf:'center', padding:5}}>QUALIFICATIONS</Text>
+            <Text>{"\n"}</Text>
+
+            {/* {
+              achievements.map((val , index ) => {
+                return(
+                     <Text>{ val.detail }</Text>
+                )
+             })
+
+            } */}
         
            </Content>
    </Container>
@@ -263,4 +133,19 @@ class TeacherProfile extends Component {
 
 }
 
-export default TeacherProfile;
+function mapStateToProp(state) {
+  return ({
+    // jb class me data mangwana hota hy store se
+    details: state.root. teacherInfo ,
+    accounttype : state.root.accountType
+  })
+}
+function mapDispatchToProp(dispatch) {
+  return ({
+     // jb class se data store me bhejna hota hai
+    
+  })
+}
+
+
+export default connect(mapStateToProp, mapDispatchToProp)(TeacherProfile);

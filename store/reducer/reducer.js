@@ -7,7 +7,8 @@ const INITIAL_STATE = {
     organizationInfo:{},
     adminInfo:{},
     dynamicInfo:{},
-    postInfo:{}
+    postInfo:{},
+    orgMoreInfo:{}
 }
 
 // Use Case To Check the triggered Function of Action.js and set the triggered function value init respective obeject or variable  
@@ -62,6 +63,13 @@ export default (state = INITIAL_STATE, action) => {
             return ({
                 ...state,
                  postInfo : action.payload ,
+                 accountType : action.payload.accountType || 'not Defined'
+            })
+
+            case 'ORGMOREDETAILS' :
+            return ({
+                ...state,
+                 orgMoreInfo : action.payload ,
                  accountType : action.payload.accountType || 'not Defined'
             })
 
