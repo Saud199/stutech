@@ -1,18 +1,17 @@
 import React, {Component} from 'react';
 import { Image, View } from 'react-native';
 import { Container, Header, Left, Body, Title, Right, Content, DatePicker, Form, Button, Item, Picker, Input, Icon, Label, Textarea, Text, List, ListItem, Thumbnail, Card, CardItem} from 'native-base';
-import { withNavigation } from 'react-navigation';
 import firebase from '../config/firebase.js'
 import { connect } from 'react-redux';
 
 
-class StudentViewPostFromNF extends Component {
+class StudentViewAchievementDetails extends Component {
 
     constructor() {
         super();
 
         this.state ={
-          postDescriptionArray : []
+          descriptionArray : []
         }
     
     }
@@ -58,14 +57,14 @@ class StudentViewPostFromNF extends Component {
 
 
   render() {
-    const {postDescriptionArray} = this.state;
+    const {favouritesArray} = this.state;
     return (
 
       <Container>
 
         <Header style={{backgroundColor:'#14c2e0'}}>
           <Left>
-            <Button transparent onPress={()=> this.props.navigation.navigate('StudentNewsFeed')}>
+            <Button transparent onPress={()=> this.props.navigation.navigate('StudentAchievements')}>
               <Icon name='arrow-back' />
             </Button>
           </Left>
@@ -77,18 +76,10 @@ class StudentViewPostFromNF extends Component {
 
 
         <Content padder style={{ padding: 7 }}>
-                <CardItem>
-                    <Left>
-                      <Thumbnail source={{uri : this.props.postDetails.logo}} />
-                      <Body>
-                        <Text>Ogranization Name goes here</Text>
-                        <Text note>{this.props.postDetails.orgName}</Text>
-                      </Body>
-                    </Left>
-                </CardItem>
-                <Text style={{alignSelf:'center', color:'#14c2e0'}}>{this.props.postDetails.category}</Text>
+                <Text style={{alignSelf:'center', color:'#14c2e0'}}>{this.props.achieveDetails.subject}</Text>
+                <Text>{"\n"}</Text>
                 <CardItem cardBody>
-                    <Image source={{uri : this.props.postDetails.Jimg}} style={{height: 200, width: null, flex: 1, resizeMode:'contain'}}/>
+                    <Image source={{uri : this.props.achieveDetails.logo}} style={{height: 200, width: null, flex: 1, resizeMode:'contain'}}/>
                 </CardItem>
 
                 <Text>{"\n"}</Text>
@@ -96,21 +87,27 @@ class StudentViewPostFromNF extends Component {
                 <View style={{borderBottomColor:'black',borderBottomWidth:1}}></View>
 
 
-                <Text style={{fontWeight:'bold'}}>Last Date : <Text style={{fontWeight:'normal'}}>{this.props.postDetails.date}</Text></Text>
+                <Text style={{fontWeight:'bold'}}>Completion Date : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.CompletionDate}</Text></Text>
                 <Text>{"\n"}</Text>
 
-                <Text style={{fontWeight:'bold'}}>Category : <Text style={{fontWeight:'normal'}}></Text></Text>
+                <Text style={{fontWeight:'bold'}}>Organization Name : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.orgName}</Text></Text>
                 <Text>{"\n"}</Text>
 
-                <Text style={{fontWeight:'bold'}}>Event Type : <Text style={{fontWeight:'normal'}}>{this.props.postDetails.type}</Text></Text>
+                <Text style={{fontWeight:'bold'}}>Organization Web : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.orgLink}</Text></Text>
                 <Text>{"\n"}</Text>
 
-                <Text style={{fontWeight:'bold'}}>Work Experience : <Text style={{fontWeight:'normal'}}></Text></Text>
+                <Text style={{fontWeight:'bold'}}>Achieved Skills : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.gettingSkills}</Text></Text>
+                <Text>{"\n"}</Text>
+
+                <Text style={{fontWeight:'bold'}}>Speciality : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.speciality}</Text></Text>
+                <Text>{"\n"}</Text>
+
+                <Text style={{fontWeight:'bold'}}>Degree Type : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.type}</Text></Text>
 
                 <View style={{borderBottomColor:'black',borderBottomWidth:1}}></View>
 
-                <Text style={{fontWeight:'bold'}}>Description :-</Text>
-                <Text style={{fontWeight:'normal'}}>{this.props.postDetails.description}</Text>
+                <Text style={{fontWeight:'bold'}}>Certification Details :-</Text>
+                <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.cerDetails}</Text>
 
 
 
@@ -129,7 +126,7 @@ function mapStateToProp(state) {
   return ({
     details: state.root.studentInfo ,
     accounttype : state.root.accountType,
-    postDetails : state.root.postInfo
+    achieveDetails : state.root.achievementInfo
   })
 }
 function mapDispatchToProp(dispatch) {
@@ -138,4 +135,4 @@ function mapDispatchToProp(dispatch) {
   })
 }
 
-export default connect(mapStateToProp, mapDispatchToProp)(StudentViewPostFromNF);
+export default connect(mapStateToProp, mapDispatchToProp)(StudentViewAchievementDetails);

@@ -24,7 +24,9 @@ class Signup2 extends Component {
       employeeID : '',
       designation : '',
       teachDepartment : 'Computer Engineering',
-      image : ''
+      image : '',
+      enrollNo : '',
+
     }
 
   }
@@ -39,7 +41,7 @@ class Signup2 extends Component {
   // }
 
  async createAccount() {
-    const {type,image,rollNumber,section,stdDate,stdDepartment,batch,employeeID,designation,teachDepartment,teachDate}=this.state;
+    const {type,image,rollNumber,section,stdDate,stdDepartment,batch,employeeID,designation,teachDepartment,teachDate, enrollNo}=this.state;
     
         const response = await fetch(image);
         const blob = await response.blob();
@@ -60,6 +62,9 @@ class Signup2 extends Component {
       // else if(stdDate.length<10 || stdDate.length>10){
       //   alert('Please ! Must Write Your DOB in This Format (DD-MM-YYYY) ')
       // }
+      // else if(enrollNo.length<6){
+      //   alert('Please Write Enrollment Number Correctly')
+      //  }
       else {
         var data = this.props.details;
 
@@ -71,48 +76,73 @@ class Signup2 extends Component {
         var secQues = data.securityQues;
         var secAns = data.securityAns;
 
-        firebase.auth().createUserWithEmailAndPassword(email, pass).then((success)=>{
-
-
-          firebase.storage().ref('images').child(''+(new Date()).getTime()).put(blob).then((res)=>{
-
-            var skey =firebase.database().ref("/Users").push();
-          
-            var studentObj = {
-              id : skey.key,
-              name : name ,
-              email : email,
-              ph_no : ph_no ,
-              pass : pass ,
-              gender : gender ,
-              rollNo : rollNumber ,
-              section : section , 
-              DOB : stdDate ,
-              accountType : "Student" ,
-              department : stdDepartment ,
-              batch : batch,
-              securityQuestion : secQues,
-              securityAnswer : secAns,
-              imgURL : res.task.uploadUrl_
-            }
-      
-            skey.set(studentObj); 
           
 
-            alert('Congratulations Your Account has been Created Successfully')
+          firebase.database().ref("/Users").orderByChild("rollNo").equalTo(""+rollNumber).on("value", (snapshot)=> {
             
-          }).catch((error)=> { 
-            alert(''+error.message)
-           });
-         }).catch((error)=> {
-              alert(''+error.message)
-      });
+            if(snapshot.exists()){
+              alert('Account Already Exist with this Roll No');
+            }
 
-      }
+            else {
+              var metadata = {
+                contentType: 'image/jpeg',
+              };
+
+              firebase.auth().createUserWithEmailAndPassword(email, pass).then((success)=>{
+                firebase.storage().ref('storage').child(''+(new Date()).getTime()).put(blob, metadata).then((res)=>{
+                  return res.ref.getDownloadURL();
+                }).then(downloadURL=>{
+                
+               
+                  var skey =firebase.database().ref("/Users").push();
+                
+                  var studentObj = {
+                    id : skey.key,
+                    name : name ,
+                    email : email,
+                    ph_no : ph_no ,
+                    pass : pass ,
+                    gender : gender ,
+                    rollNo : rollNumber ,
+                    section : section , 
+                    DOB : stdDate ,
+                    accountType : "Student" ,
+                    department : stdDepartment ,
+                    batch : batch,
+                    secQuestion : secQues,
+                    secAns : secAns,
+                    imgURL : downloadURL,
+                    accountStatus : 'Not Approved' ,
+                    enrollNo : enrollNo ,
+                  }
+            
+                  skey.set(studentObj); 
+                
+      
+                  alert('Congratulations Your Account has been Created Successfully')
+                  
+                }).catch((error)=> { 
+                  alert(''+error.message)
+                 });
+
+                }).catch((error)=> {
+                  alert(''+error.message)
+                });
+
+            }
+          
+            
+            })
+
+          
+         
+
+      
     }
     
   }
-
+ }
   
   handleChoosePhoto () { 
     const {image} = this.state;
@@ -239,6 +269,12 @@ class Signup2 extends Component {
                   <Label >Section</Label>
                   <Input onChangeText={(txt) => this.setState({ section : txt })} />
                 
+            </Item>
+
+            <Item floatingLabel last>
+                  <Label >Enrollment Number</Label>
+                  <Input onChangeText={(txt) => this.setState({ enrollNo : txt })}/>
+
             </Item>
 
             <Item floatingLabel last>

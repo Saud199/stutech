@@ -57,3 +57,9 @@ export function OrganizationMoreDetails(orgmoredetails) {
         dispatch({ type: 'ORGMOREDETAILS', payload: orgmoredetails  })
     }
 }
+
+export function AchievementDetail(achdetails) {
+    return dispatch => {
+        dispatch({ type: 'ACHIEVEMENTINFO', payload: achdetails  })
+    }
+}

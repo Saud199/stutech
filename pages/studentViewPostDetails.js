@@ -96,21 +96,21 @@ class StudentViewPostDetails extends Component {
                 <View style={{borderBottomColor:'black',borderBottomWidth:1}}></View>
 
 
-                <Text>Last Date : {this.props.postDetails.date}</Text>
+                <Text style={{fontWeight:'bold'}}>Last Date : <Text style={{fontWeight:'normal'}}>{this.props.postDetails.date}</Text></Text>
                 <Text>{"\n"}</Text>
 
-                <Text>Category : </Text>
+                <Text style={{fontWeight:'bold'}}>Category : <Text style={{fontWeight:'normal'}}></Text></Text>
                 <Text>{"\n"}</Text>
 
-                <Text>Event Type : {this.props.postDetails.type}</Text>
+                <Text style={{fontWeight:'bold'}}>Event Type : <Text style={{fontWeight:'normal'}}>{this.props.postDetails.type}</Text></Text>
                 <Text>{"\n"}</Text>
 
-                <Text>Work Experience : </Text>
+                <Text style={{fontWeight:'bold'}}>Work Experience : <Text style={{fontWeight:'normal'}}></Text></Text>
 
                 <View style={{borderBottomColor:'black',borderBottomWidth:1}}></View>
 
-                <Text>Description :-</Text>
-                <Text>{this.props.postDetails.description}</Text>
+                <Text style={{fontWeight:'bold'}}>Description :-</Text>
+                <Text style={{fontWeight:'normal'}}>{this.props.postDetails.description}</Text>
 
 
 

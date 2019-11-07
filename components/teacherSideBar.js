@@ -12,11 +12,8 @@ class TeacherSideBar extends Component {
   }
 
   logOff() {
-    firebase.auth().signOut().then(function() {
-      this.props.navigation.navigate('Login');
-    }).catch(function(error) {
-      alert(''+error);
-    });
+    firebase.auth().signOut();
+    this.props.navigation.navigate('Login');
   }
 
     render() {

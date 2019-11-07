@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { Image, ImageBackground } from 'react-native';
 import {Button, Container, Header, Content,Item,Label,Input,Text,Form,Body, Title, Left,Icon, Right} from 'native-base';
-
+import firebase from '../config/firebase.js';
+import axios from 'axios';
 
 class ForgetPassword extends Component {
 
@@ -9,17 +10,72 @@ class ForgetPassword extends Component {
         super();
     
         this.state = {
-          emailsent:false,
-          searchemail:true,
-          verifysecurityanswer:false
+          searchemail:true, //1
+          verifysecurityanswer:false, //2
+
+          userEmail : '',
+          userQues : '',
+          getAns : '',
+          enterAns : '',
+          userPass : ''
          
         }
     
-      }
+    }
 
-    //   resetPassword(val){
-    //       if()
-    //   }
+    getQuestion(){
+        const { userEmail, userQues, getAns, enterAns } = this.state;
+        //var  email = document.getElementById('secemail').value;
+          if(userEmail.length<4){
+            alert('Enter Correct Email Address');
+          }else{
+            firebase.database().ref("/Users").orderByChild("email").equalTo(""+userEmail.toLowerCase()).on("value", (snapshot)=> {
+              if(snapshot.exists()){
+              snapshot.forEach((childSnapshot)=> {
+               var data = childSnapshot.val();
+               //console.log(data)
+               //document.getElementById('secques').innerHTML=data.secQuestion;
+               this.setState({
+                 userEmail : data.email ,
+                 userQues : data.secQuestion ,
+                 getAns : data.secAns ,
+                 userPass : data.pass,
+                 searchemail : false,
+                 verifysecurityanswer : true
+               })
+              })
+            }
+              else{
+                alert('The email is not found in database');
+              }
+            })
+          }
+    }
+
+
+    getAnswer(){
+        const { userEmail , userQues , userPass, getAns, enterAns} = this.state;
+        var from = "admin@stutech.com"
+        var to = ""+userEmail;
+        var subject = "Forget Password Request!"
+        var message = "Your Stutech Account Password is :"+userPass;
+        var ans = enterAns
+         //console.log(ans , fans )
+        if(getAns.toLowerCase()==enterAns.toLowerCase()){
+          axios.post('http://192.168.0.111:5000/send', {
+            from , to , subject , message
+          }).then((res) => {
+            //console.log(res.statusText);
+            alert('Your Paasword has been sent to your email');
+            this.props.navigation.navigate('Login');
+          });
+        }
+        else{
+          alert('Your Answer is incorrect');
+        }
+      
+       }
+
 
     render(){
 
@@ -59,12 +115,12 @@ class ForgetPassword extends Component {
             <Content>
             <Item floatingLabel last>
               <Label >Search by Email</Label>
-              <Input />
+              <Input onChangeText={(txt) => this.setState({ userEmail : txt })}  value={this.state.userEmail} />
 
              </Item>
-
+             {/* onPress={()=>{this.setState({searchemail:false,verifysecurityanswer:true,emailsent:false})}} */}
             
-             <Button block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40}} onPress={()=>{this.setState({searchemail:false,verifysecurityanswer:true,emailsent:false})}} ><Text>Search</Text></Button>
+             <Button block onPress={() => this.getQuestion()} style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40}}  ><Text>Search</Text></Button>
         
              </Content>
             }
@@ -74,26 +130,19 @@ class ForgetPassword extends Component {
             {this.state.verifysecurityanswer &&
                 <Content>
                 
-                <Text style={{alignSelf:"center"}}>Security Question</Text>
+                <Text style={{alignSelf:"center"}}>{this.state.userQues}</Text>
 
                 <Text>{"\n"}</Text>
 
                 <Item floatingLabel last>
                 <Label >Security Answer</Label>
-                <Input />
+                <Input onChangeText={(txt) => this.setState({ enterAns : txt })}  value={this.state.userAns}/>
 
                 </Item>
-                
-                <Button block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40}} onPress={()=>{this.setState({searchemail:false,verifysecurityanswer:false,emailsent:true})}}><Text>Submit</Text></Button>
+                {/* onPress={()=>{this.setState({searchemail:false,verifysecurityanswer:false,emailsent:true})}} */}
+                <Button block onPress={() => this.getAnswer()} style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40}} ><Text>Submit</Text></Button>
                 </Content>
                 }
-
-                
-            {this.state.emailsent &&
-           
-           <Text style={{alignSelf:"center"}}>Your new Password has been sent to your email</Text>
-
-            }
 
 
             </Content>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Image, ImageBackground, View } from 'react-native';
 import {Button, Container, Header, Content,Item,Label,Input,Text,Form,Body, Title, Left, Right, Thumbnail} from 'native-base';
-import firebase from '../config/firebase.js'
+import firebase from '../config/firebase.js';
 import { connect } from 'react-redux';
 import {StudentDetail} from '../store/action/action.js';
 import {TeacherDetail} from '../store/action/action.js';
@@ -55,6 +55,8 @@ class Login extends Component {
         
         var accType = childSnapshot.val().accountType;
         var data = childSnapshot.val();
+
+        if(data.accountStatus=='Approved') {
 
         if(accType=='Student'){
 
@@ -111,6 +113,11 @@ class Login extends Component {
           this.props.navigation.navigate('TeacherNewsFeed');
           
         }
+      }
+
+      else if (data.accountStatus=='Not Approved') {
+        alert('Your Account is not approved By Admin ');
+      }
 
         else if(accType=='Organization'){
           alert("Please login your account through Stutech's Website");
