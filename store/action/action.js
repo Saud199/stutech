@@ -63,3 +63,21 @@ export function AchievementDetail(achdetails) {
         dispatch({ type: 'ACHIEVEMENTINFO', payload: achdetails  })
     }
 }
+
+export function ContactDetail(contactdetails) {
+    return dispatch => {
+        dispatch({ type: 'CONTACTINFO', payload: contactdetails  })
+    }
+}
+
+export function ChatData(chtdata) {
+    return dispatch => {
+        dispatch({ type: 'CHATDATA', payload: chtdata  })
+    }
+}
+
+export function ReminderInfo(rinfo) {
+    return dispatch => {
+        dispatch({ type: 'REMINFO', payload: rinfo  })
+    }
+}

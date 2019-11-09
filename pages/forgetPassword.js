@@ -61,7 +61,7 @@ class ForgetPassword extends Component {
         var message = "Your Stutech Account Password is :"+userPass;
         var ans = enterAns
         if(getAns.toLowerCase()==enterAns.toLowerCase()){
-          axios.post('http://stutech2019.herokuapp.com/send', {
+          axios.post('https://stutech2019.herokuapp.com/send', {
             from , to , subject , message
           }).then((res) => {
             alert('Your Password has been sent to your email');

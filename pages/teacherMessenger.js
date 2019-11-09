@@ -4,7 +4,7 @@ import { Container, Content, Header,Icon,Left,Right,ListItem,List,Input,Thumbnai
 import { connect } from 'react-redux';
 import firebase from '../config/firebase.js'; 
 
-class Messenger extends Component {
+class TeacherMessenger extends Component {
 
     constructor() {
         super();
@@ -28,8 +28,8 @@ class Messenger extends Component {
         alert("Please write a message");
       }
       else {
-        var skey =  firebase.database().ref( `chating/${this.props.contactDetails.id}/${this.props.contactDetails.id+this.props.detailsstu.id}`).push();
-        var dkey =  firebase.database().ref( `chating/${this.props.detailsstu.id}/${this.props.detailsstu.id+this.props.contactDetails.id}`).push();
+        var skey =  firebase.database().ref( `chating/${this.props.contactDetails.id}/${this.props.contactDetails.id+this.props.detailstech.id}`).push();
+        var dkey =  firebase.database().ref( `chating/${this.props.detailstech.id}/${this.props.detailstech.id+this.props.contactDetails.id}`).push();
 
         var chatMsgObj = {
           message: msgTxt,
@@ -46,7 +46,7 @@ class Messenger extends Component {
     viewMessages() {
       const { myChatList , pushNode1 , pushNode2 , myMessage , myid } = this.state;
 
-      firebase.database().ref().child(`chating/${this.props.detailsstu.id}/${this.props.detailsstu.id+this.props.contactDetails.id}`).on('child_added', (snap) => {
+      firebase.database().ref().child(`chating/${this.props.detailstech.id}/${this.props.detailstech.id+this.props.contactDetails.id}`).on('child_added', (snap) => {
   
         var obj = {
           message :  snap.val().message ,
@@ -59,9 +59,9 @@ class Messenger extends Component {
     }
 
     deleteChatNode() {
-      firebase.database().ref(`chating/${this.props.detailsstu.id}/${this.props.detailsstu.id+this.props.contactDetails.id}`).set({});
-      firebase.database().ref(`chatList/${this.props.detailsstu.id}/${this.props.contactDetails.id}`).set({});
-      this.props.navigation.navigate('ContactsList');
+      firebase.database().ref(`chating/${this.props.detailstech.id}/${this.props.detailstech.id+this.props.contactDetails.id}`).set({});
+      firebase.database().ref(`chatList/${this.props.detailstech.id}/${this.props.contactDetails.id}`).set({});
+      this.props.navigation.navigate('TeacherContactList');
     }
 
 
@@ -72,7 +72,7 @@ class Messenger extends Component {
 
             <Header style={{backgroundColor:'#14c2e0', height: 100}}>
                     <Left style={{flexDirection:'row'}}>
-                        <Button transparent onPress={()=> this.props.navigation.navigate('ContactsList')}>
+                        <Button transparent onPress={()=> this.props.navigation.navigate('TeacherContactList')}>
                         <Icon name='arrow-back' />
                         </Button>
                         <Thumbnail source={{uri : this.props.contactDetails.logo}} style={{width : 45 , height : 45}} />
@@ -91,7 +91,7 @@ class Messenger extends Component {
                   <View>
                    {val.id == this.props.contactDetails.id && <Text style={{backgroundColor: '#cce5ff', alignSelf:'flex-start',width:180 , borderColor:'#cce5fe', borderWidth:1, padding:5, marginBottom:10 , borderRadius:5}}>{val.message}</Text> }
                     
-                   {val.id == this.props.detailsstu.id && <Text style={{backgroundColor: '#d4edda', alignSelf:'flex-end' , width:180 , borderColor:'#d4eddd', borderWidth:1, padding:5, marginBottom:10 , borderRadius:5}}>{val.message}</Text> }
+                   {val.id == this.props.detailstech.id && <Text style={{backgroundColor: '#d4edda', alignSelf:'flex-end' , width:180 , borderColor:'#d4eddd', borderWidth:1, padding:5, marginBottom:10 , borderRadius:5}}>{val.message}</Text> }
                   </View>
                 )
               })              
@@ -138,4 +138,4 @@ function mapDispatchToProp(dispatch) {
   })
 }
 
-export default connect(mapStateToProp, mapDispatchToProp)(Messenger);
+export default connect(mapStateToProp, mapDispatchToProp)(TeacherMessenger);

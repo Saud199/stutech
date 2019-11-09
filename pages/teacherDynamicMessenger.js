@@ -4,7 +4,7 @@ import { Container, Content, Header,Icon,Left,Right,ListItem,List,Input,Thumbnai
 import { connect } from 'react-redux';
 import firebase from '../config/firebase.js'; 
 
-class Messenger extends Component {
+class TeacherDynamicMessenger extends Component {
 
     constructor() {
         super();
@@ -28,8 +28,8 @@ class Messenger extends Component {
         alert("Please write a message");
       }
       else {
-        var skey =  firebase.database().ref( `chating/${this.props.contactDetails.id}/${this.props.contactDetails.id+this.props.detailsstu.id}`).push();
-        var dkey =  firebase.database().ref( `chating/${this.props.detailsstu.id}/${this.props.detailsstu.id+this.props.contactDetails.id}`).push();
+        var skey =  firebase.database().ref( `chating/${this.props.cinfo.id}/${this.props.cinfo.id+this.props.detailstech.id}`).push();
+        var dkey =  firebase.database().ref( `chating/${this.props.detailstech.id}/${this.props.detailstech.id+this.props.cinfo.id}`).push();
 
         var chatMsgObj = {
           message: msgTxt,
@@ -46,7 +46,7 @@ class Messenger extends Component {
     viewMessages() {
       const { myChatList , pushNode1 , pushNode2 , myMessage , myid } = this.state;
 
-      firebase.database().ref().child(`chating/${this.props.detailsstu.id}/${this.props.detailsstu.id+this.props.contactDetails.id}`).on('child_added', (snap) => {
+      firebase.database().ref().child(`chating/${this.props.detailstech.id}/${this.props.detailstech.id+this.props.cinfo.id}`).on('child_added', (snap) => {
   
         var obj = {
           message :  snap.val().message ,
@@ -59,9 +59,9 @@ class Messenger extends Component {
     }
 
     deleteChatNode() {
-      firebase.database().ref(`chating/${this.props.detailsstu.id}/${this.props.detailsstu.id+this.props.contactDetails.id}`).set({});
-      firebase.database().ref(`chatList/${this.props.detailsstu.id}/${this.props.contactDetails.id}`).set({});
-      this.props.navigation.navigate('ContactsList');
+      firebase.database().ref(`chating/${this.props.detailstech.id}/${this.props.detailstech.id+this.props.cinfo.id}`).set({});
+      firebase.database().ref(`chatList/${this.props.detailstech.id}/${this.props.cinfo.id}`).set({});
+      this.props.navigation.navigate('TeacherContactList');
     }
 
 
@@ -72,13 +72,13 @@ class Messenger extends Component {
 
             <Header style={{backgroundColor:'#14c2e0', height: 100}}>
                     <Left style={{flexDirection:'row'}}>
-                        <Button transparent onPress={()=> this.props.navigation.navigate('ContactsList')}>
+                        <Button transparent onPress={()=> this.props.navigation.navigate('TeacherContactList')}>
                         <Icon name='arrow-back' />
                         </Button>
-                        <Thumbnail source={{uri : this.props.contactDetails.logo}} style={{width : 45 , height : 45}} />
+                        <Thumbnail source={{uri : this.props.cinfo.image}} style={{width : 45 , height : 45}} />
                     </Left>
                     <Body style={{marginLeft: 5}}>
-                        <Title>{this.props.contactDetails.Name}</Title>
+                        <Title>{this.props.cinfo.name}</Title>
                         {/* <Subtitle>{this.props.contactDetails.Email}</Subtitle> */}
                         <Button block style={{ backgroundColor: '#04acc9', borderColor:'#000000',borderWidth:1 ,width:130, height:30, borderRadius:5, marginTop:10, marginRight:10, alignSelf:'flex-end'}} onPress={()=> this.deleteChatNode()} ><Text style={{color:'#ffffff'}}>Delete</Text></Button>
                     </Body>
@@ -89,9 +89,9 @@ class Messenger extends Component {
               {myMessage.map((val, ind) => {
                 return(
                   <View>
-                   {val.id == this.props.contactDetails.id && <Text style={{backgroundColor: '#cce5ff', alignSelf:'flex-start',width:180 , borderColor:'#cce5fe', borderWidth:1, padding:5, marginBottom:10 , borderRadius:5}}>{val.message}</Text> }
+                   {val.id == this.props.cinfo.id && <Text style={{backgroundColor: '#cce5ff', alignSelf:'flex-start',width:180 , borderColor:'#cce5fe', borderWidth:1, padding:5, marginBottom:10 , borderRadius:5}}>{val.message}</Text> }
                     
-                   {val.id == this.props.detailsstu.id && <Text style={{backgroundColor: '#d4edda', alignSelf:'flex-end' , width:180 , borderColor:'#d4eddd', borderWidth:1, padding:5, marginBottom:10 , borderRadius:5}}>{val.message}</Text> }
+                   {val.id == this.props.detailstech.id && <Text style={{backgroundColor: '#d4edda', alignSelf:'flex-end' , width:180 , borderColor:'#d4eddd', borderWidth:1, padding:5, marginBottom:10 , borderRadius:5}}>{val.message}</Text> }
                   </View>
                 )
               })              
@@ -138,4 +138,4 @@ function mapDispatchToProp(dispatch) {
   })
 }
 
-export default connect(mapStateToProp, mapDispatchToProp)(Messenger);
+export default connect(mapStateToProp, mapDispatchToProp)(TeacherDynamicMessenger);

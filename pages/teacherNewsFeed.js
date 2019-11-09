@@ -150,7 +150,7 @@ class TeacherNewsFeed extends Component{
                 <Title>Stutech</Title>
               </Body>
               <Right>
-              <Button transparent onPress={() => this.props.navigation.navigate('ContactsList')}>
+              <Button transparent onPress={() => this.props.navigation.navigate('TeacherContactList')}>
                  <Thumbnail square style={{width: 25, height: 25}}  source={require('../images/messenger.png')} />
                 </Button>
               </Right>

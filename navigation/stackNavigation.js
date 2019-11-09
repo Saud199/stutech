@@ -19,6 +19,7 @@ import StudentViewOwnComplaints from '../pages/studentViewOwnComplaints.js';
 import StudentViewPostFromNF from '../pages/studentViewPostFromNF.js';
 import StudentViewOrganizationDetails from '../pages/studentViewOrganizationDetails.js';
 import StudentViewAchievementDetails from '../pages/studentViewAchievementDetails.js';
+import StudentSetReminder from '../pages/studentSetReminder.js';
 import ContactsList from '../pages/contactList.js';
 import Messenger from '../pages/messenger.js';
 import ForgetPassword from '../pages/forgetPassword.js';
@@ -37,6 +38,12 @@ import TeacherViewOwnComplaints from '../pages/teacherViewOwnComplaints.js';
 import TeacherViewPostDetails from '../pages/teacherViewPostDetails.js';
 import TeacherViewPostFromNF from '../pages/teacherViewPostFromNF.js';
 import TeacherViewOrganizationDetails from '../pages/teacherViewOrganizationDetails.js';
+import TeacherViewAchievementDetails from '../pages/teacherViewAchievementDetails.js';
+import TeacherViewStudentProfile from '../pages/teacherViewStudentProfile.js';
+import TeacherContactList from '../pages/teacherContactList.js';
+import TeacherMessenger from '../pages/teacherMessenger.js';
+import TeacherDynamicMessenger from '../pages/teacherDynamicMessenger.js';
+import TeacherViewOwnPost from '../pages/teacherViewOwnPost.js';
 
 const AppStackNavigator = createStackNavigator({
     SplashScreen : {screen : SplashScreen},
@@ -60,6 +67,7 @@ const AppStackNavigator = createStackNavigator({
     StudentViewPostFromNF : {screen : StudentViewPostFromNF},
     StudentViewOrganizationDetails : {screen : StudentViewOrganizationDetails},
     StudentViewAchievementDetails : {screen : StudentViewAchievementDetails},
+    StudentSetReminder : {screen : StudentSetReminder},
     ContactsList : {screen : ContactsList},
     Messenger : {screen : Messenger},
     ForgetPassword : {screen : ForgetPassword},
@@ -77,7 +85,13 @@ const AppStackNavigator = createStackNavigator({
     TeacherViewOwnComplaints : {screen : TeacherViewOwnComplaints},
     TeacherViewPostDetails : {screen : TeacherViewPostDetails},
     TeacherViewPostFromNF : {screen : TeacherViewPostFromNF},
-    TeacherViewOrganizationDetails : {screen : TeacherViewOrganizationDetails}
+    TeacherViewOrganizationDetails : {screen : TeacherViewOrganizationDetails},
+    TeacherViewAchievementDetails : {screen : TeacherViewAchievementDetails},
+    TeacherViewStudentProfile : {screen : TeacherViewStudentProfile},
+    TeacherContactList : {screen : TeacherContactList},
+    TeacherMessenger : {screen : TeacherMessenger},
+    TeacherDynamicMessenger : {screen : TeacherDynamicMessenger},
+    TeacherViewOwnPost : {screen : TeacherViewOwnPost},
 },
 {
     defaultNavigationOptions:{header:null}

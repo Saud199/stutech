@@ -241,9 +241,6 @@ class TeacherViewCategories extends Component{
             <CardItem style={{flexDirection:'column'}}>
               
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Button transparent style={{width: 22, height: 22}}>
-                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
-                </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
                 </Button>
@@ -299,9 +296,6 @@ class TeacherViewCategories extends Component{
             <CardItem style={{flexDirection:'column'}}>
               
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Button transparent style={{width: 22, height: 22}}>
-                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
-                </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
                 </Button>
@@ -357,9 +351,6 @@ class TeacherViewCategories extends Component{
             <CardItem style={{flexDirection:'column'}}>
               
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Button transparent style={{width: 22, height: 22}}>
-                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
-                </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
                 </Button>
@@ -415,9 +406,6 @@ class TeacherViewCategories extends Component{
             <CardItem style={{flexDirection:'column'}}>
               
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Button transparent style={{width: 22, height: 22}}>
-                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
-                </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
                 </Button>
@@ -473,9 +461,6 @@ class TeacherViewCategories extends Component{
             <CardItem style={{flexDirection:'column'}}>
               
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Button transparent style={{width: 22, height: 22}}>
-                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
-                </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
                 </Button>
@@ -530,9 +515,6 @@ class TeacherViewCategories extends Component{
             <CardItem style={{flexDirection:'column'}}>
               
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Button transparent style={{width: 22, height: 22}}>
-                    <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
-                </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
                 </Button>

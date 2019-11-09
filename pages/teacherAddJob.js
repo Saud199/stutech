@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Image  } from 'react-native';
-import { Container, Header, Left, Body, Title, Right, Content, DatePicker, Form, Button, Item, Picker, Input, Icon, Label, Textarea, Text } from 'native-base';
+import { Container, Header, Left, Body, Title, Right, Content,Thumbnail, DatePicker, Form, Button, Item, Picker, Input, Icon, Label, Textarea, Text } from 'native-base';
 import { withNavigation } from 'react-navigation';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
@@ -185,7 +185,11 @@ class TeacherAddJob extends Component {
           <Body>
             <Title>Stutech</Title>
           </Body>
-          <Right />
+          <Right>
+          <Button transparent onPress={() => this.props.navigation.navigate('TeacherViewOwnPost')} >
+              <Thumbnail square style={{width: 32, height: 32}}  source={require('../images/viewjob.png')} />
+            </Button>
+            </Right>
         </Header>
 
       <Content padder style={{ padding: 7 }}>

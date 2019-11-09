@@ -4,7 +4,7 @@ import { Container, Header, Drawer, Root, Title, Item, Input, Tab, Tabs, Scrolla
 import {Home} from '../components/studentSideBar.js';
 import firebase from '../config/firebase.js'
 import { connect } from 'react-redux';
-import {PostDetail, OrganizationDetail} from '../store/action/action.js';
+import {PostDetail, OrganizationDetail, ReminderInfo} from '../store/action/action.js';
 
 
 
@@ -36,7 +36,7 @@ class StudentNewsFeed extends Component {
        id : d.id ,
        logo : d.clogo ,
        Jimg : d.image ,
-       orgName : d.cemail ,
+       orgName : d.cname ,
        description : d.detail ,
        date : d.date ,
        experience : d.workType,
@@ -89,8 +89,6 @@ class StudentNewsFeed extends Component {
       }
 
       this.props.orgInfo(orgDetailsObj);
-      //localStorage.setItem('orgID' , JobsNF[i].cid);
-      //this.props.history.push('./stuViewOrg')
       this.props.navigation.navigate('StudentViewOrganizations');
   }
 
@@ -113,6 +111,20 @@ class StudentNewsFeed extends Component {
 
     this.props.postInfo(detailsObj);
     this.props.navigation.navigate('StudentViewPostFromNF')
+
+  }
+
+  reminderDetail(i){
+    const {JobsNF}=this.state;
+
+    remDetail = {
+      oname : JobsNF[i].orgName,
+      osubject : JobsNF[i].subject
+    }
+
+    this.props.remInfo(remDetail);
+    this.props.navigation.navigate('StudentSetReminder')
+
 
   }
 
@@ -183,7 +195,7 @@ class StudentNewsFeed extends Component {
               
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
                 {/* <Button onPress={(e)=>this.addFav(ind)} block style={{backgroundColor: '#14c2e0' , width: 105}}><Text>Favourite</Text></Button> */}
-                <Button transparent style={{width: 22, height: 22}}>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.reminderDetail(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
                 </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
@@ -231,6 +243,7 @@ function mapDispatchToProp(dispatch) {
      // jb class se data store me bhejna hota hai
      postInfo : (info)=>{dispatch(PostDetail(info))},
      orgInfo : (info)=>{dispatch(OrganizationDetail(info))},
+     remInfo : (info)=>{dispatch(ReminderInfo(info))},
   })
 }
 

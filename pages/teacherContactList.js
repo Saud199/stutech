@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import firebase from '../config/firebase.js';
 import {DynamicData, ContactDetail} from '../store/action/action.js'; 
 
-class ContactsList extends Component {
+class TeacherContactList extends Component {
 
     constructor() {
         super();
@@ -23,9 +23,9 @@ class ContactsList extends Component {
 
 
     showChatList() {
-      const { myChatList } = this.state;
+      const { myChatList } = this.state;alert("asad "+this.props.detailstech.id);
 
-      firebase.database().ref(`chatList/${this.props.detailsstu.id}`).on("value", (snapshot)=> {
+      firebase.database().ref(`chatList/${this.props.detailstech.id}`).on("value", (snapshot)=> {
         snapshot.forEach((childSnapshot) => {
      
             var obj = {
@@ -51,7 +51,7 @@ class ContactsList extends Component {
         Email : myChatList[i].Email 
       }
       this.props.cntInfo(contactObj);
-      this.props.navigation.navigate('Messenger');
+      this.props.navigation.navigate('TeacherMessenger');
     }
 
 
@@ -62,7 +62,7 @@ class ContactsList extends Component {
 
             <Header style={{backgroundColor:'#14c2e0'}}>
                     <Left>
-                        <Button transparent onPress={()=> this.props.navigation.navigate('StudentNewsFeed')}>
+                        <Button transparent onPress={()=> this.props.navigation.navigate('TeacherNewsFeed')}>
                         <Icon name='arrow-back' />
                         </Button>
                     </Left>
@@ -118,4 +118,4 @@ function mapDispatchToProp(dispatch) {
   })
 }
 
-export default connect(mapStateToProp, mapDispatchToProp)(ContactsList);
+export default connect(mapStateToProp, mapDispatchToProp)(TeacherContactList);
