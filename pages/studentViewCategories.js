@@ -72,18 +72,44 @@ class StudentViewCategories extends Component {
 
   }
 
-  showCategdata(organizationType){
+  showCategdata(organizationType , ref){
+    console.log("Sow categ " , organizationType.i);
     const {allNF , JobsNF, activePage} = this.state;
-  
+    var org ='';
     while(JobsNF.length > 0) {
       JobsNF.splice(0,1); 
       this.setState({JobsNF})
      }
 
-     if(activePage == 0) {
+     if(organizationType.i==0){ 
+       this.addAllData()
+       this.setState({activePage:0})
+      }
+     else if (organizationType.i == 1){ 
+       org = 'Job' 
+       this.setState({activePage:1})
+      }
+     else if (organizationType.i == 2){
+       org = 'Internship'
+       this.setState({activePage:2})
+     }
+     else if (organizationType.i == 3){
+       org = 'Seminars'
+       this.setState({activePage:3})
+     }
+     else if (organizationType.i == 4){
+      org = 'Scholarship'
+      this.setState({activePage:4})
+     }
+     else if (organizationType.i == 5){
+      org = 'Other'
+      this.setState({activePage:5})
+     }
+     
+     
       allNF.map((val , ind)=>{
        
-        if(val.type.includes(organizationType)){
+        if(val.type.includes(org)){
         
          var obj = {
            id : val.id ,
@@ -99,128 +125,9 @@ class StudentViewCategories extends Component {
            subject : val.subject
           }
           JobsNF.push(obj)
-          this.setState({JobsNF})
+          this.setState({JobsNF , activePage:organizationType})
         }
       })
-     }
-     else if(activePage == 1) {
-      allNF.map((val , ind)=>{
-       
-        if(val.type.includes(organizationType)){
-        
-         var obj = {
-           id : val.id ,
-           logo : val.logo ,
-           Jimg : val.Jimg ,
-           orgName : val.orgName ,
-           description : val.description ,
-           date : val.date ,
-           experience : val.experience,
-           type : val.type ,
-           cid : val.cid ,
-           category : val.category ,
-           subject : val.subject
-          }
-          JobsNF.push(obj)
-          this.setState({JobsNF})
-        }
-      })
-
-     }
-     else if(activePage == 2) {
-      allNF.map((val , ind)=>{
-       
-        if(val.type.includes(organizationType)){
-        
-         var obj = {
-           id : val.id ,
-           logo : val.logo ,
-           Jimg : val.Jimg ,
-           orgName : val.orgName ,
-           description : val.description ,
-           date : val.date ,
-           experience : val.experience,
-           type : val.type ,
-           cid : val.cid ,
-           category : val.category ,
-           subject : val.subject
-          }
-          JobsNF.push(obj)
-          this.setState({JobsNF})
-        }
-      })
-
-     }
-     else if(activePage == 3) {
-      allNF.map((val , ind)=>{
-       
-        if(val.type.includes(organizationType)){
-        
-         var obj = {
-           id : val.id ,
-           logo : val.logo ,
-           Jimg : val.Jimg ,
-           orgName : val.orgName ,
-           description : val.description ,
-           date : val.date ,
-           experience : val.experience,
-           type : val.type ,
-           cid : val.cid ,
-           category : val.category ,
-           subject : val.subject
-          }
-          JobsNF.push(obj)
-          this.setState({JobsNF})
-        }
-      })
-
-     }
-     else if(activePage == 4) {
-      allNF.map((val , ind)=>{
-       
-        if(val.type.includes(organizationType)){
-        
-         var obj = {
-           id : val.id ,
-           logo : val.logo ,
-           Jimg : val.Jimg ,
-           orgName : val.orgName ,
-           description : val.description ,
-           date : val.date ,
-           experience : val.experience,
-           type : val.type ,
-           cid : val.cid ,
-           category : val.category ,
-           subject : val.subject
-          }
-          JobsNF.push(obj)
-          this.setState({JobsNF})
-        }
-      })
-
-     }
-  
-    //  allNF.map((val , ind)=>{
-       
-    //    if(val.type.includes(organizationType)){
-       
-    //     var obj = {
-    //       id : val.id ,
-    //       logo : val.logo ,
-    //       Jimg : val.Jimg ,
-    //       orgName : val.orgName ,
-    //       description : val.description ,
-    //       date : val.date ,
-    //       experience : val.experience,
-    //       type : val.type ,
-    //       cid : val.cid ,
-    //       category : val.category ,
-    //       subject : val.subject
-    //      }
-    //      JobsNF.push(obj)
-    //      this.setState({JobsNF})
-    //    }
-     //})
   
   }
 
@@ -306,8 +213,8 @@ class StudentViewCategories extends Component {
 
         
 
-        <Tabs onChangeTab={(i, ref) => this.setState({activePage : i})} tabBarBackgroundColor="#14c2e0" renderTabBar={()=> <ScrollableTab />} >
-          <Tab onPress={() => this.addAllData()} heading="All Posts" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
+        <Tabs onChangeTab={(i, ref) => this.showCategdata(i , ref)} tabBarBackgroundColor="#14c2e0" renderTabBar={()=> <ScrollableTab />} >
+          <Tab  heading="All Posts" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
           <Content style={{backgroundColor:'#D3D3D3'}}>
 
           {JobsNF.length>0 &&
@@ -342,13 +249,13 @@ class StudentViewCategories extends Component {
                 <Button transparent style={{width: 22, height: 22}}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}}>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} >
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} >
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
                 </Button>
               </Body>
@@ -365,7 +272,7 @@ class StudentViewCategories extends Component {
           </Content>
           </Tab>
 
-          <Tab onPress={(e)=>this.showCategdata('Job')} heading="Jobs" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
+          <Tab  heading="Jobs" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
             <Content style={{backgroundColor:'#D3D3D3'}}>
 
           {JobsNF.length>0 &&
@@ -400,13 +307,13 @@ class StudentViewCategories extends Component {
                 <Button transparent style={{width: 22, height: 22}}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}}>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} >
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} >
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
                 </Button>
               </Body>
@@ -423,7 +330,7 @@ class StudentViewCategories extends Component {
           </Content>
           </Tab>
 
-          <Tab onPress={(e)=>this.showCategdata('Internship')} heading="Internships" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
+          <Tab  heading="Internships" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
             <Content style={{backgroundColor:'#D3D3D3'}}>
 
           {JobsNF.length>0 &&
@@ -458,13 +365,13 @@ class StudentViewCategories extends Component {
                 <Button transparent style={{width: 22, height: 22}}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}}>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} >
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} >
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
                 </Button>
               </Body>
@@ -481,7 +388,7 @@ class StudentViewCategories extends Component {
           </Content>
           </Tab>
 
-          <Tab onPress={(e)=>this.showCategdata('Seminar')} heading="Seminars" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
+          <Tab  heading="Seminars" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
             <Content style={{backgroundColor:'#D3D3D3'}}>
 
           {JobsNF.length>0 &&
@@ -516,13 +423,13 @@ class StudentViewCategories extends Component {
                 <Button transparent style={{width: 22, height: 22}}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}}>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} >
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} >
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
                 </Button>
               </Body>
@@ -539,7 +446,7 @@ class StudentViewCategories extends Component {
           </Content>
           </Tab>
 
-          <Tab onPress={(e)=>this.showCategdata('Scholarship')} heading="Scholarships" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
+          <Tab  heading="Scholarships" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
             <Content style={{backgroundColor:'#D3D3D3'}}>
 
           {JobsNF.length>0 &&
@@ -574,13 +481,13 @@ class StudentViewCategories extends Component {
                 <Button transparent style={{width: 22, height: 22}}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}}>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} >
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} >
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
                 </Button>
               </Body>
@@ -597,7 +504,7 @@ class StudentViewCategories extends Component {
           </Content>
           </Tab>
 
-          <Tab onPress={(e)=>this.showCategdata('Other')} heading="Other" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
+          <Tab heading="Other" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
             {JobsNF.length>0 &&
 
           JobsNF.map((val , ind) => {
@@ -630,13 +537,13 @@ class StudentViewCategories extends Component {
                 <Button transparent style={{width: 22, height: 22}}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}}>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/favourite.jpg')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} >
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} >
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
                 </Button>
               </Body>

@@ -9,8 +9,8 @@ import {AchievementDetail} from '../store/action/action.js';
 
 class StudentAchievements extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = { 
             myAchievements : [],
             subject : 'a',
@@ -25,25 +25,17 @@ class StudentAchievements extends Component {
         };
       }
     
+      componentDidMount(){
+        this.addData()
+      }
+    
 
-    handleChoosePhoto = () => {
-      const {image} = this.state;
-        const options = {
-          noData: true,
-        };
-        ImagePicker.launchImageLibrary(options, response => {
-          if (response.uri) {
-            this.setState({ image: response });
-          }
-        });
-    };
-
-    displayCertificates() {
-        const {myAchievements} = this.state;
-        myAchievements.push({name : 'Web & Mobile Application Development' , image : require('../images/c1.jpg')});
-        myAchievements.push({name : 'Android Development' , image : require('../images/c2.jpg')});
-        myAchievements.push({name : 'Speed Programming' , image : require('../images/c3.jpg')});
-    }
+    // displayCertificates() {
+    //     const {myAchievements} = this.state;
+    //     myAchievements.push({name : 'Web & Mobile Application Development' , image : require('../images/c1.jpg')});
+    //     myAchievements.push({name : 'Android Development' , image : require('../images/c2.jpg')});
+    //     myAchievements.push({name : 'Speed Programming' , image : require('../images/c3.jpg')});
+    // }
 
 
     selectType(value) {
@@ -102,18 +94,18 @@ class StudentAchievements extends Component {
       
     }
 
-    handleChoosePhoto () { 
-      const {image} = this.state;
-      const options = {
-        noData: true,
-      };
-      ImagePicker.launchImageLibrary(options, response => {
-        if (response.uri) {
-           this.setState({image:response.uri})
+    // handleChoosePhoto () { 
+    //   const {image} = this.state;
+    //   const options = {
+    //     noData: true,
+    //   };
+    //   ImagePicker.launchImageLibrary(options, response => {
+    //     if (response.uri) {
+    //        this.setState({image:response.uri})
    
-          } 
-        })
-    }
+    //       } 
+    //     })
+    // }
 
     addData(){
       const{myAchievements}=this.state;
@@ -172,47 +164,48 @@ class StudentAchievements extends Component {
   }
 
 
-  componentDidMount(){
-    this.addData()
-  }
+
 
     async shareAchieve(){
 
       const {  myAchievements,subject, orgName, orgWeb, certificationDetails, achievedSkills, completionDate, type, speciality, image } = this.state;
       
-      console.log(image);
-      const response = await fetch(image);
-      const blob = await response.blob();
-
       
-       if(subject.length<1){
-        alert('Please Fill Out Subject Field Correctly')
-       }
-       else if(orgName.length<1){
-        alert('Please Write Out Organization Name Correctly')
-       }
-       else if(orgWeb.length<1){
-        alert('Please Write Organization Website Link Correctly')
-       }
-       else if(certificationDetails.length<1){
-        alert('Please Fill Out certification Field Correctly')
-       }
-       else if(achievedSkills.length<1){
-         alert('Please Fill Your Achieved Skills Correctly')
-       }
-       else if(completionDate.length<1){
-        alert('Please Write Completion date  Correctly')
-       }
-       else if (image==null){
-        alert('Please Select Your Image')
-       }
-      else if(type.includes('all')){
-        alert('Please Select Degree Type ')
-       }
-       else if (special.includes('all')){
-         alert('Please Select Youe Certificate Speciality')
-       }
-       else{
+      console.log(image);
+      
+      const response = await fetch(image);
+        const blob = await response.blob();
+
+        
+      
+      //  if(subject.length<1){
+      //   alert('Please Fill Out Subject Field Correctly')
+      //  }
+      //  else if(orgName.length<1){
+      //   alert('Please Write Out Organization Name Correctly')
+      //  }
+      //  else if(orgWeb.length<1){
+      //   alert('Please Write Organization Website Link Correctly')
+      //  }
+      //  else if(certificationDetails.length<1){
+      //   alert('Please Fill Out certification Field Correctly')
+      //  }
+      //  else if(achievedSkills.length<1){
+      //    alert('Please Fill Your Achieved Skills Correctly')
+      //  }
+      //  else if(completionDate.length<1){
+      //   alert('Please Write Completion date  Correctly')
+      //  }
+      //  else if (image==null){
+      //   alert('Please Select Your Image')
+      //  }
+      // else if(type.includes('all')){
+      //   alert('Please Select Degree Type ')
+      //  }
+      //  else if (special.includes('all')){
+      //    alert('Please Select Youe Certificate Speciality')
+      //  }
+      //  else{
          
            while(myAchievements.length > 0) {
              myAchievements.splice(0,1); 
@@ -221,7 +214,6 @@ class StudentAchievements extends Component {
             var metadata = {
               contentType: 'image/jpeg',
             };
-
             firebase.storage().ref('storage').child(''+(new Date()).getTime()).put(blob, metadata).then((res)=>{
               return res.ref.getDownloadURL();
             }).then(downloadURL=>{
@@ -254,14 +246,24 @@ class StudentAchievements extends Component {
               alert('Your Achievement Added Successfully')
 
             }).catch((error)=> { 
-                  alert(''+error.message)
+                  console.log(error)
             });
-        
          
            
-       }
+      //  }
    }
 
+   handleChoosePhoto = () => {
+    const {image} = this.state;
+      const options = {
+        noData: true,
+      };
+      ImagePicker.launchImageLibrary(options, response => {
+        if (response.uri) {
+          this.setState({ image: response.uri });
+        }
+      });
+  };
 
 
   render() {

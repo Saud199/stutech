@@ -4,7 +4,7 @@ import { Container, Header, Drawer, Root, Title, Item, Input, Tab, Tabs, Scrolla
 import {TeacherHome} from '../components/teacherSideBar.js';
 import firebase from '../config/firebase.js';
 import { connect } from 'react-redux';
-import {PostDetail} from '../store/action/action.js';
+import {PostDetail, OrganizationDetail} from '../store/action/action.js';
 
 
 class TeacherNewsFeed extends Component{
@@ -85,9 +85,14 @@ class TeacherNewsFeed extends Component{
 
     viewProf(i){
       const {JobsNF} = this.state;
-      localStorage.setItem('orgID' , JobsNF[i].cid);
-      //this.props.history.push('./stuViewOrg')
-  }
+
+      var orgDetailsObj ={
+        orgID : JobsNF[i].cid
+      }
+
+      this.props.orgInfo(orgDetailsObj);
+      this.props.navigation.navigate('TecaherViewOrganization');
+    }
 
   checkPostDetails(i){
     const {JobsNF} = this.state;
@@ -236,7 +241,8 @@ function mapStateToProp(state) {
 function mapDispatchToProp(dispatch) {
   return ({
      // jb class se data store me bhejna hota hai
-     postInfo : (info)=>{dispatch(PostDetail(info))}
+     postInfo : (info)=>{dispatch(PostDetail(info))},
+     orgInfo : (info)=>{dispatch(OrganizationDetail(info))},
   })
 }
 

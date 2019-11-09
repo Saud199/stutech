@@ -60,13 +60,11 @@ class ForgetPassword extends Component {
         var subject = "Forget Password Request!"
         var message = "Your Stutech Account Password is :"+userPass;
         var ans = enterAns
-         //console.log(ans , fans )
         if(getAns.toLowerCase()==enterAns.toLowerCase()){
-          axios.post('http://192.168.0.111:5000/send', {
+          axios.post('http://stutech2019.herokuapp.com/send', {
             from , to , subject , message
           }).then((res) => {
-            //console.log(res.statusText);
-            alert('Your Paasword has been sent to your email');
+            alert('Your Password has been sent to your email');
             this.props.navigation.navigate('Login');
           });
         }

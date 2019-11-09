@@ -36,8 +36,7 @@ import TeacherSecurity from '../pages/teacherSecurity.js';
 import TeacherViewOwnComplaints from '../pages/teacherViewOwnComplaints.js';
 import TeacherViewPostDetails from '../pages/teacherViewPostDetails.js';
 import TeacherViewPostFromNF from '../pages/teacherViewPostFromNF.js';
-
-
+import TeacherViewOrganizationDetails from '../pages/teacherViewOrganizationDetails.js';
 
 const AppStackNavigator = createStackNavigator({
     SplashScreen : {screen : SplashScreen},
@@ -77,7 +76,8 @@ const AppStackNavigator = createStackNavigator({
     TeacherSecurity : {screen : TeacherSecurity},
     TeacherViewOwnComplaints : {screen : TeacherViewOwnComplaints},
     TeacherViewPostDetails : {screen : TeacherViewPostDetails},
-    TeacherViewPostFromNF : {screen : TeacherViewPostFromNF}
+    TeacherViewPostFromNF : {screen : TeacherViewPostFromNF},
+    TeacherViewOrganizationDetails : {screen : TeacherViewOrganizationDetails}
 },
 {
     defaultNavigationOptions:{header:null}

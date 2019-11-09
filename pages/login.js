@@ -88,7 +88,7 @@ class Login extends Component {
                department : data.department , 
              }
             firebase.database().ref(`Student/${data.rollNo}/StudentInfo`).update(obj);
-            this.setState({uemail:'' , upass:''})
+            this.setState({uemail:'' , upass:''});
             this.props.navigation.navigate('StudentNewsFeed');
 
 
@@ -107,9 +107,11 @@ class Login extends Component {
             id : data.id ,
             imgURL : data.imgURL ,
             number : data.ph_no ,
+            qualification : data.qualification
           }
 
           this.props.teacherInfo(techObj);
+          this.setState({uemail:'' , upass:''});
           this.props.navigation.navigate('TeacherNewsFeed');
           
         }
@@ -201,8 +203,8 @@ class Login extends Component {
         <Text style={{color:'#14c2e0', alignSelf:"center"}}  onPress={() => this.props.navigation.navigate('ForgetPassword')}>Forget Password ?</Text> 
 
         <Text style={{alignSelf:"center"}}>{"Don't have an account yet ?"}<Text style={{color:'#14c2e0'}} onPress={() => this.props.navigation.navigate('Signup1')} > Click Here</Text> </Text>
-
-        <Button  onPress={() => this.props.navigation.navigate('TeacherNewsFeed')} block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40}}><Text>Teacher Login</Text></Button>
+        <Text>{"\n"}</Text>
+        <Text>{"\n"}</Text>
 
         </Content>
         </ImageBackground>

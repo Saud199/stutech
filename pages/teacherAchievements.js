@@ -3,52 +3,84 @@ import { Container, Header, Left, Body, Title, Right, Content, DatePicker, Form,
 import { Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ImagePicker from 'react-native-image-picker';
+import firebase from '../config/firebase.js';
+import { connect } from 'react-redux';
+import {DynamicData} from '../store/action/action.js';
 
 class TeacherAchievements extends Component {
 
     constructor(props) {
-        super(props);
+        super();
         this.state = { 
-            chosenDate: new Date(),
-            photo:null,
-            certificateArray : []
+          AchievementsArr:[],
+          certificate : 'all' ,
+          special : 'all'
         };
-        this.setDate = this.setDate.bind(this);
-        // selected2: undefined
-      }
-      setDate(newDate) {
-        this.setState({ chosenDate: newDate });
-      }
-    
-      onValueChange2(value) {
-        this.setState({
-          selected2: value
-        });
     }
 
-    handleChoosePhoto = () => {
-        const options = {
-          noData: true,
-        };
-        ImagePicker.launchImageLibrary(options, response => {
-          if (response.uri) {
-            this.setState({ photo: response });
-          }
-        });
-    };
+    componentDidMount(){
+      //this.validation();
+      this.addData();
+    }
 
-    displayCertificates() {
-        const {certificateArray} = this.state;
-        certificateArray.push({name : 'Web & Mobile Application Development' , image : require('../images/c1.jpg')});
-        certificateArray.push({name : 'Android Development' , image : require('../images/c2.jpg')});
-        certificateArray.push({name : 'Speed Programming' , image : require('../images/c3.jpg')});
+    viewProfile(i){
+      const {AchievementsArr} = this.state;
+     
+     var obj = {
+       rollNo :  AchievementsArr[i].rollNo ,
+       id : AchievementsArr[i].userid ,
+       name : AchievementsArr[i].name ,
+       email : AchievementsArr[i].email ,
+       image : AchievementsArr[i].myimg
+     }
+     this.props.dInfo(obj)
+     //this.props.history.push("/stuDynamicProfile")    NAVIGATION
+   }
+  
+      
+
+    addData() {
+        const {AchievementsArr} = this.state;
+
+        var data = this.props.details;
+
+        firebase.database().ref("Achievements").on("value", (snapshot)=> {
+          if(snapshot.exists()){
+            this.setState({progress:false})
+            snapshot.forEach((childSnapshot) => {
+            var rdata = childSnapshot.val();
+        
+            var obj = {
+              id : rdata.id ,
+              image : rdata.image ,
+              orgName : rdata.orgName ,
+              certificateType : rdata.certificateType ,
+              certificateDetail : rdata.certificeDetail ,
+              completeDate : rdata.completeDate ,
+              webLink : rdata.orgLink ,
+              skills : rdata.skills ,
+              Speciality : rdata.speciality ,
+              subject : rdata.subject ,
+              rollNo : rdata.rollNo ,
+              email : rdata.email ,
+              userid : rdata.userID ,
+              name : rdata.userName ,
+              myimg : rdata.myimg 
+              }
+             AchievementsArr.push(obj);
+             this.setState({AchievementsArr})
+        
+          })
+        }
+         })
+        
+        
     }
 
 
 
   render() {
-    const{photo,certificateArray}=this.state;
-    this.displayCertificates();
+    const{AchievementsArr, certificate, special}=this.state;
     return (
 
       <Container>
@@ -65,26 +97,30 @@ class TeacherAchievements extends Component {
           <Right />
         </Header>
 
-        <Tabs tabBarBackgroundColor="#14c2e0" renderTabBar={()=> <ScrollableTab />} >
-          <Tab heading="My Achievements" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
-          <Content>
-          { certificateArray.map((val , ind) => {
+      
+          <Content style={{backgroundColor:'#D3D3D3'}}>
+          { AchievementsArr.map((val , ind) => {
             return(
                 
                 <Card>
                   <CardItem cardBody>
-                    <Image source={val.image} style={{height: 200, width: null, flex: 1}}/>
+                    <Image source={{uri:val.image}} style={{height: 200, width: null, flex: 1, resizeMode:'contain'}}/>
                   </CardItem>
-                  <CardItem style={{alignSelf:'center'}}>
+                  <CardItem style={{alignSelf:'center', flexDirection:'column'}}>
+                    <Text style={{color:'#14c2e0'}}>{val.Speciality}</Text>
                     <Text>{val.name}</Text>
+                    <Text>{val.orgName}</Text>
                   </CardItem>
                   <CardItem>
-                    <Left>
-                      <Button block style={{backgroundColor: '#14c2e0' , width : 120}}><Text>View Details</Text></Button>
-                    </Left>
-                    <Right>
-                      <Button block style={{backgroundColor: '#14c2e0' , width : 120}}><Text>Delete</Text></Button>
-                    </Right>
+                    <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <Button transparent style={{width: 22, height: 22}}>
+                        <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
+                      </Button>
+
+                      <Button transparent style={{width: 22, height: 22}}>
+                        <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/delete.png')} />
+                      </Button>
+                    </Body>
                   </CardItem>
                 </Card>
                 
@@ -92,78 +128,6 @@ class TeacherAchievements extends Component {
                 })
             }
             </Content>
-          </Tab>
-
-          <Tab heading="Add Achievement" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
-            <Content padder style={{ padding: 7 }}>
-
-                <Form>
-
-                    <Text style={{ alignSelf: 'center', fontSize: 20}}>ADD ACHIEVEMENT</Text>
-
-                    <Item floatingLabel last>
-                        <Label >Subject</Label>
-                        <Input />
-                    </Item>
-
-                    <Item floatingLabel last>
-                        <Label >Organization Name</Label>
-                        <Input />
-                    </Item>
-
-                    <Item floatingLabel last>
-                        <Label >Organization Website Link</Label>
-                        <Input />
-                    </Item>
-
-                    <Text>{"\n"}</Text>
-
-                    <Label>Certification Details</Label>
-                    <Textarea rowSpan={4} bordered placeholder="Type Here..." />
-
-                    <Item floatingLabel last>
-                        <Label >Achieved Skills</Label>
-                        <Input />
-                    </Item>
-
-                    <Text>{"\n"}</Text>
-
-                    <Label>Completion Date</Label>
-                    <DatePicker
-                        defaultDate={new Date(2019, 4, 4)}
-                        minimumDate={new Date(2000, 1, 1)}
-                        maximumDate={new Date(2040, 12, 31)}
-                        locale={"en"}
-                        timeZoneOffsetInMinutes={undefined}
-                        modalTransparent={false}
-                        animationType={"fade"}
-                        androidMode={"default"}
-                        placeHolderText="Select date"
-                        placeHolderTextStyle={{color:"#14c2e0"}}
-                        textStyle={{ color: "green" }}
-                        placeHolderTextStyle={{ color: "#d3d3d3" }}
-                        onDateChange={this.setDate}
-                        disabled={false} />
-
-
-                    <Text>{"\n"}</Text>
-
-                    {photo && (
-                        <Image
-                            source={{ uri: photo.uri }}
-                            style={{ width: 100, height: 100, alignSelf: 'center' }} />
-                    )}
-                    <Button transparent onPress={this.handleChoosePhoto} style={{alignSelf:'center', marginTop: 40}}><Text style={{color:'#000000'}}>Choose Photo</Text></Button>
-
-                </Form>
-
-                <Button block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40}}><Text>Add Achievement</Text></Button>
-        
-                <Text>{"\n"}</Text>
-
-            </Content>
-          </Tab>
-        </Tabs>
 
 
 
@@ -175,4 +139,17 @@ class TeacherAchievements extends Component {
 }
 
 
-export default withNavigation(TeacherAchievements);
+function mapStateToProp(state) {
+  return ({
+    details: state.root.teacherInfo ,
+    accounttype : state.root.accountType
+  })
+}
+
+function mapDispatchToProp(dispatch) {
+  return ({
+       dInfo : (info4)=>{ dispatch(DynamicData(info4))} 
+  })
+}
+
+export default connect(mapStateToProp, mapDispatchToProp)(TeacherAchievements);

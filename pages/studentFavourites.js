@@ -4,7 +4,7 @@ import { Container, Header, Left, Body, Title, Right, Content, DatePicker, Form,
 import { withNavigation } from 'react-navigation';
 import firebase from '../config/firebase.js'
 import { connect } from 'react-redux';
-import {PostDetail} from '../store/action/action.js';
+import {PostDetail, OrganizationDetail} from '../store/action/action.js';
 
 class StudentFavourites extends Component {
 
@@ -105,6 +105,19 @@ class StudentFavourites extends Component {
       this.displayFavourites();
     }
 
+    viewProf(i){
+      const {favouritesArray} = this.state;
+
+      var orgDetailsObj ={
+        orgID : favouritesArray[i].cid
+      }
+
+      this.props.orgInfo(orgDetailsObj);
+      //localStorage.setItem('orgID' , JobsNF[i].cid);
+      //this.props.history.push('./stuViewOrg')
+      this.props.navigation.navigate('StudentViewOrganizations');
+    }
+
 
   render() {
     const {favouritesArray} = this.state;
@@ -195,7 +208,8 @@ function mapStateToProp(state) {
 function mapDispatchToProp(dispatch) {
   return ({
       //  getUserinfo : (info)=>{ dispatch(SignupDetail(info))}
-      postInfo : (info)=>{dispatch(PostDetail(info))}
+      postInfo : (info)=>{dispatch(PostDetail(info))},
+      orgInfo : (info)=>{dispatch(OrganizationDetail(info))},
   })
 }
 

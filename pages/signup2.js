@@ -16,7 +16,7 @@ class Signup2 extends Component {
       type:'Student',
       stdDate : '',
       teachDate : '',
-      image: '',
+      // image: '',
       rollNumber : '',
       section : '' ,
       stdDepartment : 'Computer Engineering',
@@ -26,7 +26,7 @@ class Signup2 extends Component {
       teachDepartment : 'Computer Engineering',
       image : '',
       enrollNo : '',
-
+      qual : ''
     }
 
   }
@@ -41,7 +41,7 @@ class Signup2 extends Component {
   // }
 
  async createAccount() {
-    const {type,image,rollNumber,section,stdDate,stdDepartment,batch,employeeID,designation,teachDepartment,teachDate, enrollNo}=this.state;
+    const {type,image,rollNumber,section,stdDate,stdDepartment,batch,employeeID,designation,teachDepartment,teachDate, enrollNo, qual}=this.state;
     
         const response = await fetch(image);
         const blob = await response.blob();
@@ -142,6 +142,103 @@ class Signup2 extends Component {
     }
     
   }
+
+
+  else if((type == 'Teacher')) {
+    if(image == null) {
+      alert('Please upload your photo');
+    }
+    else if(employeeID.length<6 || employeeID.length>6){
+      alert('Employe ID Contain should only Contain 6 Characters')
+    }
+    else if(designation.length<3 ){
+      alert('Please Write Your Designation Correctly')
+    }
+    else if(teachDate.length<10 || teachDate.length>10){
+      alert('Please ! Must  Write Your DOB in This Format (DD-MM-YYYY)')
+    }
+    else if(teachDepartment.length<1){
+      alert('Please select your department')
+    }
+    else if(qual.length<1){
+      alert('Please type qualification correctly')
+    }
+    else {
+      var data = this.props.details;
+
+      var name = data.firstName + ' ' + data.lastName;
+      var email = data.email.toLowerCase();
+      var ph_no = data.phoneNo;
+      var pass = data.pass;
+      var gender = data.gender.toLowerCase();
+      var secQues = data.securityQues;
+      var secAns = data.securityAns;
+
+        
+
+        firebase.database().ref("/Users").orderByChild("empID").equalTo(""+employeeID).on("value", (snapshot)=> {
+          
+          if(snapshot.exists()){
+            alert('Account Already Exist with this Employee ID');
+          }
+
+          else {
+            var metadata = {
+              contentType: 'image/jpeg',
+            };
+
+            firebase.auth().createUserWithEmailAndPassword(email, pass).then((success)=>{
+              firebase.storage().ref('storage').child(''+(new Date()).getTime()).put(blob, metadata).then((res)=>{
+                return res.ref.getDownloadURL();
+              }).then(downloadURL=>{
+              
+             
+                var skey =firebase.database().ref("/Users").push();
+              
+                var teacherObj = {
+                  id : skey.key,
+                  name : name ,
+                  email : email,
+                  ph_no : ph_no ,
+                  pass : pass ,
+                  gender : gender ,
+                  empID : employeeID ,
+                  designation : designation , 
+                  DOB : teachDate ,
+                  accountType : "Teacher" ,
+                  imgURL : downloadURL,
+                  department : teachDepartment ,
+                  secQuestion : secQues ,
+                  accountStatus : 'Not Approved' ,
+                  secAns : secAns ,
+                  qualification : qual,
+                }
+          
+                skey.set(teacherObj); 
+              
+    
+                alert('Congratulations Your Account has been Created Successfully')
+                
+              }).catch((error)=> { 
+                alert(''+error.message)
+               });
+
+              }).catch((error)=> {
+                alert(''+error.message)
+              });
+
+          }
+        
+          
+          })
+
+        
+       
+
+    
+  }
+  }
+
  }
   
   handleChoosePhoto () { 
@@ -333,6 +430,12 @@ class Signup2 extends Component {
                    <Input onChangeText={(txt) => this.setState({ designation : txt })} />
                  
              </Item>
+
+             <Item floatingLabel last>
+                  <Label >Qualification</Label>
+                  <Input onChangeText={(txt) => this.setState({ qual : txt })}/>
+
+            </Item>
 
              <Item floatingLabel last>
                   <Label >Date of Birth</Label>

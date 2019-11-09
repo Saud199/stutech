@@ -88,7 +88,7 @@ class TeacherSideBar extends Component {
                 <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/achievements.jpg')} />
               </Left>
               <Body>
-                <Text>My Achievements</Text>
+                <Text>Achievements</Text>
               </Body>
             </ListItem>
 

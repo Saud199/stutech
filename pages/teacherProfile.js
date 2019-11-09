@@ -106,7 +106,7 @@ class TeacherProfile extends Component {
 
             <Text>{"\n"}</Text>
             <Text style={{backgroundColor:'#14c2e0',borderColor:'#000000', alignSelf:'center', padding:5}}>QUALIFICATIONS</Text>
-            <Text>{"\n"}</Text>
+            <Text style={{marginTop:27}}>{this.props.details.qualification}</Text>
 
             {/* {
               achievements.map((val , index ) => {

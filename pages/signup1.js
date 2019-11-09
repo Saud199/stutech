@@ -58,7 +58,9 @@ class Signup1 extends Component {
     // else if(phoneNo.length<13 || phoneNo.length>13){
     //   alert('Please Must Write Your Number in this Format +923120000000')
     // }
-    // 
+    // else if(securityQues.length<6){
+    //   alert('Please Write Correct Security Answer');
+    //  }
     // else if(securityAns.length<2){
     //   alert('Please Write Correct Security Answer');
     //  }
