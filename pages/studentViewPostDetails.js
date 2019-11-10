@@ -17,45 +17,6 @@ class StudentViewPostDetails extends Component {
     
     }
 
-    // displayDescription() {
-    //     const {descriptionArray} = this.state;
-
-    //     // favouritesArray.push({name : 'SSUET' , image : require('../images/ssuet.png')});
-    //     // favouritesArray.push({name : 'Oracle' , image : require('../images/oracle.png')});
-    //     // favouritesArray.push({name : 'Decima' , image : require('../images/decima.png')});
-    //     // favouritesArray.push({name : 'App Bakers' , image : require('../images/ssuet.png')});
-
-    //     var data = this.props.postDetails;
-
-    //     // firebase.database().ref(`Favourite/${data.rollNo}`).on("value", (snapshot)=> {
-    //     //   if(snapshot.exists()){
-    //     //    snapshot.forEach((childSnapshot)=> {
-    //     //     var d = childSnapshot.val();
-    //     //     var obj = {
-    //     //     id : d.id ,
-    //     //     logo : d.logo ,
-    //     //     Jimg : d.Jimg ,
-    //     //     orgName : d.orgName ,
-    //     //     description : d.description ,
-    //     //     date : d.date ,
-    //     //     experience : d.experience,
-    //     //     type : d.type ,
-    //     //     cid : d.cid ,
-    //     //     category : d.category ,
-    //     //     subject : d.subject
-    //     //    }
-    //     //    favouritesArray.push(obj);
-    //     //    this.setState({favouritesArray})
-    //     //    })
-    //     //   }
-    //     //  })
-    //     favouritesArray.push({name : 'App Bakers' , image : require('../images/ssuet.png')})
-    // }
-
-    // componentDidMount() {
-    //   this.displayDescription();
-    // }
-
 
   render() {
     const {favouritesArray} = this.state;
@@ -81,12 +42,12 @@ class StudentViewPostDetails extends Component {
                     <Left>
                       <Thumbnail source={{uri : this.props.postDetails.logo}} />
                       <Body>
-                        <Text>Ogranization Name goes here</Text>
-                        <Text note>{this.props.postDetails.orgName}</Text>
+                        <Text>{this.props.postDetails.orgName}</Text>
+                        <Text note>{this.props.postDetails.orgEmail}</Text>
                       </Body>
                     </Left>
                 </CardItem>
-                <Text style={{alignSelf:'center', color:'#14c2e0'}}>{this.props.postDetails.category}</Text>
+                <Text style={{alignSelf:'center', color:'#14c2e0'}}>{this.props.postDetails.subject}</Text>
                 <CardItem cardBody>
                     <Image source={{uri : this.props.postDetails.Jimg}} style={{height: 200, width: null, flex: 1, resizeMode:'contain'}}/>
                 </CardItem>
@@ -96,21 +57,20 @@ class StudentViewPostDetails extends Component {
                 <View style={{borderBottomColor:'black',borderBottomWidth:1}}></View>
 
 
-                <Text style={{fontWeight:'bold'}}>Last Date : <Text style={{fontWeight:'normal'}}>{this.props.postDetails.date}</Text></Text>
-                <Text>{"\n"}</Text>
+                <Text style={{fontWeight:'bold', marginTop:12, marginBottom : 10}}>Last Date : <Text style={{fontWeight:'normal'}}>{this.props.postDetails.date}</Text></Text>
 
-                <Text style={{fontWeight:'bold'}}>Category : <Text style={{fontWeight:'normal'}}></Text></Text>
-                <Text>{"\n"}</Text>
+                <Text style={{fontWeight:'bold', marginBottom : 10}}>Category : <Text style={{fontWeight:'normal'}}>{this.props.postDetails.category}</Text></Text>
 
-                <Text style={{fontWeight:'bold'}}>Event Type : <Text style={{fontWeight:'normal'}}>{this.props.postDetails.type}</Text></Text>
-                <Text>{"\n"}</Text>
 
-                <Text style={{fontWeight:'bold'}}>Work Experience : <Text style={{fontWeight:'normal'}}></Text></Text>
+                <Text style={{fontWeight:'bold', marginBottom : 10}}>Event Type : <Text style={{fontWeight:'normal'}}>{this.props.postDetails.type}</Text></Text>
+
+
+                <Text style={{fontWeight:'bold', marginBottom : 10}}>Work Experience : <Text style={{fontWeight:'normal'}}>{this.props.postDetails.experience}</Text></Text>
 
                 <View style={{borderBottomColor:'black',borderBottomWidth:1}}></View>
 
-                <Text style={{fontWeight:'bold'}}>Description :-</Text>
-                <Text style={{fontWeight:'normal'}}>{this.props.postDetails.description}</Text>
+                <Text style={{fontWeight:'bold', marginTop : 10}}>Description :-</Text>
+                <Text style={{fontWeight:'normal', marginBottom : 12}}>{this.props.postDetails.description}</Text>
 
 
 

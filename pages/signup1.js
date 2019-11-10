@@ -7,28 +7,18 @@ class Signup1 extends Component {
 
   constructor() {
     super();
-    // this.state={
-    //   firstName : '',
-    //   lastName : '',
-    //   email : '',
-    //   pass : '',
-    //   rePass : '',
-    //   phoneNo : '',
-    //   securityQues : '',
-    //   securityAns : '',
-    //   gender : 'male'
-    // }
     this.state={
-      firstName : 'asd',
-      lastName : 'asd',
+      firstName : '',
+      lastName : '',
       email : '',
       pass : '',
       rePass : '',
-      phoneNo : 'asd',
-      securityQues : 'asd',
-      securityAns : 'asd',
+      phoneNo : '',
+      securityQues : '',
+      securityAns : '',
       gender : 'male'
     }
+    
   }
 
 
@@ -40,30 +30,30 @@ class Signup1 extends Component {
     if(firstName.length == 0 || lastName.length==0 || email.length == 0 || pass.length==0 || rePass.length==0 || securityQues.length==0 || securityAns.length==0) {
       alert("Please fill out all the fields")
     }
-    // else if(firstName.length<2){
-    //   alert('Please Enter Your First name Correctly');
-    // }
-    // else if(lastName.length<2){
-    //   alert('Please Enter Your Last name Correctly');
-    // }
-    // else if(email.length<6 || !email.includes('@')  || !email.includes('.')){
-    //   alert('Please Enter A  Valid Email Address');
-    // }
-    // else if(pass.length<6 ){
-    //   alert('Write Your Password Correctly. It must Contain 6 or more Characters');
-    // }
-    // else if(pass!=rePass ){
-    //   alert('Password doesnot match');
-    // }
-    // else if(phoneNo.length<13 || phoneNo.length>13){
-    //   alert('Please Must Write Your Number in this Format +923120000000')
-    // }
-    // else if(securityQues.length<6){
-    //   alert('Please Write Correct Security Answer');
-    //  }
-    // else if(securityAns.length<2){
-    //   alert('Please Write Correct Security Answer');
-    //  }
+    else if(firstName.length<2){
+      alert('Please Enter Your First name Correctly');
+    }
+    else if(lastName.length<2){
+      alert('Please Enter Your Last name Correctly');
+    }
+    else if(email.length<6 || !email.includes('@')  || !email.includes('.')){
+      alert('Please Enter A  Valid Email Address');
+    }
+    else if(pass.length<6 ){
+      alert('Write Your Password Correctly. It must Contain 6 or more Characters');
+    }
+    else if(pass!=rePass ){
+      alert('Password doesnot match');
+    }
+    else if(phoneNo.length<13 || phoneNo.length>13){
+      alert('Please Must Write Your Number in this Format +923120000000')
+    }
+    else if(securityQues.length<6){
+      alert('Please Write Correct Security Answer');
+     }
+    else if(securityAns.length<2){
+      alert('Please Write Correct Security Answer');
+     }
     else{
 
        var obj = {
@@ -125,7 +115,7 @@ class Signup1 extends Component {
 
         <Text>{"\n"}</Text>
 
-         <Text style={{alignSelf:"center"}}>Want to signup as an organization ?<Text style={{color:'#14c2e0'}} onPress={() => this.props.navigation.navigate('OrganizationSignUp')} > Click Here</Text> </Text>
+         {/* <Text style={{alignSelf:"center"}}>Want to signup as an organization ?<Text style={{color:'#14c2e0'}} onPress={() => this.props.navigation.navigate('OrganizationSignUp')} > Click Here</Text> </Text> */}
 
          <Form>
 

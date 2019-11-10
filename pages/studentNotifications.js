@@ -76,8 +76,8 @@ class StudentNotifications extends Component {
                     <Thumbnail square source={require('../images/profile_icon1.jpg')} />
                   </Left>
                   <Body>
-                    <Text>Admin</Text>
-                    <Text>Message : {val.message}</Text>
+                    <Text style={{fontWeight:'bold'}}>Admin</Text>
+                    <Text style={{fontWeight:'bold'}}>Message : <Text style={{fontWeight:'normal'}}>{val.message}</Text></Text>
                   </Body>
                   <Right>
                   <Text note>{val.date}</Text>

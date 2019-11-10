@@ -3,7 +3,7 @@ import { Image  } from 'react-native';
 import { Container, Header, Content,Text,Body, Title, Left, Right,Item, Button, Icon, Input, Label} from 'native-base';
 import firebase from '../config/firebase.js';
 import { connect } from 'react-redux';
-import {ChatData} from '../store/action/action.js';
+import {ChatData, DynamicData} from '../store/action/action.js';
 
 class TeacherViewStudentProfile extends Component {
 
@@ -103,6 +103,17 @@ class TeacherViewStudentProfile extends Component {
         this.props.navigation.navigate("TeacherDynamicMessenger")
       }
 
+      sendEmailToStudent() {
+        var data = this.props.details;
+
+        var emailObj = {
+          id : data.id ,
+          email : data.email ,
+        }
+        this.props.dynData(emailObj)
+        this.props.navigation.navigate("TeacherSendEmail")
+      }
+
 
      render(){
 
@@ -200,7 +211,7 @@ class TeacherViewStudentProfile extends Component {
 
             <Button block onPress={()=> this.startChat()} style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 40}}><Text>Chat</Text></Button>
 
-            <Button block style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 30, marginBottom: 5}}><Text>Email</Text></Button>
+            <Button block onPress={()=> this.sendEmailToStudent()} style={{width: 200 , backgroundColor: '#14c2e0', alignSelf:'center', marginTop: 30, marginBottom: 5}}><Text>Email</Text></Button>
 
         
            </Content>
@@ -229,7 +240,8 @@ function mapStateToProp(state) {
 function mapDispatchToProp(dispatch) {
   return ({
      // jb class se data store me bhejna hota hai
-     chatinfo : (info)=>{ dispatch(ChatData(info))}
+     chatinfo : (info)=>{ dispatch(ChatData(info))},
+     dynData : (info)=>{ dispatch(DynamicData(info))}
   })
 }
 

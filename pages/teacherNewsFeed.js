@@ -28,7 +28,7 @@ class TeacherNewsFeed extends Component{
       addData() {
         const {JobsNF} = this.state;
    
-        firebase.database().ref(`/Jobs`).on("value", (snapshot)=> {
+        firebase.database().ref(`/Jobs`).limitToLast(10).on("value", (snapshot)=> {
             
          snapshot.forEach((childSnapshot)=> {
           var d = childSnapshot.val();
@@ -37,27 +37,23 @@ class TeacherNewsFeed extends Component{
           id : d.id ,
           logo : d.clogo ,
           Jimg : d.image ,
-          orgName : d.cemail ,
+          orgName : d.cname ,
           description : d.detail ,
           date : d.date ,
           experience : d.workType,
           type : d.jobType ,
           cid : d.cid ,
           category : d.category ,
-          subject : d.subject
+          subject : d.subject,
+          email : d.cemail,
+          from : d.from
          }
-   
-         //alert(''+d.id);
    
          JobsNF.push(obj);
          this.setState({JobsNF})
          })
        })
        
-        // newsFeedArray.push({name : 'SSUET' , image : require('../images/job.jpg')});
-       // newsFeedArray.push({name : 'Oracle' , image : require('../images/oracle.png')});
-       // newsFeedArray.push({name : 'Decima' , image : require('../images/decima.png')});
-       // newsFeedArray.push({name : 'App Bakers' , image : require('../images/ssuet.png')});
      }
 
 
@@ -76,7 +72,8 @@ class TeacherNewsFeed extends Component{
               type : JobsNF[i].type ,
               cid : JobsNF[i].cid ,
               category : JobsNF[i].category ,
-              subject : JobsNF[i].subject
+              subject : JobsNF[i].subject,
+              from : JobsNF[i].from
       }
   
       skey.set(obj);
@@ -108,20 +105,14 @@ class TeacherNewsFeed extends Component{
       type : JobsNF[i].type,
       cid : JobsNF[i].cid,
       category : JobsNF[i].category,
-      subject : JobsNF[i].subject
+      subject : JobsNF[i].subject,
+      orgEmail : JobsNF[i].email
     }
 
     this.props.postInfo(detailsObj);
     this.props.navigation.navigate('TeacherViewPostFromNF')
 
   }
-      // addData() {
-      //   const {teacherNewsFeedArray} = this.state;
-      //   teacherNewsFeedArray.push({name : 'SSUET' , image : require('../images/job.jpg')});
-      //   teacherNewsFeedArray.push({name : 'Oracle' , image : require('../images/oracle.png')});
-      //   teacherNewsFeedArray.push({name : 'Decima' , image : require('../images/decima.png')});
-      //   teacherNewsFeedArray.push({name : 'App Bakers' , image : require('../images/ssuet.png')});
-      // }
     
       closeDrawer () {
         this._drawer._root.close()
@@ -167,13 +158,13 @@ class TeacherNewsFeed extends Component{
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.email}</Text>
                 </Body>
               </Left>
             </CardItem>
 
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
 
             <CardItem cardBody>
 
@@ -194,9 +185,9 @@ class TeacherNewsFeed extends Component{
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                </Button>
+            </Button> }
               </Body>
             </CardItem>
           </Card>

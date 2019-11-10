@@ -57,7 +57,7 @@ class TeacherViewOwnPost extends Component {
 
         <Header style={{backgroundColor:'#14c2e0'}}>
           <Left>
-            <Button transparent onPress={()=> this.props.navigation.navigate('TeacherComplaints')}>
+            <Button transparent onPress={()=> this.props.navigation.navigate('TeacherAddJob')}>
               <Icon name='arrow-back' />
             </Button>
           </Left>

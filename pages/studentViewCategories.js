@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import { Container, Header, Drawer, Root, Title, Item, Input, Tab, Tabs, ScrollableTab, Toast, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import firebase from '../config/firebase.js'
 import { connect } from 'react-redux';
-import {PostDetail, OrganizationDetail} from '../store/action/action.js';
+import {PostDetail, OrganizationDetail, ReminderInfo} from '../store/action/action.js';
 
 class StudentViewCategories extends Component {
 
@@ -21,19 +21,8 @@ class StudentViewCategories extends Component {
   }
 
   componentDidMount() {
-    //this.validation();
     this.addAllData();
   }
-
-  // validation(){
-  //   var data = this.props.accounttype;
-  //  if(data.includes('Student')){
-  //   this.props.history.index=0;
-  //  }else{
-  //   alert('Please login to continue');
-  //   this.props.history.push("/");
-  //  }
-  // }
 
   addAllData() {
     const {JobsNF, allNF} = this.state;
@@ -54,14 +43,16 @@ class StudentViewCategories extends Component {
        id : d.id ,
        logo : d.clogo ,
        Jimg : d.image ,
-       orgName : d.cemail ,
+       orgName : d.cname ,
+       orgEmail : d.cemail ,
        description : d.detail ,
        date : d.date ,
        experience : d.workType,
        type : d.jobType ,
        cid : d.cid ,
        category : d.category ,
-       subject : d.subject
+       subject : d.subject,
+       from : d.from         
       }
       JobsNF.push(obj);
       allNF.push(obj)
@@ -94,7 +85,7 @@ class StudentViewCategories extends Component {
        this.setState({activePage:2})
      }
      else if (organizationType.i == 3){
-       org = 'Seminars'
+       org = 'Seminar'
        this.setState({activePage:3})
      }
      else if (organizationType.i == 4){
@@ -122,7 +113,8 @@ class StudentViewCategories extends Component {
            type : val.type ,
            cid : val.cid ,
            category : val.category ,
-           subject : val.subject
+           subject : val.subject,
+           from : val.from
           }
           JobsNF.push(obj)
           this.setState({JobsNF , activePage:organizationType})
@@ -172,6 +164,7 @@ class StudentViewCategories extends Component {
       logo : JobsNF[i].logo,
       Jimg : JobsNF[i].Jimg,
       orgName : JobsNF[i].orgName,
+      orgEmail : JobsNF[i].orgEmail,
       description : JobsNF[i].description,
       date : JobsNF[i].date,
       experience : JobsNF[i].experience,
@@ -183,6 +176,19 @@ class StudentViewCategories extends Component {
 
     this.props.postInfo(detailsObj);
     this.props.navigation.navigate('StudentViewPostFromNF')
+
+  }
+
+  reminderDetail(i){
+    const {JobsNF}=this.state;
+
+    remDetail = {
+      oname : JobsNF[i].orgName,
+      osubject : JobsNF[i].subject
+    }
+
+    this.props.remInfo(remDetail);
+    this.props.navigation.navigate('StudentSetReminder');
 
   }
 
@@ -229,12 +235,12 @@ class StudentViewCategories extends Component {
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.orgEmail}</Text>
                 </Body>
               </Left>
             </CardItem>
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
             <CardItem cardBody>
 
             
@@ -246,7 +252,7 @@ class StudentViewCategories extends Component {
             <CardItem style={{flexDirection:'column'}}>
               
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Button transparent style={{width: 22, height: 22}}>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.reminderDetail(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
                 </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
@@ -255,9 +261,9 @@ class StudentViewCategories extends Component {
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                </Button>
+            </Button> }
               </Body>
             </CardItem>
           </Card>
@@ -287,12 +293,12 @@ class StudentViewCategories extends Component {
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.orgEmail}</Text>
                 </Body>
               </Left>
             </CardItem>
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
             <CardItem cardBody>
 
             
@@ -304,7 +310,7 @@ class StudentViewCategories extends Component {
             <CardItem style={{flexDirection:'column'}}>
               
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Button transparent style={{width: 22, height: 22}}>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.reminderDetail(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
                 </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
@@ -313,9 +319,9 @@ class StudentViewCategories extends Component {
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                </Button>
+            </Button> }
               </Body>
             </CardItem>
           </Card>
@@ -345,12 +351,12 @@ class StudentViewCategories extends Component {
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.orgEmail}</Text>
                 </Body>
               </Left>
             </CardItem>
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
             <CardItem cardBody>
 
             
@@ -362,7 +368,7 @@ class StudentViewCategories extends Component {
             <CardItem style={{flexDirection:'column'}}>
               
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Button transparent style={{width: 22, height: 22}}>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.reminderDetail(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
                 </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
@@ -371,9 +377,9 @@ class StudentViewCategories extends Component {
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                </Button>
+            </Button> }
               </Body>
             </CardItem>
           </Card>
@@ -403,12 +409,12 @@ class StudentViewCategories extends Component {
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.orgEmail}</Text>
                 </Body>
               </Left>
             </CardItem>
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
             <CardItem cardBody>
 
             
@@ -420,7 +426,7 @@ class StudentViewCategories extends Component {
             <CardItem style={{flexDirection:'column'}}>
               
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Button transparent style={{width: 22, height: 22}}>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.reminderDetail(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
                 </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
@@ -429,9 +435,9 @@ class StudentViewCategories extends Component {
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                </Button>
+            </Button> }
               </Body>
             </CardItem>
           </Card>
@@ -461,12 +467,12 @@ class StudentViewCategories extends Component {
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.orgEmail}</Text>
                 </Body>
               </Left>
             </CardItem>
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
             <CardItem cardBody>
 
             
@@ -478,7 +484,7 @@ class StudentViewCategories extends Component {
             <CardItem style={{flexDirection:'column'}}>
               
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Button transparent style={{width: 22, height: 22}}>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.reminderDetail(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
                 </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
@@ -487,9 +493,9 @@ class StudentViewCategories extends Component {
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                </Button>
+                </Button>}
               </Body>
             </CardItem>
           </Card>
@@ -505,6 +511,7 @@ class StudentViewCategories extends Component {
           </Tab>
 
           <Tab heading="Other" tabStyle={{backgroundColor: '#14c2e0'}} textStyle={{color: '#ffffff'}} activeTextStyle={{color: '#ffffff'}} activeTabStyle={{backgroundColor: '#14c2e0'}}>
+          <Content style={{backgroundColor:'#D3D3D3'}}>
             {JobsNF.length>0 &&
 
           JobsNF.map((val , ind) => {
@@ -517,12 +524,12 @@ class StudentViewCategories extends Component {
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.orgEmail}</Text>
                 </Body>
               </Left>
             </CardItem>
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
             <CardItem cardBody>
 
             
@@ -534,7 +541,7 @@ class StudentViewCategories extends Component {
             <CardItem style={{flexDirection:'column'}}>
               
               <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Button transparent style={{width: 22, height: 22}}>
+                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.reminderDetail(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/reminder.jpg')} />
                 </Button>
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.addFav(ind)}>
@@ -543,9 +550,9 @@ class StudentViewCategories extends Component {
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                </Button>
+            </Button> }
               </Body>
             </CardItem>
           </Card>
@@ -557,6 +564,7 @@ class StudentViewCategories extends Component {
           
 
           }
+          </Content>
           </Tab>
           
         </Tabs>
@@ -585,6 +593,7 @@ function mapDispatchToProp(dispatch) {
      // jb class se data store me bhejna hota hai
      postInfo : (info)=>{dispatch(PostDetail(info))},
      orgInfo : (info)=>{dispatch(OrganizationDetail(info))},
+     remInfo : (info)=>{dispatch(ReminderInfo(info))},
   })
 }
 

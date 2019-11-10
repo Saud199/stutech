@@ -13,14 +13,14 @@ class StudentAchievements extends Component {
         super();
         this.state = { 
             myAchievements : [],
-            subject : 'a',
-            orgName : 'a',
-            orgWeb : 'a',
-            certificationDetails : 'a',
-            achievedSkills : 'a',
-            completionDate : 'a',
-            type : 'All',
-            speciality : 'All',
+            subject : '',
+            orgName : '',
+            orgWeb : '',
+            certificationDetails : '',
+            achievedSkills : '',
+            completionDate : '',
+            type : '',
+            speciality : '',
             image : ''
         };
       }
@@ -29,13 +29,6 @@ class StudentAchievements extends Component {
         this.addData()
       }
     
-
-    // displayCertificates() {
-    //     const {myAchievements} = this.state;
-    //     myAchievements.push({name : 'Web & Mobile Application Development' , image : require('../images/c1.jpg')});
-    //     myAchievements.push({name : 'Android Development' , image : require('../images/c2.jpg')});
-    //     myAchievements.push({name : 'Speed Programming' , image : require('../images/c3.jpg')});
-    // }
 
 
     selectType(value) {
@@ -94,18 +87,7 @@ class StudentAchievements extends Component {
       
     }
 
-    // handleChoosePhoto () { 
-    //   const {image} = this.state;
-    //   const options = {
-    //     noData: true,
-    //   };
-    //   ImagePicker.launchImageLibrary(options, response => {
-    //     if (response.uri) {
-    //        this.setState({image:response.uri})
    
-    //       } 
-    //     })
-    // }
 
     addData(){
       const{myAchievements}=this.state;
@@ -178,34 +160,34 @@ class StudentAchievements extends Component {
 
         
       
-      //  if(subject.length<1){
-      //   alert('Please Fill Out Subject Field Correctly')
-      //  }
-      //  else if(orgName.length<1){
-      //   alert('Please Write Out Organization Name Correctly')
-      //  }
-      //  else if(orgWeb.length<1){
-      //   alert('Please Write Organization Website Link Correctly')
-      //  }
-      //  else if(certificationDetails.length<1){
-      //   alert('Please Fill Out certification Field Correctly')
-      //  }
-      //  else if(achievedSkills.length<1){
-      //    alert('Please Fill Your Achieved Skills Correctly')
-      //  }
-      //  else if(completionDate.length<1){
-      //   alert('Please Write Completion date  Correctly')
-      //  }
-      //  else if (image==null){
-      //   alert('Please Select Your Image')
-      //  }
-      // else if(type.includes('all')){
-      //   alert('Please Select Degree Type ')
-      //  }
-      //  else if (special.includes('all')){
-      //    alert('Please Select Youe Certificate Speciality')
-      //  }
-      //  else{
+       if(subject.length<1){
+        alert('Please Fill Out Subject Field Correctly')
+       }
+       else if(orgName.length<1){
+        alert('Please Write Out Organization Name Correctly')
+       }
+       else if(orgWeb.length<1){
+        alert('Please Write Organization Website Link Correctly')
+       }
+       else if(certificationDetails.length<1){
+        alert('Please Fill Out certification Field Correctly')
+       }
+       else if(achievedSkills.length<1){
+         alert('Please Fill Your Achieved Skills Correctly')
+       }
+       else if(completionDate.length<1){
+        alert('Please Write Completion date  Correctly')
+       }
+       else if (image==null){
+        alert('Please Select Your Image')
+       }
+      else if(type.includes('all')){
+        alert('Please Select Degree Type ')
+       }
+       else if (special.includes('all')){
+         alert('Please Select Youe Certificate Speciality')
+       }
+       else{
          
            while(myAchievements.length > 0) {
              myAchievements.splice(0,1); 
@@ -250,7 +232,7 @@ class StudentAchievements extends Component {
             });
          
            
-      //  }
+       }
    }
 
    handleChoosePhoto = () => {

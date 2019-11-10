@@ -61,6 +61,7 @@ class TeacherMessenger extends Component {
     deleteChatNode() {
       firebase.database().ref(`chating/${this.props.detailstech.id}/${this.props.detailstech.id+this.props.contactDetails.id}`).set({});
       firebase.database().ref(`chatList/${this.props.detailstech.id}/${this.props.contactDetails.id}`).set({});
+      alert('Chat Deleted Successfully');
       this.props.navigation.navigate('TeacherContactList');
     }
 

@@ -45,14 +45,16 @@ class TeacherViewCategories extends Component{
            id : d.id ,
            logo : d.clogo ,
            Jimg : d.image ,
-           orgName : d.cemail ,
+           orgName : d.cname ,
+           orgEmail : d.cemail ,
            description : d.detail ,
            date : d.date ,
            experience : d.workType,
            type : d.jobType ,
            cid : d.cid ,
            category : d.category ,
-           subject : d.subject
+           subject : d.subject,
+           from : d.from
           }
           JobsNF.push(obj);
           allNF.push(obj)
@@ -84,7 +86,7 @@ class TeacherViewCategories extends Component{
            this.setState({activePage:2})
          }
          else if (organizationType.i == 3){
-           org = 'Seminars'
+           org = 'Seminar'
            this.setState({activePage:3})
          }
          else if (organizationType.i == 4){
@@ -125,8 +127,14 @@ class TeacherViewCategories extends Component{
       addFav(i){
         const {JobsNF} = this.state;
         var data = this.props.details;
-        var skey = firebase.database().ref("Favourite/"+data.empID).push();
-        var obj = {
+
+        if (data.id == JobsNF[i].cid) {
+          alert('You Cannot Save Your Post as Favourite');
+        }
+
+        else {
+          var skey = firebase.database().ref("Favourite/"+data.empID).push();
+          var obj = {
                 id:skey.key,
                 logo : JobsNF[i].logo ,
                 Jimg : JobsNF[i].Jimg ,
@@ -142,6 +150,9 @@ class TeacherViewCategories extends Component{
     
         skey.set(obj);
         alert('Add Favourite Successfully')
+      }
+
+        
       }
 
 
@@ -165,6 +176,7 @@ class TeacherViewCategories extends Component{
           logo : JobsNF[i].logo,
           Jimg : JobsNF[i].Jimg,
           orgName : JobsNF[i].orgName,
+          orgEmail : JobsNF[i].orgEmail,
           description : JobsNF[i].description,
           date : JobsNF[i].date,
           experience : JobsNF[i].experience,
@@ -196,11 +208,11 @@ class TeacherViewCategories extends Component{
               <Body>
                 <Title>Stutech</Title>
               </Body>
-              <Right>
+              {/* <Right>
                 <Button transparent onPress={()=> prompt("Search")}>
                  <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/filter.png')} />
                 </Button>
-              </Right>
+              </Right> */}
             </Header>
             
     
@@ -224,12 +236,12 @@ class TeacherViewCategories extends Component{
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.orgEmail}</Text>
                 </Body>
               </Left>
             </CardItem>
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
             <CardItem cardBody>
 
             
@@ -247,9 +259,9 @@ class TeacherViewCategories extends Component{
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                </Button>
+            </Button> }
               </Body>
             </CardItem>
           </Card>
@@ -279,12 +291,12 @@ class TeacherViewCategories extends Component{
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.orgEmail}</Text>
                 </Body>
               </Left>
             </CardItem>
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
             <CardItem cardBody>
 
             
@@ -334,12 +346,12 @@ class TeacherViewCategories extends Component{
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.orgEmail}</Text>
                 </Body>
               </Left>
             </CardItem>
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
             <CardItem cardBody>
 
             
@@ -357,9 +369,9 @@ class TeacherViewCategories extends Component{
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                </Button>
+            </Button> }
               </Body>
             </CardItem>
           </Card>
@@ -389,12 +401,12 @@ class TeacherViewCategories extends Component{
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.orgEmail}</Text>
                 </Body>
               </Left>
             </CardItem>
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
             <CardItem cardBody>
 
             
@@ -412,9 +424,9 @@ class TeacherViewCategories extends Component{
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                </Button>
+            </Button> }
               </Body>
             </CardItem>
           </Card>
@@ -444,12 +456,12 @@ class TeacherViewCategories extends Component{
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.orgEmail}</Text>
                 </Body>
               </Left>
             </CardItem>
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
             <CardItem cardBody>
 
             
@@ -467,9 +479,9 @@ class TeacherViewCategories extends Component{
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                </Button>
+            </Button> }
               </Body>
             </CardItem>
           </Card>
@@ -498,12 +510,12 @@ class TeacherViewCategories extends Component{
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.orgEmail}</Text>
                 </Body>
               </Left>
             </CardItem>
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
             <CardItem cardBody>
 
             
@@ -521,9 +533,9 @@ class TeacherViewCategories extends Component{
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                </Button>
+            </Button> }
               </Body>
             </CardItem>
           </Card>

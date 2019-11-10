@@ -44,6 +44,7 @@ import TeacherContactList from '../pages/teacherContactList.js';
 import TeacherMessenger from '../pages/teacherMessenger.js';
 import TeacherDynamicMessenger from '../pages/teacherDynamicMessenger.js';
 import TeacherViewOwnPost from '../pages/teacherViewOwnPost.js';
+import TeacherSendEmail from '../pages/teacherSendEmail.js';
 
 const AppStackNavigator = createStackNavigator({
     SplashScreen : {screen : SplashScreen},
@@ -92,6 +93,7 @@ const AppStackNavigator = createStackNavigator({
     TeacherMessenger : {screen : TeacherMessenger},
     TeacherDynamicMessenger : {screen : TeacherDynamicMessenger},
     TeacherViewOwnPost : {screen : TeacherViewOwnPost},
+    TeacherSendEmail : {screen : TeacherSendEmail},
 },
 {
     defaultNavigationOptions:{header:null}

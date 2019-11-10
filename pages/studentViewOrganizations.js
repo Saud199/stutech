@@ -16,17 +16,9 @@ class StudentViewOrganizations extends Component {
     
     }
 
-    // displayOrganizations() {
-    //     const {organizationArray} = this.state;
-    //     organizationArray.push({name : 'SSUET' , web : 'www.ssuet.edu.pk' , add : 'Nipa, Gulshan' , orgType : 'Corporate' , image : require('../images/ssuet.png')});
-    //     organizationArray.push({name : 'Oracle' , web : 'www.oracle.com' , add : 'Redwood City, California' , orgType : 'Database Company' , image : require('../images/oracle.png')});
-    //     organizationArray.push({name : 'Decima AI' , web : 'www.decimaai.com' , add : 'DHA Phase-V, Karachi' , orgType : 'Software House' , image : require('../images/decima.png')});
-    // }
-
     displayOrganizations() {
       const {organizationArray} = this.state;
 
-      //var a = 
 
       if (this.props.orgDetails.orgID != null) {
 
@@ -41,7 +33,8 @@ class StudentViewOrganizations extends Component {
               logo : data.imgURL ,
               type : data.orgType ,
               number : data.ph_no ,
-              websiteLink : data.webLink
+              websiteLink : data.webLink,
+              orgDetails : data.detail
              }
              organizationArray.push(orgObj)
              this.setState({organizationArray})
@@ -63,7 +56,8 @@ class StudentViewOrganizations extends Component {
               logo : data.imgURL ,
               type : data.orgType ,
               number : data.ph_no ,
-              websiteLink : data.webLink
+              websiteLink : data.webLink,
+              orgDetails : data.detail
              }
              organizationArray.push(orgObj)
              this.setState({organizationArray})
@@ -87,7 +81,8 @@ class StudentViewOrganizations extends Component {
       logo : organizationArray[i].logo ,
       type : organizationArray[i].type ,
       number : organizationArray[i].number ,
-      websiteLink : organizationArray[i].websiteLink
+      websiteLink : organizationArray[i].websiteLink,
+      det : organizationArray[i].orgDetails
      }
 
      this.props.orgMoreInfo(orgObj);

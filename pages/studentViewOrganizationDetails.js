@@ -49,24 +49,23 @@ class StudentViewOrganizationDetails extends Component {
                 <View style={{borderBottomColor:'black',borderBottomWidth:1}}></View>
 
 
-                <Text>Website Link : {this.props.moreDetails.websiteLink}</Text>
-                <Text>{"\n"}</Text>
+                <Text style={{marginTop:12, marginBottom : 10}}>Website Link : <Text style={{fontWeight:'normal'}}>{this.props.moreDetails.websiteLink}</Text></Text>
 
-                <Text>Organization Type : {this.props.moreDetails.type}</Text>
-                <Text>{"\n"}</Text>
+                <Text style={{marginBottom : 10}}>Organization Type : <Text style={{fontWeight:'normal'}}>{this.props.moreDetails.type}</Text></Text>
+               
 
-                <Text>Contact Number : {this.props.moreDetails.number}</Text>
-                <Text>{"\n"}</Text>
+                <Text style={{marginBottom : 10}}>Contact Number : <Text style={{fontWeight:'normal'}}>{this.props.moreDetails.number}</Text></Text>
+ 
 
-                <Text>Email : {this.props.moreDetails.email}</Text>
-                <Text>{"\n"}</Text>
+                <Text style={{marginBottom : 10}}>Email : <Text style={{fontWeight:'normal'}}>{this.props.moreDetails.email}</Text></Text>
+             
 
-                <Text>Address : {this.props.moreDetails.address}</Text>
+                <Text style={{marginBottom : 10}}>Address : <Text style={{fontWeight:'normal'}}>{this.props.moreDetails.address}</Text></Text>
 
                 <View style={{borderBottomColor:'black',borderBottomWidth:1}}></View>
 
-                <Text>Description :-</Text>
-                <Text></Text>
+                <Text style={{marginTop : 10}}>Description :-</Text>
+                <Text style={{marginBottom : 12}}>{this.props.moreDetails.det}</Text>
 
 
 

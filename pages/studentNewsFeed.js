@@ -27,7 +27,7 @@ class StudentNewsFeed extends Component {
   addData() {
      const {JobsNF} = this.state;
 
-     firebase.database().ref(`/Jobs`).on("value", (snapshot)=> {
+     firebase.database().ref(`/Jobs`).limitToLast(10).on("value", (snapshot)=> {
          
       snapshot.forEach((childSnapshot)=> {
        var d = childSnapshot.val();
@@ -43,7 +43,9 @@ class StudentNewsFeed extends Component {
        type : d.jobType ,
        cid : d.cid ,
        category : d.category ,
-       subject : d.subject
+       subject : d.subject,
+       email : d.cemail,
+       from : d.from
       }
 
       //alert(''+d.id);
@@ -53,10 +55,6 @@ class StudentNewsFeed extends Component {
       })
     })
     
-     // newsFeedArray.push({name : 'SSUET' , image : require('../images/job.jpg')});
-    // newsFeedArray.push({name : 'Oracle' , image : require('../images/oracle.png')});
-    // newsFeedArray.push({name : 'Decima' , image : require('../images/decima.png')});
-    // newsFeedArray.push({name : 'App Bakers' , image : require('../images/ssuet.png')});
   }
 
   addFav(i){
@@ -74,7 +72,8 @@ class StudentNewsFeed extends Component {
             type : JobsNF[i].type ,
             cid : JobsNF[i].cid ,
             category : JobsNF[i].category ,
-            subject : JobsNF[i].subject
+            subject : JobsNF[i].subject,
+            from : JobsNF[i].from
     }
 
     skey.set(obj);
@@ -106,7 +105,8 @@ class StudentNewsFeed extends Component {
       type : JobsNF[i].type,
       cid : JobsNF[i].cid,
       category : JobsNF[i].category,
-      subject : JobsNF[i].subject
+      subject : JobsNF[i].subject,
+      orgEmail : JobsNF[i].email
     }
 
     this.props.postInfo(detailsObj);
@@ -123,8 +123,7 @@ class StudentNewsFeed extends Component {
     }
 
     this.props.remInfo(remDetail);
-    this.props.navigation.navigate('StudentSetReminder')
-
+    this.props.navigation.navigate('StudentSetReminder');
 
   }
 
@@ -175,13 +174,13 @@ class StudentNewsFeed extends Component {
               <Left>
                 <Thumbnail source={{uri:val.logo}} />
                 <Body>
-                  <Text>Organization Name here</Text>
-                  <Text note>{val.orgName}</Text>
+                  <Text>{val.orgName}</Text>
+                  <Text note>{val.email}</Text>
                 </Body>
               </Left>
             </CardItem>
 
-            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.category}{"\n"}</Text>
+            <Text style={{alignSelf:'center', color:'#14c2e0'}}>{val.subject}{"\n"}</Text>
 
             <CardItem cardBody>
 
@@ -204,9 +203,9 @@ class StudentNewsFeed extends Component {
                 <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkPostDetails(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                 </Button>
-                <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                     <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                </Button>
+            </Button> }
               </Body>
             </CardItem>
           </Card>

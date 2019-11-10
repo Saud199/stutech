@@ -16,45 +16,6 @@ class StudentViewAchievementDetails extends Component {
     
     }
 
-    // displayDescription() {
-    //     const {descriptionArray} = this.state;
-
-    //     // favouritesArray.push({name : 'SSUET' , image : require('../images/ssuet.png')});
-    //     // favouritesArray.push({name : 'Oracle' , image : require('../images/oracle.png')});
-    //     // favouritesArray.push({name : 'Decima' , image : require('../images/decima.png')});
-    //     // favouritesArray.push({name : 'App Bakers' , image : require('../images/ssuet.png')});
-
-    //     var data = this.props.postDetails;
-
-    //     // firebase.database().ref(`Favourite/${data.rollNo}`).on("value", (snapshot)=> {
-    //     //   if(snapshot.exists()){
-    //     //    snapshot.forEach((childSnapshot)=> {
-    //     //     var d = childSnapshot.val();
-    //     //     var obj = {
-    //     //     id : d.id ,
-    //     //     logo : d.logo ,
-    //     //     Jimg : d.Jimg ,
-    //     //     orgName : d.orgName ,
-    //     //     description : d.description ,
-    //     //     date : d.date ,
-    //     //     experience : d.experience,
-    //     //     type : d.type ,
-    //     //     cid : d.cid ,
-    //     //     category : d.category ,
-    //     //     subject : d.subject
-    //     //    }
-    //     //    favouritesArray.push(obj);
-    //     //    this.setState({favouritesArray})
-    //     //    })
-    //     //   }
-    //     //  })
-    //     favouritesArray.push({name : 'App Bakers' , image : require('../images/ssuet.png')})
-    // }
-
-    // componentDidMount() {
-    //   this.displayDescription();
-    // }
-
 
   render() {
     const {favouritesArray} = this.state;
@@ -83,31 +44,25 @@ class StudentViewAchievementDetails extends Component {
                 </CardItem>
 
                 <Text>{"\n"}</Text>
-
                 <View style={{borderBottomColor:'black',borderBottomWidth:1}}></View>
 
 
-                <Text style={{fontWeight:'bold'}}>Completion Date : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.CompletionDate}</Text></Text>
-                <Text>{"\n"}</Text>
+                <Text style={{fontWeight:'bold', marginTop:12, marginBottom : 10}}>Completion Date : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.CompletionDate}</Text></Text>
 
-                <Text style={{fontWeight:'bold'}}>Organization Name : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.orgName}</Text></Text>
-                <Text>{"\n"}</Text>
+                <Text style={{fontWeight:'bold', marginBottom : 10}}>Organization Name : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.orgName}</Text></Text>
 
-                <Text style={{fontWeight:'bold'}}>Organization Web : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.orgLink}</Text></Text>
-                <Text>{"\n"}</Text>
+                <Text style={{fontWeight:'bold', marginBottom : 10}}>Organization Web : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.orgLink}</Text></Text>
 
-                <Text style={{fontWeight:'bold'}}>Achieved Skills : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.gettingSkills}</Text></Text>
-                <Text>{"\n"}</Text>
+                <Text style={{fontWeight:'bold', marginBottom : 10}}>Achieved Skills : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.gettingSkills}</Text></Text>
 
-                <Text style={{fontWeight:'bold'}}>Speciality : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.speciality}</Text></Text>
-                <Text>{"\n"}</Text>
+                <Text style={{fontWeight:'bold', marginBottom : 10}}>Speciality : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.speciality}</Text></Text>
 
-                <Text style={{fontWeight:'bold'}}>Degree Type : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.type}</Text></Text>
+                <Text style={{fontWeight:'bold', marginBottom : 10}}>Degree Type : <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.type}</Text></Text>
 
                 <View style={{borderBottomColor:'black',borderBottomWidth:1}}></View>
 
-                <Text style={{fontWeight:'bold'}}>Certification Details :-</Text>
-                <Text style={{fontWeight:'normal'}}>{this.props.achieveDetails.cerDetails}</Text>
+                <Text style={{fontWeight:'bold', marginTop : 10}}>Certification Details :-</Text>
+                <Text style={{fontWeight:'normal', marginBottom :12}}>{this.props.achieveDetails.cerDetails}</Text>
 
 
 

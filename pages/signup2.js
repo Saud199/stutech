@@ -16,7 +16,6 @@ class Signup2 extends Component {
       type:'Student',
       stdDate : '',
       teachDate : '',
-      // image: '',
       rollNumber : '',
       section : '' ,
       stdDepartment : 'Computer Engineering',
@@ -31,15 +30,6 @@ class Signup2 extends Component {
 
   }
 
-  // showDetails(){
-  //   firebase.database().ref("/Users").on("value", (snapshot)=> {
-  //     snapshot.forEach(c => {
-  //       alert(c.val().name)
-  //     })
-  //   })
-  
-  // }
-
  async createAccount() {
     const {type,image,rollNumber,section,stdDate,stdDepartment,batch,employeeID,designation,teachDepartment,teachDate, enrollNo, qual}=this.state;
     
@@ -50,21 +40,21 @@ class Signup2 extends Component {
       if(image == null) {
         alert('Please upload your photo');
       }
-      // else if (rollNumber.length<11 || rollNumber.length>11) {
-      //   alert('Please ! Must write Your Roll no in this format (20XX-XX-000)')
-      // }
-      // else if(section.length<1  || section.length>1 ){
-      //   alert('Please Write Your Section Correctly. It can only Contain 1 Character')
-      // }
-      // else if(batch.length<4 || batch.length>4){
-      //   alert('Please Write Your Batch Correctly')
-      // }
-      // else if(stdDate.length<10 || stdDate.length>10){
-      //   alert('Please ! Must Write Your DOB in This Format (DD-MM-YYYY) ')
-      // }
-      // else if(enrollNo.length<6){
-      //   alert('Please Write Enrollment Number Correctly')
-      //  }
+      else if (rollNumber.length<11 || rollNumber.length>11) {
+        alert('Please ! Must write Your Roll no in this format (20XX-XX-000)')
+      }
+      else if(section.length<1  || section.length>1 ){
+        alert('Please Write Your Section Correctly. It can only Contain 1 Character')
+      }
+      else if(batch.length<4 || batch.length>4){
+        alert('Please Write Your Batch Correctly')
+      }
+      else if(stdDate.length<10 || stdDate.length>10){
+        alert('Please ! Must Write Your DOB in This Format (DD-MM-YYYY) ')
+      }
+      else if(enrollNo.length<6){
+        alert('Please Write Enrollment Number Correctly')
+      }
       else {
         var data = this.props.details;
 
@@ -469,14 +459,6 @@ class Signup2 extends Component {
              
           }
   
-           
-
-              {/* {photo && (
-          <Image
-            source={{ uri: image.uri }}
-            style={{ width: 100, height: 100, alignSelf:'center' }}
-          />
-           )} */}
             <Text>{"\n"}</Text>
             <Button transparent onPress={() => this.handleChoosePhoto()} block style={{ alignSelf:'center', marginTop: 10, marginBottom:20,color:'#000000'}}><Text>Choose Photo</Text></Button>
             
