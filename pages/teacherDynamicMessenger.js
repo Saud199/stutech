@@ -17,7 +17,32 @@ class TeacherDynamicMessenger extends Component {
     }
 
     componentDidMount(){
+      this.checkNode();
       this.viewMessages();
+      
+    }
+
+    checkNode() {
+    var skey =   firebase.database().ref(`chatList/${this.props.detailstech.id}/${this.props.cinfo.id}`);
+    var fkey =   firebase.database().ref(`chatList/${this.props.cinfo.id}/${this.props.detailstech.id}`);
+
+    var obj = {
+      name : this.props.cinfo.name,
+      email : this.props.cinfo.email,
+      id : this.props.cinfo.id,
+      image : this.props.cinfo.image
+    }
+
+   var obj1 ={
+     name : this.props.detailstech.name ,
+     email : this.props.detailstech.email ,
+     id : this.props.detailstech.id ,
+     image : this.props.detailstech.imgURL ,
+   }
+
+   fkey.set(obj1)
+   skey.set(obj)
+
     }
 
 
@@ -34,7 +59,7 @@ class TeacherDynamicMessenger extends Component {
         var chatMsgObj = {
           message: msgTxt,
           time: (new Date()).getTime(),
-          id:this.props.detailsstu.id
+          id:this.props.detailstech.id
         }
 
         skey.set(chatMsgObj);
