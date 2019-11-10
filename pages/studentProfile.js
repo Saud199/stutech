@@ -10,28 +10,7 @@ class StudentProfile extends Component {
 
         super();
       
-        // this.state={
-
-        //   Name:"",
-        //   PhoneNo: "",
-        //   Email: "",
-        //   Geneder: "",
-        //   DOB: "",
-        //   Address: "",
-
-        //   RollNo: "",
-        //   Batch: "",
-        //   Department: "",
-
-        //   Matriculation: "",
-        //   Intermediate: "",
-
-        //   Aboutself: "",
-
-        //   detailsArray : []
-
-
-        // }
+        
 
         this.state = {
           yourself : 'No data found' ,

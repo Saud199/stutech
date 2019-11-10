@@ -16,9 +16,7 @@ class studentSideBar extends Component {
     this.props.navigation.navigate('Login');
   }
 
-//  showDetails = () => {
-//     this.props.navigation.navigate('StudentComplaints');
-//   }
+
 
     render() {
 
@@ -93,6 +91,15 @@ class studentSideBar extends Component {
               </Left>
               <Body>
                 <Text>My Achievements</Text>
+              </Body>
+            </ListItem>
+
+            <ListItem thumbnail onPress={()=> this.props.navigation.navigate('StudentViewOtherAchievements')}>
+              <Left>
+                <Thumbnail square style={{width: 30, height: 30}}  source={require('../images/achievements.jpg')} />
+              </Left>
+              <Body>
+                <Text>Achievements</Text>
               </Body>
             </ListItem>
 

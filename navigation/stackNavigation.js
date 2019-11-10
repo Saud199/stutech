@@ -20,6 +20,8 @@ import StudentViewPostFromNF from '../pages/studentViewPostFromNF.js';
 import StudentViewOrganizationDetails from '../pages/studentViewOrganizationDetails.js';
 import StudentViewAchievementDetails from '../pages/studentViewAchievementDetails.js';
 import StudentSetReminder from '../pages/studentSetReminder.js';
+import StudentViewOtherAchievementDetail from '../pages/studentViewOtherAchievementDetail.js';
+import StudentViewOtherAchievements from '../pages/studentViewOtherAchievements.js';
 import ContactsList from '../pages/contactList.js';
 import Messenger from '../pages/messenger.js';
 import ForgetPassword from '../pages/forgetPassword.js';
@@ -69,6 +71,8 @@ const AppStackNavigator = createStackNavigator({
     StudentViewOrganizationDetails : {screen : StudentViewOrganizationDetails},
     StudentViewAchievementDetails : {screen : StudentViewAchievementDetails},
     StudentSetReminder : {screen : StudentSetReminder},
+    StudentViewOtherAchievementDetail : {screen : StudentViewOtherAchievementDetail},
+    StudentViewOtherAchievements : {screen : StudentViewOtherAchievements},
     ContactsList : {screen : ContactsList},
     Messenger : {screen : Messenger},
     ForgetPassword : {screen : ForgetPassword},

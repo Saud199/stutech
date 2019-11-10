@@ -40,7 +40,8 @@ class TeacherFavourites extends Component {
         type : d.type ,
         cid : d.cid ,
         category : d.category ,
-        subject : d.subject
+        subject : d.subject,
+        from : d.from
        }
        favouritesArray.push(obj);
        this.setState({favouritesArray})
@@ -151,9 +152,9 @@ class TeacherFavourites extends Component {
                     </Left> */}
                     
                     <Body style={{flexDirection:'row', justifyContent:'space-between'}}>
-                      <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
+                    {(val.from == 'Organization' || val.from == undefined)  && <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.viewProf(ind)}>
                         <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/profile_icon1.jpg')} />
-                      </Button>
+                  </Button> }
                       <Button transparent style={{width: 22, height: 22}} onPress={(e)=>this.checkDetails(ind)}>
                         <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/info.png')} />
                       </Button>

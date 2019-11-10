@@ -23,7 +23,7 @@ class TeacherContactList extends Component {
 
 
     showChatList() {
-      const { myChatList } = this.state;alert("asad "+this.props.detailstech.id);
+      const { myChatList } = this.state;
 
       firebase.database().ref(`chatList/${this.props.detailstech.id}`).on("value", (snapshot)=> {
         snapshot.forEach((childSnapshot) => {
