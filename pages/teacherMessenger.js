@@ -34,7 +34,7 @@ class TeacherMessenger extends Component {
         var chatMsgObj = {
           message: msgTxt,
           time: (new Date()).getTime(),
-          id:this.props.detailsstu.id
+          id:this.props.detailstech.id
         }
 
         skey.set(chatMsgObj);

@@ -163,30 +163,30 @@ class StudentAchievements extends Component {
        if(subject.length<1){
         alert('Please Fill Out Subject Field Correctly')
        }
-       else if(orgName.length<1){
-        alert('Please Write Out Organization Name Correctly')
-       }
-       else if(orgWeb.length<1){
-        alert('Please Write Organization Website Link Correctly')
-       }
-       else if(certificationDetails.length<1){
-        alert('Please Fill Out certification Field Correctly')
-       }
-       else if(achievedSkills.length<1){
-         alert('Please Fill Your Achieved Skills Correctly')
-       }
-       else if(completionDate.length<1){
-        alert('Please Write Completion date  Correctly')
-       }
-       else if (image==null){
-        alert('Please Select Your Image')
-       }
-      else if(type.includes('all')){
-        alert('Please Select Degree Type ')
-       }
-       else if (special.includes('all')){
-         alert('Please Select Youe Certificate Speciality')
-       }
+      //  else if(orgName.length<1){
+      //   alert('Please Write Out Organization Name Correctly')
+      //  }
+      //  else if(orgWeb.length<1){
+      //   alert('Please Write Organization Website Link Correctly')
+      //  }
+      //  else if(certificationDetails.length<1){
+      //   alert('Please Fill Out certification Field Correctly')
+      //  }
+      //  else if(achievedSkills.length<1){
+      //    alert('Please Fill Your Achieved Skills Correctly')
+      //  }
+      //  else if(completionDate.length<1){
+      //   alert('Please Write Completion date  Correctly')
+      //  }
+      //  else if (image==null){
+      //   alert('Please Select Your Image')
+      //  }
+      // else if(type.includes('all')){
+      //   alert('Please Select Degree Type ')
+      //  }
+      //  else if (special.includes('all')){
+      //    alert('Please Select Youe Certificate Speciality')
+      //  }
        else{
          
            while(myAchievements.length > 0) {
@@ -331,11 +331,11 @@ class StudentAchievements extends Component {
                     <Text>{"\n"}</Text>
 
                     <Label>Certification Details</Label>
-                    <Textarea rowSpan={4} bordered placeholder="Type Here..." />
+                    <Textarea rowSpan={4} bordered placeholder="Type Here..." onChangeText={(txt) => this.setState({ certificationDetails : txt })}  value={this.state.certificationDetails}/>
 
                     <Item floatingLabel last>
                         <Label >Achieved Skills</Label>
-                        <Input onChangeText={(txt) => this.setState({ certificationDetails : txt })}  value={this.state.certificationDetails} />
+                        <Input onChangeText={(txt) => this.setState({ achievedSkills : txt })}  value={this.state.achievedSkills} />
                     </Item>
 
                     <Text>{"\n"}</Text>

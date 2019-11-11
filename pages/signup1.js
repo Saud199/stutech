@@ -45,7 +45,7 @@ class Signup1 extends Component {
     else if(pass!=rePass ){
       alert('Password doesnot match');
     }
-    else if(phoneNo.length<13 || phoneNo.length>13){
+    else if(phoneNo.length<12 || phoneNo.length>12){
       alert('Please Must Write Your Number in this Format +923120000000')
     }
     else if(securityQues.length<6){

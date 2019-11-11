@@ -209,11 +209,11 @@ class StudentViewCategories extends Component {
           <Body>
             <Title>Stutech</Title>
           </Body>
-          <Right>
+          {/* <Right>
             <Button transparent>
              <Thumbnail square style={{width: 22, height: 22}}  source={require('../images/filter.png')} />
             </Button>
-          </Right>
+          </Right> */}
         </Header>
         
 
