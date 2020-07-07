@@ -13,7 +13,7 @@
     "axios": "^0.19.0",
     "firebase": "^7.2.3",
     "native-base": "^2.13.5",
-    "npm": "^6.11.2",
+    "npm": "^6.14.6",
     "react": "16.8.6",
     "react-native": "0.60.5",
     "react-native-gesture-handler": "^1.4.1",
